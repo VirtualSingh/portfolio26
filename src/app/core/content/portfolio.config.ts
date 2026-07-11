@@ -34,6 +34,8 @@ export interface JourneyEntry {
   stack: readonly string[];
   /** One real, measured outcome for this chapter. Shown as the highlight stat. */
   highlight?: { value: string; label: string };
+  /** Short name at this entry's peak in the Journey range scene. Defaults to `place`. */
+  peakLabel?: string;
 }
 
 export interface SkillGroup {
@@ -144,6 +146,8 @@ export const PORTFOLIO = {
     titleStart: 'Turning curiosity into',
     accentWord: 'career.',
     description: 'Five chapters. What each one actually shipped.',
+    /** Mono caption inside the mountain-range scene panel. */
+    rangeCaption: 'the range · every peak is a chapter',
     entries: [
       {
         kind: 'role',
@@ -189,6 +193,7 @@ export const PORTFOLIO = {
         ],
         stack: ['Angular', 'TypeScript', 'HTML', 'SCSS'],
         highlight: { value: '2/2', label: 'prototypes that won the contract' },
+        peakLabel: 'Vitrana · intern',
       },
       {
         kind: 'role',
@@ -215,6 +220,7 @@ export const PORTFOLIO = {
           'B.Tech in Computer Science — and a college lab where I wrote my first HTML page, hit refresh, and decided this was the job.',
         bullets: [],
         stack: [],
+        peakLabel: 'College lab',
       },
     ] as readonly JourneyEntry[],
   },

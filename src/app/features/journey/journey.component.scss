@@ -1,141 +1,300 @@
-.journey__timeline {
+/* ─── "The Range": the journey as an ink-drawn mountain panorama ──────────────
+   Every peak is a chapter, taller as the career climbs. Minimal year + name
+   markers stand at each summit; the full story floats in the sky as a journal
+   card and swaps on hover/focus/tap. Daylight counterpart to the night scenes:
+   ink line-work on paper, one iris accent for the active chapter. */
+.journey__range {
   position: relative;
-  display: grid;
-  gap: var(--space-10);
-  padding-left: var(--space-8);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-surface);
+  padding-top: clamp(90px, 10vw, 150px);
+}
 
-  /* Timeline spine: a quiet hairline, not a gradient. */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    bottom: 8px;
-    left: 5px;
-    width: 1px;
-    background: var(--color-border);
+.range__stage {
+  position: relative;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 
-.journey__item {
-  position: relative;
+.range__silhouette {
+  fill: var(--color-bg);
+  stroke: color-mix(in srgb, var(--color-text-main) 34%, transparent);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease;
 }
 
-.journey__dot {
+.range__contour {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-text-main) 16%, transparent);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  transition: stroke 180ms ease;
+}
+
+.range__mountain--active {
+  .range__silhouette {
+    fill: var(--color-primary-light);
+    stroke: var(--color-primary);
+  }
+
+  .range__contour {
+    stroke: color-mix(in srgb, var(--color-primary) 45%, transparent);
+  }
+}
+
+/* ─ Summit markers: dot on the peak, leader line up, year + name above ─ */
+.range__marker {
   position: absolute;
-  top: 10px;
-  left: calc(-1 * var(--space-8) + 1px);
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 0 4px var(--color-primary-light);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: var(--space-2);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 2;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
 }
 
-.journey__item--milestone .journey__dot {
-  background: var(--color-bg);
-  border: 2px solid var(--color-primary);
-}
-
-.journey__card {
+.range__marker-label {
   display: grid;
-  gap: var(--space-4);
-  padding: var(--space-8);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  justify-items: center;
+  gap: 2px;
+  margin-bottom: var(--space-2);
+  transition: opacity 180ms ease;
+
+  .range__marker-year {
+    color: var(--color-text-muted);
+  }
+}
+
+.range__marker-place {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+.range__marker-line {
+  width: 1.5px;
+  height: clamp(22px, 5vw, 54px);
+  background: color-mix(in srgb, var(--color-text-main) 30%, transparent);
+  transition: background 180ms ease;
+}
+
+.range__marker-dot {
+  width: 10px;
+  height: 10px;
+  margin-bottom: -5px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--color-text-main) 45%, transparent);
   background: var(--color-bg);
-  box-shadow: 0 4px 32px -8px var(--color-shadow);
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
 }
 
-.journey__item--milestone .journey__card {
-  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
-  box-shadow: none;
+.range__marker--active {
+  .range__marker-year,
+  .range__marker-place {
+    color: var(--color-primary-strong);
+  }
+
+  .range__marker-line {
+    background: var(--color-primary);
+  }
+
+  .range__marker-dot {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    transform: scale(1.2);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
 }
 
-.journey__meta {
+/* ─ The chapter card sits below the panorama so no peak is ever covered ─ */
+.range__card-slot {
+  margin: var(--space-6);
+  max-width: 760px;
+}
+
+.range__card {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  box-shadow: 0 20px 48px -24px var(--color-shadow-strong);
+  animation: range-card-in 240ms var(--ease-out);
+}
+
+.range__card-meta {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
+  gap: var(--space-3);
   flex-wrap: wrap;
+
+  .mono-label {
+    color: var(--color-primary-strong);
+  }
 }
 
-.journey__location {
+.range__card-location {
   font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
-.journey__title {
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
+.range__card-title {
+  margin-top: var(--space-2);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
 }
 
-.journey__place {
-  color: var(--color-primary);
-  font-weight: 800;
+.range__card-place {
+  color: var(--color-text-muted);
+  font-weight: 600;
 }
 
-.journey__story {
-  color: var(--color-text-main);
-  font-weight: 500;
-  max-width: 62ch;
+.range__card-story {
+  margin-top: var(--space-2);
+  font-size: 1rem;
+  color: var(--color-text-muted);
 }
 
-.journey__bullets {
-  margin: 0;
-  padding-left: 1.1em;
+.range__card-bullets {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
   display: grid;
   gap: var(--space-2);
-  color: var(--color-text-muted);
-  max-width: 62ch;
 
-  li::marker {
-    color: var(--color-primary);
+  li {
+    position: relative;
+    padding-left: var(--space-4);
+    font-size: 0.875rem;
+    line-height: 1.55;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
   }
 }
 
-.journey__highlight {
-  display: flex;
+.range__card-highlight {
+  display: inline-flex;
   align-items: baseline;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-md);
-  background: var(--color-primary-light);
-  width: fit-content;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-primary-light) 75%, transparent);
 
   strong {
     font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
     color: var(--color-primary-strong);
-    line-height: 1;
   }
 
   span {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--color-text-main);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
   }
 }
 
-.journey__stack {
+.range__card-stack {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Corner label in the empty sky, like a journal margin note */
+.range__caption {
+  position: absolute;
+  left: var(--space-6);
+  top: var(--space-5);
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* Mountains rise into place when the panel scrolls into view */
+@media (prefers-reduced-motion: no-preference) {
+  .journey__range.is-visible .range__mountain {
+    animation: range-rise 0.6s var(--ease-out) backwards;
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{($i - 1) * 90}ms;
+      }
+    }
+  }
+}
+
+@keyframes range-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes range-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 860px) {
+  .journey__range {
+    padding-top: clamp(56px, 10vw, 100px);
+  }
+
+  .range__card-slot {
+    margin: var(--space-4);
+  }
 }
 
 @media (max-width: 640px) {
-  .journey__timeline {
-    padding-left: var(--space-5);
-
-    &::before {
-      left: 3px;
-    }
+  /* Only the active summit keeps its label; the rest stay as dots */
+  .range__marker:not(.range__marker--active) .range__marker-label {
+    opacity: 0;
   }
 
-  .journey__dot {
-    left: calc(-1 * var(--space-5));
+  .range__marker-line {
+    height: 16px;
   }
+}
 
-  .journey__card {
-    padding: var(--space-5);
+@media (prefers-reduced-motion: reduce) {
+  .range__card,
+  .range__mountain {
+    animation: none;
+  }
+}
+
+@media print {
+  .range__card[hidden] {
+    display: block !important;
   }
 }

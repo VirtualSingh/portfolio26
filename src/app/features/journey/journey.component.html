@@ -6,55 +6,96 @@
       [description]="content.description"
     />
 
-    <div class="journey__timeline">
-      @for (entry of content.entries; track entry.place + entry.dateRange; let i = $index) {
-        <article
-          class="journey__item"
-          [class.journey__item--milestone]="entry.kind === 'milestone'"
-          appScrollReveal
-          [revealDelay]="i * 90">
-          <div class="journey__dot" aria-hidden="true"></div>
+    <!-- "The Range": every peak is a chapter, drawn as an ink line panorama.
+         Hover, focus, or tap a peak marker to read that chapter's full story. -->
+    <div class="journey__range" appScrollReveal>
+      <p class="range__caption mono-label">{{ content.rangeCaption }}</p>
 
-          <div class="journey__card">
-            <div class="journey__meta">
-              <span class="journey__date mono-label">{{ entry.dateRange }}</span>
-              @if (entry.location) {
-                <span class="journey__location">{{ entry.location }}</span>
+      <div class="range__stage">
+        <svg viewBox="0 0 1200 400" aria-hidden="true" focusable="false">
+          @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
+            <g class="range__mountain" [class.range__mountain--active]="selected() === i">
+              <path
+                class="range__silhouette"
+                [attr.d]="peak.silhouette"
+                vector-effect="non-scaling-stroke"
+              />
+              @for (contour of peak.contours; track $index) {
+                <path
+                  class="range__contour"
+                  [attr.d]="contour"
+                  vector-effect="non-scaling-stroke"
+                />
+              }
+            </g>
+          }
+        </svg>
+
+        @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
+          <button
+            type="button"
+            class="range__marker"
+            [class.range__marker--active]="selected() === i"
+            [style.left.%]="peak.leftPct"
+            [style.bottom.%]="peak.peakPct"
+            [attr.aria-pressed]="selected() === i"
+            [attr.aria-label]="peak.label + ' — ' + peak.entry.title + ', ' + peak.entry.dateRange"
+            (mouseenter)="select(i)"
+            (focus)="select(i)"
+            (click)="select(i)"
+          >
+            <span class="range__marker-label" aria-hidden="true">
+              <span class="range__marker-year mono-label">{{ peak.year }}</span>
+              <span class="range__marker-place">{{ peak.label }}</span>
+            </span>
+            <span class="range__marker-line" aria-hidden="true"></span>
+            <span class="range__marker-dot" aria-hidden="true"></span>
+          </button>
+        }
+      </div>
+
+      <div class="range__card-slot" aria-live="polite">
+        @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
+          <article class="range__card" [hidden]="selected() !== i">
+            <div class="range__card-meta">
+              <span class="mono-label">{{ peak.entry.dateRange }}</span>
+              @if (peak.entry.location) {
+                <span class="range__card-location">{{ peak.entry.location }}</span>
               }
             </div>
 
-            <h3 class="journey__title">
-              {{ entry.title }}
-              <span class="journey__place">· {{ entry.place }}</span>
+            <h3 class="range__card-title">
+              {{ peak.entry.title }}
+              <span class="range__card-place">· {{ peak.entry.place }}</span>
             </h3>
 
-            <p class="journey__story">{{ entry.story }}</p>
+            <p class="range__card-story">{{ peak.entry.story }}</p>
 
-            @if (entry.bullets.length) {
-              <ul class="journey__bullets">
-                @for (bullet of entry.bullets; track bullet) {
+            @if (peak.entry.bullets.length) {
+              <ul class="range__card-bullets">
+                @for (bullet of peak.entry.bullets; track bullet) {
                   <li>{{ bullet }}</li>
                 }
               </ul>
             }
 
-            @if (entry.highlight) {
-              <p class="journey__highlight">
-                <strong>{{ entry.highlight.value }}</strong>
-                <span>{{ entry.highlight.label }}</span>
+            @if (peak.entry.highlight) {
+              <p class="range__card-highlight">
+                <strong>{{ peak.entry.highlight.value }}</strong>
+                <span>{{ peak.entry.highlight.label }}</span>
               </p>
             }
 
-            @if (entry.stack.length) {
-              <div class="journey__stack">
-                @for (tech of entry.stack; track tech) {
+            @if (peak.entry.stack.length) {
+              <div class="range__card-stack">
+                @for (tech of peak.entry.stack; track tech) {
                   <app-tech-badge [label]="tech" tone="muted" />
                 }
               </div>
             }
-          </div>
-        </article>
-      }
+          </article>
+        }
+      </div>
     </div>
   </div>
 </section>
