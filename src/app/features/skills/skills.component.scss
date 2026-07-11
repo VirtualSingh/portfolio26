@@ -88,41 +88,52 @@
 .jar {
   position: absolute;
   left: 50%;
-  bottom: 13cqw;
+  bottom: 12cqw;
   transform: translateX(-50%);
-  width: 54cqw;
-  height: 82cqw;
+  width: 58cqw;
+  height: 86cqw;
 }
 
-/* Lid: a quiet metal band with a thin neck rim beneath it */
-.jar__lid {
+/* Mason-jar mouth: an open ribbed screw band, all glass — no lid */
+.jar__mouth {
   position: relative;
   margin: 0 auto;
-  width: 62%;
-  height: 7cqw;
-  border-radius: 2.2cqw;
-  background: linear-gradient(180deg, #8f88ff, #2d2b52 85%);
+  width: 48%;
+  height: 8cqw;
+  border: 0.55cqw solid rgba(238, 238, 255, 0.28);
+  border-radius: 1.8cqw 1.8cqw 0.8cqw 0.8cqw;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(238, 238, 255, 0.14) 0,
+      rgba(238, 238, 255, 0.14) 0.7cqw,
+      transparent 0.7cqw,
+      transparent 2.2cqw
+    ),
+    linear-gradient(105deg, rgba(238, 238, 255, 0.08), rgba(148, 141, 255, 0.05));
   z-index: 1;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -1.6cqw;
-    transform: translateX(-50%);
-    width: 78%;
-    height: 3cqw;
-    border-radius: 1.2cqw;
-    background: #2d2b52;
-  }
 }
 
+/* Screw collar ring where the mouth meets the shoulder */
+.jar__collar {
+  position: relative;
+  margin: -0.4cqw auto 0;
+  width: 56%;
+  height: 2.8cqw;
+  border: 0.55cqw solid rgba(238, 238, 255, 0.26);
+  border-radius: 1.2cqw;
+  background: linear-gradient(105deg, rgba(238, 238, 255, 0.07), rgba(148, 141, 255, 0.05));
+  z-index: 1;
+}
+
+/* Body: wide glass barrel with a soft shoulder taper */
 .jar__body {
   position: relative;
   width: 100%;
-  height: calc(100% - 8cqw);
+  height: calc(100% - 10.4cqw);
+  margin-top: -0.6cqw;
   border: 0.7cqw solid rgba(238, 238, 255, 0.22);
-  border-radius: 7cqw 7cqw 16cqw 16cqw;
+  border-radius: 15cqw 15cqw 11cqw 11cqw;
   background:
     radial-gradient(62% 38% at 50% 90%, rgba(108, 99, 255, 0.24), transparent 72%),
     linear-gradient(
@@ -131,19 +142,33 @@
       rgba(238, 238, 255, 0.02) 42%,
       rgba(148, 141, 255, 0.08)
     );
-  box-shadow: inset 0 0 6cqw rgba(148, 141, 255, 0.14);
+  box-shadow:
+    inset 0 0 6cqw rgba(148, 141, 255, 0.14),
+    inset 0 -2cqw 5cqw rgba(238, 238, 255, 0.06);
 
-  /* Glass highlight streak */
+  /* Glass highlight streaks — a long one left, a short echo right */
   &::before {
     content: '';
     position: absolute;
     left: 9%;
-    top: 7%;
-    width: 7%;
-    height: 68%;
+    top: 8%;
+    width: 6.5%;
+    height: 70%;
     border-radius: 4cqw;
-    background: linear-gradient(180deg, rgba(238, 238, 255, 0.28), transparent 85%);
+    background: linear-gradient(180deg, rgba(238, 238, 255, 0.26), transparent 85%);
     transform: rotate(2deg);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 11%;
+    top: 10%;
+    width: 3.5%;
+    height: 26%;
+    border-radius: 4cqw;
+    background: linear-gradient(180deg, rgba(238, 238, 255, 0.18), transparent 90%);
+    transform: rotate(-2deg);
   }
 }
 
@@ -244,16 +269,15 @@
   }
 }
 
-.jar__firefly-dot {
-  width: 2.6cqw;
-  height: 2.6cqw;
-  border-radius: 50%;
-  background: #eeeeff;
-  box-shadow:
-    0 0 2cqw 0.6cqw rgba(238, 238, 255, 0.5),
-    0 0 6cqw 2.2cqw rgba(108, 99, 255, 0.32);
+.jar__firefly-icon {
+  width: 6cqw;
+  height: 6cqw;
+  color: #dcdaff;
+  filter: drop-shadow(0 0 0.7cqw rgba(238, 238, 255, 0.8))
+    drop-shadow(0 0 2.4cqw rgba(108, 99, 255, 0.55));
   transition:
-    box-shadow 180ms ease,
+    filter 180ms ease,
+    color 180ms ease,
     transform 180ms ease;
   animation: jar-blink var(--blink, 3.8s) ease-in-out var(--bd, 0s) infinite;
 }
@@ -280,12 +304,12 @@
 .jar__firefly:focus-visible {
   z-index: 2;
 
-  .jar__firefly-dot {
+  .jar__firefly-icon {
     animation: none;
-    transform: scale(1.3);
-    box-shadow:
-      0 0 3cqw 1cqw rgba(238, 238, 255, 0.8),
-      0 0 10cqw 4cqw rgba(108, 99, 255, 0.5);
+    color: #eeeeff;
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 1cqw rgba(238, 238, 255, 1))
+      drop-shadow(0 0 3.5cqw rgba(108, 99, 255, 0.85));
   }
 
   .jar__firefly-label {
@@ -359,7 +383,7 @@
   .skills__stars,
   .jar__glow,
   .jar__firefly,
-  .jar__firefly-dot {
+  .jar__firefly-icon {
     animation: none;
   }
 }

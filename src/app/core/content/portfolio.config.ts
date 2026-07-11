@@ -54,6 +54,23 @@ export interface ProjectItem {
   status?: string;
 }
 
+/** Icons available for jar fireflies — each maps to a hand-drawn SVG glyph in the Skills scene. */
+export type JarSkillIcon =
+  | 'angular'
+  | 'typescript'
+  | 'rxjs'
+  | 'sass'
+  | 'jest'
+  | 'playwright'
+  | 'git'
+  | 'html'
+  | 'tailwind';
+
+export interface JarSkill {
+  label: string;
+  icon: JarSkillIcon;
+}
+
 export interface ContactChannel {
   kind: 'email' | 'phone' | 'location' | 'linkedin';
   label: string;
@@ -207,21 +224,22 @@ export const PORTFOLIO = {
     accentWord: 'think',
     titleEnd: 'in.',
     description: 'Angular-first, styling-disciplined, automation-tested.',
-    /** The "borrow the light" jar beside the skills list — each item is a firefly
-     *  that glows and names itself on hover. Maximum 9 (the scene has 9 spots). */
+    /** The "borrow the light" jar beside the skills list — each item is a glowing
+     *  skill icon disguised as a firefly that flares and names itself on hover.
+     *  Maximum 9 (the scene has 9 spots); icons come from the JarSkillIcon set. */
     jar: {
       caption: 'borrow the light · hover a firefly',
       items: [
-        'Angular',
-        'TypeScript',
-        'RxJS',
-        'SCSS',
-        'Jest',
-        'Playwright',
-        'Git',
-        'HTML5',
-        'Tailwind',
-      ],
+        { label: 'Angular', icon: 'angular' },
+        { label: 'TypeScript', icon: 'typescript' },
+        { label: 'RxJS', icon: 'rxjs' },
+        { label: 'SCSS', icon: 'sass' },
+        { label: 'Jest', icon: 'jest' },
+        { label: 'Playwright', icon: 'playwright' },
+        { label: 'Git', icon: 'git' },
+        { label: 'HTML5', icon: 'html' },
+        { label: 'Tailwind', icon: 'tailwind' },
+      ] as readonly JarSkill[],
     },
     groups: [
       {
