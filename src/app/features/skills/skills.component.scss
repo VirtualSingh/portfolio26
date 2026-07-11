@@ -44,10 +44,11 @@
   }
 }
 
-/* ─── "Borrow the light": a glass jar of skills disguised as fireflies ────────
-   Same night-scene language as the Beyond garden — the jar is where the
-   fireflies are kept; the garden is where they fly free. Pure divs + CSS,
-   sized in cqw so the scene scales with its panel. */
+/* ─── "Borrow the light": a fish bowl of skills disguised as fireflies ────────
+   Same night-scene language as the Beyond garden. A glass sphere half-filled
+   with water, two small fish, rising bubbles, and nine glowing skill glyphs.
+   Pure divs + CSS + inline SVG glyphs, sized in cqw so the scene scales
+   with its panel. */
 .skills__scene {
   position: relative;
   margin: 0;
@@ -69,122 +70,225 @@
 
 .skills__stars {
   position: absolute;
-  top: 10cqw;
+  top: 9cqw;
   left: 14cqw;
   width: 0.5cqw;
   height: 0.5cqw;
   border-radius: 50%;
   background: #8f88ff;
   box-shadow:
-    22cqw 5cqw 0 0 #8f88ff,
+    22cqw 4cqw 0 0 #8f88ff,
     48cqw -3cqw 0 0.12cqw #8f88ff,
-    64cqw 8cqw 0 0 #8f88ff,
-    74cqw 22cqw 0 0.1cqw #8f88ff,
-    6cqw 24cqw 0 0 #8f88ff;
+    64cqw 6cqw 0 0 #8f88ff,
+    74cqw 20cqw 0 0.1cqw #8f88ff,
+    6cqw 22cqw 0 0 #8f88ff;
   opacity: 0.8;
-  animation: jar-blink 6s ease-in-out infinite alternate;
+  animation: bowl-blink 6s ease-in-out infinite alternate;
 }
 
-.jar {
+.bowl {
   position: absolute;
   left: 50%;
   bottom: 12cqw;
   transform: translateX(-50%);
-  width: 58cqw;
-  height: 86cqw;
+  width: 76cqw;
+  height: 76cqw;
 }
 
-/* Mason-jar mouth: an open ribbed screw band, all glass — no lid */
-.jar__mouth {
-  position: relative;
-  margin: 0 auto;
-  width: 48%;
-  height: 8cqw;
-  border: 0.55cqw solid rgba(238, 238, 255, 0.28);
-  border-radius: 1.8cqw 1.8cqw 0.8cqw 0.8cqw;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(238, 238, 255, 0.14) 0,
-      rgba(238, 238, 255, 0.14) 0.7cqw,
-      transparent 0.7cqw,
-      transparent 2.2cqw
-    ),
-    linear-gradient(105deg, rgba(238, 238, 255, 0.08), rgba(148, 141, 255, 0.05));
-  z-index: 1;
-}
-
-/* Screw collar ring where the mouth meets the shoulder */
-.jar__collar {
-  position: relative;
-  margin: -0.4cqw auto 0;
-  width: 56%;
-  height: 2.8cqw;
-  border: 0.55cqw solid rgba(238, 238, 255, 0.26);
-  border-radius: 1.2cqw;
-  background: linear-gradient(105deg, rgba(238, 238, 255, 0.07), rgba(148, 141, 255, 0.05));
-  z-index: 1;
-}
-
-/* Body: wide glass barrel with a soft shoulder taper */
-.jar__body {
-  position: relative;
-  width: 100%;
-  height: calc(100% - 10.4cqw);
-  margin-top: -0.6cqw;
+/* The glass sphere, its top cut flat where the rim sits */
+.bowl__globe {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  clip-path: inset(8% 0 0 0);
+  overflow: hidden;
   border: 0.7cqw solid rgba(238, 238, 255, 0.22);
-  border-radius: 15cqw 15cqw 11cqw 11cqw;
   background:
-    radial-gradient(62% 38% at 50% 90%, rgba(108, 99, 255, 0.24), transparent 72%),
+    radial-gradient(58% 42% at 50% 88%, rgba(108, 99, 255, 0.16), transparent 72%),
     linear-gradient(
       105deg,
       rgba(238, 238, 255, 0.09),
       rgba(238, 238, 255, 0.02) 42%,
-      rgba(148, 141, 255, 0.08)
+      rgba(148, 141, 255, 0.07)
     );
   box-shadow:
     inset 0 0 6cqw rgba(148, 141, 255, 0.14),
     inset 0 -2cqw 5cqw rgba(238, 238, 255, 0.06);
 
-  /* Glass highlight streaks — a long one left, a short echo right */
+  /* Glass highlight streaks curved with the sphere */
   &::before {
     content: '';
     position: absolute;
-    left: 9%;
-    top: 8%;
-    width: 6.5%;
-    height: 70%;
+    left: 13%;
+    top: 14%;
+    width: 6%;
+    height: 46%;
     border-radius: 4cqw;
     background: linear-gradient(180deg, rgba(238, 238, 255, 0.26), transparent 85%);
-    transform: rotate(2deg);
+    transform: rotate(16deg);
+    z-index: 2;
   }
 
   &::after {
     content: '';
     position: absolute;
-    right: 11%;
-    top: 10%;
+    right: 14%;
+    top: 16%;
     width: 3.5%;
-    height: 26%;
+    height: 22%;
     border-radius: 4cqw;
     background: linear-gradient(180deg, rgba(238, 238, 255, 0.18), transparent 90%);
-    transform: rotate(-2deg);
+    transform: rotate(-14deg);
+    z-index: 2;
   }
 }
 
-/* Light pooled at the bottom of the jar, breathing slowly */
-.jar__glow {
+/* The rim ellipse across the sphere's flat cut */
+.bowl__rim {
   position: absolute;
-  inset: auto 8% 3% 8%;
-  height: 32%;
+  top: calc(8% - 3.2cqw);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58%;
+  height: 6.4cqw;
+  border: 0.6cqw solid rgba(238, 238, 255, 0.3);
   border-radius: 50%;
-  background: radial-gradient(50% 60% at 50% 62%, rgba(108, 99, 255, 0.42), transparent 72%);
+  background: linear-gradient(105deg, rgba(238, 238, 255, 0.06), rgba(148, 141, 255, 0.04));
+}
+
+/* Water: the bowl is half full; the surface shimmers gently */
+.bowl__water {
+  position: absolute;
+  inset: 48% 0 0 0;
+  background: linear-gradient(180deg, rgba(108, 99, 255, 0.16), rgba(108, 99, 255, 0.3));
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2.4cqw;
+    left: -6%;
+    right: -6%;
+    height: 4.8cqw;
+    border-radius: 50%;
+    background: rgba(148, 141, 255, 0.22);
+    border-top: 0.45cqw solid rgba(238, 238, 255, 0.35);
+    animation: bowl-shimmer 4.5s ease-in-out infinite alternate;
+  }
+}
+
+/* Pebbles resting on the bowl floor */
+.bowl__pebbles {
+  position: absolute;
+  bottom: 4.5%;
+  left: 36%;
+  width: 11cqw;
+  height: 3.6cqw;
+  border-radius: 50%;
+  background: #2d2b52;
+  opacity: 0.85;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: #2d2b52;
+  }
+
+  &::before {
+    left: -58%;
+    bottom: -18%;
+    width: 8cqw;
+    height: 2.8cqw;
+  }
+
+  &::after {
+    right: -70%;
+    bottom: -12%;
+    width: 9cqw;
+    height: 3cqw;
+    opacity: 0.8;
+  }
+}
+
+/* Two small fish idling back and forth below the waterline */
+.bowl__fish {
+  position: absolute;
+  width: 8cqw;
+  height: 5cqw;
+  fill: #8f88ff;
+  opacity: 0.75;
+
+  .bowl__fish-eye {
+    fill: #1a1a2e;
+  }
+
+  &--1 {
+    left: 12%;
+    top: 60%;
+    animation: bowl-swim 12s ease-in-out infinite;
+  }
+
+  &--2 {
+    left: 22%;
+    top: 74%;
+    width: 5.5cqw;
+    height: 3.5cqw;
+    opacity: 0.55;
+    animation: bowl-swim 15s ease-in-out -7.5s infinite;
+  }
+}
+
+/* Bubbles rising from the pebbles to the surface */
+.bowl__bubble {
+  position: absolute;
+  bottom: 12%;
+  border: 0.3cqw solid rgba(238, 238, 255, 0.45);
+  border-radius: 50%;
+  animation: bowl-bubble var(--bub, 4.5s) linear var(--bubd, 0s) infinite;
+
+  &--1 {
+    left: 46%;
+    width: 1.6cqw;
+    height: 1.6cqw;
+  }
+
+  &--2 {
+    left: 53%;
+    width: 1.1cqw;
+    height: 1.1cqw;
+    --bub: 5.5s;
+    --bubd: -2.2s;
+  }
+
+  &--3 {
+    left: 40%;
+    width: 1.3cqw;
+    height: 1.3cqw;
+    --bub: 6s;
+    --bubd: -4s;
+  }
+}
+
+/* Light pooled at the bottom of the bowl, breathing slowly */
+.bowl__glow {
+  position: absolute;
+  inset: auto 12% 5% 12%;
+  height: 30%;
+  border-radius: 50%;
+  background: radial-gradient(50% 60% at 50% 62%, rgba(108, 99, 255, 0.4), transparent 72%);
   filter: blur(2cqw);
-  animation: jar-breathe 5.5s ease-in-out infinite alternate;
+  animation: bowl-breathe 5.5s ease-in-out infinite alternate;
+}
+
+/* Firefly layer: overlays the globe so hover labels never clip */
+.bowl__flies {
+  position: absolute;
+  inset: 0;
 }
 
 /* ─ Fireflies: each one is a skill; hover/focus makes it flare and name itself ─ */
-.jar__firefly {
+.bowl__firefly {
   position: absolute;
   display: grid;
   place-items: center;
@@ -193,75 +297,77 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   cursor: pointer;
-  animation: jar-drift var(--drift, 7s) ease-in-out var(--dd, 0s) infinite alternate;
+  animation: bowl-drift var(--drift, 7s) ease-in-out var(--dd, 0s) infinite alternate;
 
-  &:nth-child(2) {
-    left: 26%;
+  /* Positions fit the sphere: four in the air above the waterline (48%),
+     five glowing in the water below it */
+  &:nth-child(1) {
+    left: 34%;
     top: 22%;
     --drift: 7.5s;
     --dd: -2s;
     --blink: 3.4s;
     --bd: -1s;
   }
-  &:nth-child(3) {
-    left: 63%;
-    top: 15%;
+  &:nth-child(2) {
+    left: 58%;
+    top: 16%;
     --drift: 6.5s;
     --dd: -4s;
     --blink: 4.2s;
     --bd: -2.4s;
   }
-  &:nth-child(4) {
-    left: 79%;
-    top: 37%;
+  &:nth-child(3) {
+    left: 76%;
+    top: 36%;
     --drift: 8s;
     --dd: -1s;
     --blink: 3.8s;
     --bd: -0.6s;
   }
-  &:nth-child(5) {
-    left: 42%;
-    top: 34%;
+  &:nth-child(4) {
+    left: 23%;
+    top: 40%;
     --drift: 7s;
     --dd: -5s;
     --blink: 4.6s;
     --bd: -3.1s;
   }
-  &:nth-child(6) {
-    left: 20%;
-    top: 51%;
+  &:nth-child(5) {
+    left: 49%;
+    top: 37%;
     --drift: 6.8s;
     --dd: -3s;
     --blink: 3.6s;
     --bd: -1.8s;
   }
-  &:nth-child(7) {
-    left: 60%;
-    top: 55%;
+  &:nth-child(6) {
+    left: 30%;
+    top: 62%;
     --drift: 7.8s;
     --dd: -6s;
     --blink: 4s;
     --bd: -0.2s;
   }
-  &:nth-child(8) {
-    left: 33%;
-    top: 70%;
+  &:nth-child(7) {
+    left: 70%;
+    top: 58%;
     --drift: 6.6s;
     --dd: -2.5s;
     --blink: 4.4s;
     --bd: -2s;
   }
-  &:nth-child(9) {
-    left: 72%;
-    top: 74%;
+  &:nth-child(8) {
+    left: 46%;
+    top: 76%;
     --drift: 7.2s;
     --dd: -4.5s;
     --blink: 3.5s;
     --bd: -1.4s;
   }
-  &:nth-child(10) {
-    left: 49%;
-    top: 87%;
+  &:nth-child(9) {
+    left: 68%;
+    top: 78%;
     --drift: 8.2s;
     --dd: -1.5s;
     --blink: 4.8s;
@@ -269,7 +375,7 @@
   }
 }
 
-.jar__firefly-icon {
+.bowl__firefly-icon {
   width: 6cqw;
   height: 6cqw;
   color: #dcdaff;
@@ -279,10 +385,10 @@
     filter 180ms ease,
     color 180ms ease,
     transform 180ms ease;
-  animation: jar-blink var(--blink, 3.8s) ease-in-out var(--bd, 0s) infinite;
+  animation: bowl-blink var(--blink, 3.8s) ease-in-out var(--bd, 0s) infinite;
 }
 
-.jar__firefly-label {
+.bowl__firefly-label {
   position: absolute;
   bottom: calc(100% - 1cqw);
   left: 50%;
@@ -300,11 +406,11 @@
     transform 180ms ease;
 }
 
-.jar__firefly:hover,
-.jar__firefly:focus-visible {
+.bowl__firefly:hover,
+.bowl__firefly:focus-visible {
   z-index: 2;
 
-  .jar__firefly-icon {
+  .bowl__firefly-icon {
     animation: none;
     color: #eeeeff;
     transform: scale(1.25);
@@ -312,27 +418,27 @@
       drop-shadow(0 0 3.5cqw rgba(108, 99, 255, 0.85));
   }
 
-  .jar__firefly-label {
+  .bowl__firefly-label {
     opacity: 1;
     transform: translate(-50%, 0);
   }
 }
 
-.jar__firefly:focus-visible {
+.bowl__firefly:focus-visible {
   outline: 2px solid #8f88ff;
   outline-offset: 2px;
 }
 
 /* Fireflies light up one by one when the panel scrolls into view */
 @media (prefers-reduced-motion: no-preference) {
-  .skills__scene.is-visible .jar__firefly {
+  .skills__scene.is-visible .bowl__firefly {
     animation:
-      jar-drift var(--drift, 7s) ease-in-out var(--dd, 0s) infinite alternate,
-      jar-arrive 0.5s calc(var(--fi, 0) * 0.1s + 0.3s) ease-out backwards;
+      bowl-drift var(--drift, 7s) ease-in-out var(--dd, 0s) infinite alternate,
+      bowl-arrive 0.5s calc(var(--fi, 0) * 0.1s + 0.3s) ease-out backwards;
   }
 }
 
-@keyframes jar-drift {
+@keyframes bowl-drift {
   from {
     transform: translate(-50%, -50%);
   }
@@ -342,7 +448,7 @@
   }
 }
 
-@keyframes jar-blink {
+@keyframes bowl-blink {
   0%,
   100% {
     opacity: 1;
@@ -353,7 +459,7 @@
   }
 }
 
-@keyframes jar-breathe {
+@keyframes bowl-breathe {
   from {
     opacity: 0.75;
   }
@@ -363,7 +469,56 @@
   }
 }
 
-@keyframes jar-arrive {
+@keyframes bowl-shimmer {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(0.6cqw);
+  }
+}
+
+@keyframes bowl-swim {
+  0%,
+  100% {
+    transform: translate(0, 0) scaleX(1);
+  }
+
+  45% {
+    transform: translate(38cqw, -1.5cqw) scaleX(1);
+  }
+
+  50% {
+    transform: translate(38cqw, -1.5cqw) scaleX(-1);
+  }
+
+  95% {
+    transform: translate(0, 0) scaleX(-1);
+  }
+}
+
+@keyframes bowl-bubble {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  85% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-26cqw);
+  }
+}
+
+@keyframes bowl-arrive {
   from {
     opacity: 0;
   }
@@ -381,9 +536,18 @@
 
 @media (prefers-reduced-motion: reduce) {
   .skills__stars,
-  .jar__glow,
-  .jar__firefly,
-  .jar__firefly-icon {
+  .bowl__water::before,
+  .bowl__fish,
+  .bowl__glow,
+  .bowl__firefly,
+  .bowl__firefly-icon {
     animation: none;
+  }
+
+  /* Static bubbles read as suspended droplets */
+  .bowl__bubble {
+    animation: none;
+    opacity: 0.5;
+    transform: translateY(-8cqw);
   }
 }

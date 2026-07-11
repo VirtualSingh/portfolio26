@@ -54,8 +54,8 @@ export interface ProjectItem {
   status?: string;
 }
 
-/** Icons available for jar fireflies — each maps to a hand-drawn SVG glyph in the Skills scene. */
-export type JarSkillIcon =
+/** Icons available for bowl fireflies — each maps to a hand-drawn SVG glyph in the Skills scene. */
+export type BowlSkillIcon =
   | 'angular'
   | 'typescript'
   | 'rxjs'
@@ -66,9 +66,9 @@ export type JarSkillIcon =
   | 'html'
   | 'tailwind';
 
-export interface JarSkill {
+export interface BowlSkill {
   label: string;
-  icon: JarSkillIcon;
+  icon: BowlSkillIcon;
 }
 
 export interface ContactChannel {
@@ -224,10 +224,10 @@ export const PORTFOLIO = {
     accentWord: 'think',
     titleEnd: 'in.',
     description: 'Angular-first, styling-disciplined, automation-tested.',
-    /** The "borrow the light" jar beside the skills list — each item is a glowing
-     *  skill icon disguised as a firefly that flares and names itself on hover.
-     *  Maximum 9 (the scene has 9 spots); icons come from the JarSkillIcon set. */
-    jar: {
+    /** The "borrow the light" fish bowl beside the skills list — each item is a
+     *  glowing skill icon disguised as a firefly that flares and names itself on
+     *  hover. Maximum 9 (the scene has 9 spots); icons come from BowlSkillIcon. */
+    bowl: {
       caption: 'borrow the light · hover a firefly',
       items: [
         { label: 'Angular', icon: 'angular' },
@@ -239,7 +239,7 @@ export const PORTFOLIO = {
         { label: 'Git', icon: 'git' },
         { label: 'HTML5', icon: 'html' },
         { label: 'Tailwind', icon: 'tailwind' },
-      ] as readonly JarSkill[],
+      ] as readonly BowlSkill[],
     },
     groups: [
       {

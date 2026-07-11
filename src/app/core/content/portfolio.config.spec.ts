@@ -47,10 +47,12 @@ describe('PORTFOLIO config', () => {
     });
   });
 
-  it('skills jar fits the scene: at most 9 fireflies, short labels', () => {
-    expect(PORTFOLIO.skills.jar.items.length).toBeGreaterThan(0);
-    expect(PORTFOLIO.skills.jar.items.length).toBeLessThanOrEqual(9);
-    PORTFOLIO.skills.jar.items.forEach((item) => expect(item.label.length).toBeLessThanOrEqual(14));
+  it('skills bowl fits the scene: at most 9 fireflies, short labels', () => {
+    expect(PORTFOLIO.skills.bowl.items.length).toBeGreaterThan(0);
+    expect(PORTFOLIO.skills.bowl.items.length).toBeLessThanOrEqual(9);
+    PORTFOLIO.skills.bowl.items.forEach((item) =>
+      expect(item.label.length).toBeLessThanOrEqual(14),
+    );
   });
 
   it('hero content is complete', () => {

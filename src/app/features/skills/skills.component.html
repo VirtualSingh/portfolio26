@@ -8,25 +8,42 @@
     />
 
     <div class="skills__inner">
-      <!-- "Borrow the light": a glass jar of skills disguised as fireflies.
-           Hover or focus one and it glows brighter and names itself. -->
+      <!-- "Borrow the light": a fish bowl of skills disguised as fireflies —
+           half water, two small fish, and nine glowing glyphs. Hover or focus
+           one and it glows brighter and names itself. -->
       <figure class="skills__scene" appScrollReveal [revealDelay]="120">
         <div class="skills__stars" aria-hidden="true"></div>
-        <div class="jar">
-          <div class="jar__mouth" aria-hidden="true"></div>
-          <div class="jar__collar" aria-hidden="true"></div>
-          <div class="jar__body">
-            <div class="jar__glow" aria-hidden="true"></div>
-            @for (skill of content.jar.items; track skill.label; let i = $index) {
+        <div class="bowl">
+          <div class="bowl__globe" aria-hidden="true">
+            <div class="bowl__water"></div>
+            <div class="bowl__pebbles"></div>
+            <svg class="bowl__fish bowl__fish--1" viewBox="0 0 32 20">
+              <ellipse cx="13" cy="10" rx="9" ry="5.5" />
+              <path d="M21 10l8-6v12z" />
+              <circle class="bowl__fish-eye" cx="8" cy="8.5" r="1.1" />
+            </svg>
+            <svg class="bowl__fish bowl__fish--2" viewBox="0 0 32 20">
+              <ellipse cx="13" cy="10" rx="9" ry="5.5" />
+              <path d="M21 10l8-6v12z" />
+              <circle class="bowl__fish-eye" cx="8" cy="8.5" r="1.1" />
+            </svg>
+            <div class="bowl__bubble bowl__bubble--1"></div>
+            <div class="bowl__bubble bowl__bubble--2"></div>
+            <div class="bowl__bubble bowl__bubble--3"></div>
+            <div class="bowl__glow"></div>
+          </div>
+          <div class="bowl__rim" aria-hidden="true"></div>
+          <div class="bowl__flies">
+            @for (skill of content.bowl.items; track skill.label; let i = $index) {
               <span
-                class="jar__firefly"
+                class="bowl__firefly"
                 tabindex="0"
                 role="img"
                 [attr.aria-label]="skill.label"
                 [style.--fi]="i"
               >
                 <svg
-                  class="jar__firefly-icon"
+                  class="bowl__firefly-icon"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -89,12 +106,12 @@
                     }
                   }
                 </svg>
-                <span class="jar__firefly-label mono-label">{{ skill.label }}</span>
+                <span class="bowl__firefly-label mono-label">{{ skill.label }}</span>
               </span>
             }
           </div>
         </div>
-        <figcaption class="skills__scene-caption mono-label">{{ content.jar.caption }}</figcaption>
+        <figcaption class="skills__scene-caption mono-label">{{ content.bowl.caption }}</figcaption>
       </figure>
 
       <div class="skills__content">
