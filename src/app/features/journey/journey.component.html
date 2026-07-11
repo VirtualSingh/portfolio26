@@ -14,7 +14,12 @@
       <div class="range__stage">
         <svg viewBox="0 0 1200 400" aria-hidden="true" focusable="false">
           @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
-            <g class="range__mountain" [class.range__mountain--active]="selected() === i">
+            <g
+              class="range__mountain"
+              [class.range__mountain--active]="selected() === i"
+              (mouseenter)="select(i)"
+              (click)="select(i)"
+            >
               <path
                 class="range__silhouette"
                 [attr.d]="peak.silhouette"
@@ -23,7 +28,8 @@
               @for (contour of peak.contours; track $index) {
                 <path
                   class="range__contour"
-                  [attr.d]="contour"
+                  [attr.d]="contour.d"
+                  [attr.stroke-opacity]="contour.opacity"
                   vector-effect="non-scaling-stroke"
                 />
               }

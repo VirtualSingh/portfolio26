@@ -21,9 +21,13 @@
   }
 }
 
+.range__mountain {
+  cursor: pointer;
+}
+
 .range__silhouette {
   fill: var(--color-bg);
-  stroke: color-mix(in srgb, var(--color-text-main) 34%, transparent);
+  stroke: color-mix(in srgb, var(--color-text-main) 38%, transparent);
   stroke-width: 1.5;
   stroke-linejoin: round;
   transition:
@@ -31,10 +35,11 @@
     stroke 180ms ease;
 }
 
+/* Striations carry their own graded stroke-opacity from the generator */
 .range__contour {
   fill: none;
-  stroke: color-mix(in srgb, var(--color-text-main) 16%, transparent);
-  stroke-width: 1;
+  stroke: color-mix(in srgb, var(--color-text-main) 55%, transparent);
+  stroke-width: 0.8;
   stroke-linejoin: round;
   transition: stroke 180ms ease;
 }
@@ -46,7 +51,7 @@
   }
 
   .range__contour {
-    stroke: color-mix(in srgb, var(--color-primary) 45%, transparent);
+    stroke: var(--color-primary);
   }
 }
 
