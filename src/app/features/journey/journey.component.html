@@ -20,19 +20,25 @@
               (mouseenter)="select(i)"
               (click)="select(i)"
             >
+              <clipPath [attr.id]="'range-clip-' + i">
+                <path [attr.d]="peak.silhouette" />
+              </clipPath>
               <path
                 class="range__silhouette"
                 [attr.d]="peak.silhouette"
                 vector-effect="non-scaling-stroke"
               />
-              @for (contour of peak.contours; track $index) {
-                <path
-                  class="range__contour"
-                  [attr.d]="contour.d"
-                  [attr.stroke-opacity]="contour.opacity"
-                  vector-effect="non-scaling-stroke"
-                />
-              }
+              <!-- Striations are clipped to their own silhouette so no line ever leaks out -->
+              <g [attr.clip-path]="'url(#range-clip-' + i + ')'">
+                @for (contour of peak.contours; track $index) {
+                  <path
+                    class="range__contour"
+                    [attr.d]="contour.d"
+                    [attr.stroke-opacity]="contour.opacity"
+                    vector-effect="non-scaling-stroke"
+                  />
+                }
+              </g>
             </g>
           }
         </svg>

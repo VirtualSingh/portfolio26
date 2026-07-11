@@ -100,31 +100,35 @@ function buildSilhouette(
   return { points, apex };
 }
 
-/** Nested onion-skin striations pulled toward the summit — the topographic-drawing
- *  texture. Wobble decays as rings shrink so inner lines stay smooth, and some
- *  striations are partial strokes for the hand-drawn feel. */
+/** Ridge echoes — the topographic-drawing texture. Each striation is the whole
+ *  ridge profile translated straight down by an even step (so the gaps stay
+ *  constant and readable), with a slow sine wave for the hand-drawn feel. The
+ *  template clips them to the silhouette, so no line can ever leak outside. */
 function buildContours(
   points: [number, number][],
-  apex: [number, number],
   height: number,
   rand: () => number,
 ): RangeContour[] {
-  const count = 15 + Math.round((height - MIN_HEIGHT) / 24);
+  const count = 8 + Math.round((height - MIN_HEIGHT) / 40);
+  const step = height / (count + 2);
+  const flankBias = rand() > 0.5; // partial strokes favour one flank per mountain
   return Array.from({ length: count }, (_, k) => {
-    const t = ((k + 1) / (count + 1)) * 0.85;
-    const wobble = (2.5 + rand() * 3.5) * (1 - t * 0.85);
-    let shifted = points.map(([x, y]): [number, number] => [
-      x + (apex[0] - x) * t + (rand() - 0.5) * wobble,
-      y + (apex[1] - y) * t + (rand() - 0.5) * wobble,
+    const dy = (k + 1) * step;
+    const phase = rand() * Math.PI * 2;
+    const freq = 0.5 + rand() * 0.7;
+    const amp = 1.2 + rand() * 1.4;
+    let shifted = points.map(([x, y], p): [number, number] => [
+      x + Math.sin(p * freq + phase + 1.7) * amp * 0.6 + (rand() - 0.5) * amp * 0.5,
+      y + dy + Math.sin(p * freq + phase) * amp + (rand() - 0.5) * amp * 0.5,
     ]);
-    // Roughly a third of the striations are partial strokes along one flank
-    if (rand() > 0.66 && shifted.length > 5) {
-      shifted =
-        rand() > 0.5
-          ? shifted.slice(0, Math.ceil(shifted.length * 0.6))
-          : shifted.slice(Math.floor(shifted.length * 0.4));
+    // Some striations are partial strokes down the mountain's favoured flank
+    if (rand() > 0.55 && shifted.length > 5) {
+      shifted = flankBias
+        ? shifted.slice(0, Math.ceil(shifted.length * (0.55 + rand() * 0.2)))
+        : shifted.slice(Math.floor(shifted.length * (0.25 + rand() * 0.2)));
     }
-    return { d: toFlowPath(shifted), opacity: +(0.36 - t * 0.2).toFixed(2) };
+    const depth = (k + 1) / count;
+    return { d: toFlowPath(shifted), opacity: +(0.42 - depth * 0.26).toFixed(2) };
   });
 }
 
@@ -160,7 +164,7 @@ export class JourneyComponent {
       leftPct: (apex[0] / VIEW_W) * 100,
       peakPct: ((VIEW_H - apex[1]) / VIEW_H) * 100,
       silhouette: toRidgePath(points, true),
-      contours: buildContours(points, apex, height, rand),
+      contours: buildContours(points, height, rand),
     };
   });
 
