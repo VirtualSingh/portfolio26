@@ -149,7 +149,8 @@ export const PORTFOLIO = {
         place: 'Vitrana',
         location: 'Noida, UP',
         dateRange: 'Aug 2022 — Mar 2025',
-        story: 'The depth chapter: forms, migrations, and learning to automate myself out of repetition.',
+        story:
+          'The depth chapter: forms, migrations, and learning to automate myself out of repetition.',
         bullets: [
           'Built configurable intake forms with conditional logic — data-collection efficiency up 30%.',
           'Led the migration of 6 modules from Angular 8 to 14, cutting maintenance overhead by 20%.',
@@ -178,7 +179,8 @@ export const PORTFOLIO = {
         place: 'FULL Creative',
         location: 'Remote',
         dateRange: 'Sep 2021 — Dec 2021',
-        story: 'The fundamentals chapter: no framework, no safety net — just HTML, CSS, and deadlines.',
+        story:
+          'The fundamentals chapter: no framework, no safety net — just HTML, CSS, and deadlines.',
         bullets: [
           'Designed and shipped 4 responsive websites from scratch.',
           'Built and cross-tested 4 HTML email templates across Gmail, Outlook, and Apple Mail.',
@@ -205,10 +207,35 @@ export const PORTFOLIO = {
     accentWord: 'think',
     titleEnd: 'in.',
     description: 'Angular-first, styling-disciplined, automation-tested.',
+    /** The "borrow the light" jar beside the skills list — each item is a firefly
+     *  that glows and names itself on hover. Maximum 9 (the scene has 9 spots). */
+    jar: {
+      caption: 'borrow the light · hover a firefly',
+      items: [
+        'Angular',
+        'TypeScript',
+        'RxJS',
+        'SCSS',
+        'Jest',
+        'Playwright',
+        'Git',
+        'HTML5',
+        'Tailwind',
+      ],
+    },
     groups: [
-      { name: 'Core', items: ['Angular (v8–v19)', 'TypeScript', 'RxJS', 'JavaScript', 'Single SPA'] },
-      { name: 'UI & Styling', items: ['HTML5', 'SCSS', 'LESS', 'Tailwind CSS', 'Angular Material', 'PrimeNG'] },
-      { name: 'Testing & Tools', items: ['Jest', 'Playwright', 'Cucumber', 'Git', 'SonarQube', 'Webpack'] },
+      {
+        name: 'Core',
+        items: ['Angular (v8–v19)', 'TypeScript', 'RxJS', 'JavaScript', 'Single SPA'],
+      },
+      {
+        name: 'UI & Styling',
+        items: ['HTML5', 'SCSS', 'LESS', 'Tailwind CSS', 'Angular Material', 'PrimeNG'],
+      },
+      {
+        name: 'Testing & Tools',
+        items: ['Jest', 'Playwright', 'Cucumber', 'Git', 'SonarQube', 'Webpack'],
+      },
     ] as readonly SkillGroup[],
     learningLabel: 'Currently learning',
     learning: ['React', 'Three.js', 'OpenSeaDragon'],
@@ -276,7 +303,11 @@ export const PORTFOLIO = {
       { kind: 'email', label: 'singh16195@gmail.com', href: 'mailto:singh16195@gmail.com' },
       { kind: 'phone', label: '+91 93100 81407', href: 'tel:+919310081407' },
       { kind: 'location', label: 'Thane, Maharashtra, India' },
-      { kind: 'linkedin', label: 'linkedin.com/in/ps-rajput', href: 'https://www.linkedin.com/in/ps-rajput' },
+      {
+        kind: 'linkedin',
+        label: 'linkedin.com/in/ps-rajput',
+        href: 'https://www.linkedin.com/in/ps-rajput',
+      },
     ] as readonly ContactChannel[],
     form: {
       submitLabel: 'Send message',

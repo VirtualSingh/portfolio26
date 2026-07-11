@@ -7,25 +7,54 @@
       [description]="content.description"
     />
 
-    <div class="skills__groups">
-      @for (group of content.groups; track group.name; let i = $index) {
-        <article class="skills__group" appScrollReveal [revealDelay]="i * 90">
-          <h3 class="skills__group-name">{{ group.name }}</h3>
-          <div class="skills__badges">
-            @for (skill of group.items; track skill) {
-              <app-tech-badge [label]="skill" />
+    <div class="skills__inner">
+      <!-- "Borrow the light": a glass jar of skills disguised as fireflies.
+           Hover or focus one and it glows brighter and names itself. -->
+      <figure class="skills__scene" appScrollReveal [revealDelay]="120">
+        <div class="skills__stars" aria-hidden="true"></div>
+        <div class="jar">
+          <div class="jar__lid" aria-hidden="true"></div>
+          <div class="jar__body">
+            <div class="jar__glow" aria-hidden="true"></div>
+            @for (skill of content.jar.items; track skill; let i = $index) {
+              <span
+                class="jar__firefly"
+                tabindex="0"
+                role="img"
+                [attr.aria-label]="skill"
+                [style.--fi]="i"
+              >
+                <span class="jar__firefly-dot" aria-hidden="true"></span>
+                <span class="jar__firefly-label mono-label">{{ skill }}</span>
+              </span>
             }
           </div>
-        </article>
-      }
-    </div>
+        </div>
+        <figcaption class="skills__scene-caption mono-label">{{ content.jar.caption }}</figcaption>
+      </figure>
 
-    <div class="skills__learning" appScrollReveal [revealDelay]="240">
-      <p class="mono-label">{{ content.learningLabel }}</p>
-      <div class="skills__badges">
-        @for (item of content.learning; track item) {
-          <app-tech-badge [label]="item" tone="muted" />
-        }
+      <div class="skills__content">
+        <div class="skills__groups">
+          @for (group of content.groups; track group.name; let i = $index) {
+            <article class="skills__group" appScrollReveal [revealDelay]="i * 90">
+              <h3 class="skills__group-name">{{ group.name }}</h3>
+              <div class="skills__badges">
+                @for (skill of group.items; track skill) {
+                  <app-tech-badge [label]="skill" />
+                }
+              </div>
+            </article>
+          }
+        </div>
+
+        <div class="skills__learning" appScrollReveal [revealDelay]="240">
+          <p class="mono-label">{{ content.learningLabel }}</p>
+          <div class="skills__badges">
+            @for (item of content.learning; track item) {
+              <app-tech-badge [label]="item" tone="muted" />
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>
