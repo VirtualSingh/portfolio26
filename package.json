@@ -10,8 +10,7 @@
     "test": "ng test",
     "test:jest": "jest --runInBand",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs"
+    "format": "prettier --write ."
   },
   "private": true,
   "packageManager": "npm@11.12.1",
@@ -27,7 +26,6 @@
     "@emailjs/browser": "^4.4.1",
     "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
-    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -40,7 +38,6 @@
     "@angular/cli": "^21.2.11",
     "@angular/compiler-cli": "^21.2.0",
     "@eslint/js": "^10.0.1",
-    "@types/express": "^5.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.17.19",
     "eslint": "^10.4.0",

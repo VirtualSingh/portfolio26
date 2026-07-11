@@ -223,12 +223,15 @@ Depth in this system is ambient lift: surfaces float gently on soft, large-blur,
 - **Focus:** The global focus ring — 3px Electric Iris at 35% opacity, 3px offset. Applies to every focusable element without exception.
 
 ### Navigation
-- **Style:** A fixed 200px left sidebar (light, Paper White, 1px Fog Border right edge); collapses to a 64px top bar under 1024px.
+- **Style:** A fixed 172px left sidebar (light, Paper White, 1px Fog Border right edge); collapses to a 64px top bar under 1024px. Nav links read at 1rem — the sidebar is narrow but its text is not small.
 - **Links:** 8px-radius soft pills; Slate Muted at rest, Midnight Ink on Cloud Surface when hovered, Electric Iris on Iris Mist when active, with a small iris dot marking the active section. 180ms color/background ease.
 - **Resume:** A pinned outline pill (iris text, iris-tinted border) at the sidebar's bottom and in the mobile top bar — the primary conversion is always one click away.
 
 ### Hero Scene: "The Ascent" (signature component)
 The code-drawn SVG staircase of version blocks — v8 → v14 → v17 rising left to right, a builder figure on the top step reaching toward the floating iris v19 block above its dash-outlined landing slot, sparks around it, clouds below (we are at altitude). It is his actual migration ladder drawn as a scene: energy and ascent, not decoration. Drawn entirely from the brand palette and the iris scene ramp — no raster assets, nothing to 404. Reduced motion freezes every layer. The block labels come from `PORTFOLIO.identity.ascent`.
+
+### Ink Marquee Ticker (signature component)
+A single slow band of Midnight Ink directly under the hero, scrolling mono craft phrases (from `PORTFOLIO.marquee.items`) separated by small iris sparks — the one place the ink of the Ascent scene bleeds into the page as a surface. Paper-white text on ink, 36s linear loop, pauses on hover, static under reduced motion. There is exactly one marquee on the site; a second would make it wallpaper.
 
 ### Generated Project Covers (signature component)
 Project cards draw their own cover art: a `--cover-hue`-rotated iris gradient wash with an oversized mono monogram (AC, P3, V4). Hue rotation stays subtle (±40° around the brand hue). No stock photos, no screenshots that go stale.

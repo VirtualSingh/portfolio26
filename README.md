@@ -1,6 +1,6 @@
 # Pushpendra Singh — Portfolio v4
 
-Personal portfolio built with Angular 21: server-side rendered, zoneless, config-driven, and hand-designed (no template). Live sections: Hero, About, Journey, Skills, Projects, Beyond, Contact.
+Personal portfolio built with Angular 21: statically prerendered, zoneless, config-driven, and hand-designed (no template). Live sections: Hero, About, Journey, Skills, Projects, Beyond, Contact.
 
 ## Editing content (the important part)
 
@@ -25,21 +25,20 @@ A Jest suite (`portfolio.config.spec.ts`) guards the contract: nav ids must poin
 ## Stack
 
 - Angular 21 standalone components, signals, zoneless change detection
-- SSR + prerender with incremental hydration (`@defer (hydrate on viewport)`) — full HTML for crawlers, lazy hydration for users
+- Statically prerendered (SSG) with incremental hydration (`@defer (hydrate on viewport)`) — full HTML for crawlers, lazy hydration for users, no server to run
 - Self-hosted fonts via Fontsource (Plus Jakarta Sans Variable + JetBrains Mono) — no external font CDN
 - SCSS design system with CSS custom properties (see `DESIGN.md` for the full spec, `src/styles/_variables.scss` for tokens)
 - Hero scene and project covers are code-drawn (SVG/CSS) — zero raster assets to break
 - EmailJS contact form (optional; see below)
-- Jest, ESLint, Prettier
+- ESLint + Prettier; one Jest spec guarding the content-config contract
 
 ## Scripts
 
 ```bash
 npm install
 npm start                  # dev server at http://localhost:4200
-npm run build              # production build + prerender → dist/portfolio
-npm run serve:ssr:portfolio  # serve the built SSR app at http://localhost:4000
-npm run test:jest          # Jest suites (config contract, contact form, app smoke)
+npm run build              # production build + prerender → dist/portfolio/browser
+npm run test:jest          # Jest: the content-config contract spec
 npm run lint
 npm run format
 ```
@@ -64,4 +63,4 @@ The rules that matter most: one accent color (Electric Iris `#6c63ff`, under 10%
 
 ## Deployment
 
-`npm run build` prerenders the site into `dist/portfolio`. Deploy the browser output statically (Netlify/Vercel) or run the Node SSR server (`dist/portfolio/server/server.mjs`). Allowed hosts are configured in `angular.json` → `security.allowedHosts`; add your domain there if it changes.
+`npm run build` prerenders the site into `dist/portfolio/browser` as plain static files — deploy that folder to any static host (GitHub Pages, Netlify, Vercel, Cloudflare Pages). There is no server to run. Allowed hosts for the dev server are configured in `angular.json` → `security.allowedHosts`.

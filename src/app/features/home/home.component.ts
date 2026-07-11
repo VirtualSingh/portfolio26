@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { MarqueeComponent } from '../../shared/components/marquee/marquee.component';
 import { NavComponent } from '../../shared/components/nav/nav.component';
 import { AboutComponent } from '../about/about.component';
 import { BeyondComponent } from '../beyond/beyond.component';
@@ -13,6 +14,7 @@ import { SkillsComponent } from '../skills/skills.component';
   selector: 'app-home',
   imports: [
     NavComponent,
+    MarqueeComponent,
     HeroComponent,
     AboutComponent,
     JourneyComponent,
@@ -31,6 +33,8 @@ import { SkillsComponent } from '../skills/skills.component';
       <div class="main-content">
         <main id="main">
           <app-hero />
+
+          <app-marquee />
 
           @defer (hydrate on viewport) {
             <app-about />

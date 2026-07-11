@@ -41,20 +41,27 @@ export class ScrollService {
 
   private createObserver(): void {
     this.zone.runOutsideAngular(() => {
+      // A section is "active" while it overlaps a thin band around the viewport's
+      // middle. threshold: 0 keeps this working for sections taller than the
+      // viewport, whose intersection *ratio* with the band can never grow large.
       this.observer = new IntersectionObserver(
         (entries) => {
-          const visibleEntries = entries
+          const nextId = entries
             .filter((entry) => entry.isIntersecting)
-            .sort((first, second) => second.intersectionRatio - first.intersectionRatio);
+            .sort(
+              (first, second) =>
+                second.intersectionRect.height - first.intersectionRect.height,
+            )
+            .at(0)
+            ?.target.getAttribute('data-section');
 
-          const nextId = visibleEntries.at(0)?.target.getAttribute('data-section');
           if (nextId) {
             this.zone.run(() => this.activeSection.set(nextId));
           }
         },
         {
-          rootMargin: '-35% 0px -45% 0px',
-          threshold: [0.2, 0.4, 0.65],
+          rootMargin: '-42% 0px -42% 0px',
+          threshold: 0,
         },
       );
     });

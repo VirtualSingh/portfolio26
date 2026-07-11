@@ -67,7 +67,7 @@ export const PORTFOLIO = {
     greeting: "Hi, I'm",
     role: 'Frontend engineer · builder of UI systems',
     tagline:
-      "It started with one HTML file in a college lab. Four years later I lead Angular migrations and build component libraries for teams I've never met — and every screen still gets the care of that first page.",
+      "It started with one HTML file in a college lab. Now I lead Angular migrations and build component libraries for teams I've never met.",
     /** The version blocks drawn in the hero's Ascent scene — the real migration ladder. */
     ascent: ['v8', 'v14', 'v17', 'v19'],
     /** The quiet mono proof line under the hero CTAs. Keep it to real, checkable facts. */
@@ -83,6 +83,18 @@ export const PORTFOLIO = {
       { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ps-rajput', icon: 'linkedin' },
       { label: 'Email', url: 'mailto:singh16195@gmail.com', icon: 'email' },
     ] as readonly SocialLink[],
+  },
+
+  /** Phrases scrolling through the ink ticker strip under the hero. Keep each ≤3 words. */
+  marquee: {
+    items: [
+      'Angular v8→v19',
+      'Component libraries',
+      'Micro-frontends',
+      'Design systems',
+      'Test automation',
+      'Pixel care',
+    ],
   },
 
   nav: {
@@ -101,8 +113,8 @@ export const PORTFOLIO = {
     titleStart: 'Every journey starts with',
     accentWord: 'curiosity.',
     paragraphs: [
-      'Mine started in a college lab, hand-writing HTML and refreshing the browser to watch a page come alive. That moment never got old — it just got bigger: from static pages to email templates, to reactive forms, to entire component libraries used by teams I have never met.',
-      "Today I'm a frontend engineer with 4+ years in Angular, currently at Aira Matrix — where I led the upgrade to Angular 19 and I'm building an in-house library of 15+ components for three product squads.",
+      'Hand-writing HTML in a college lab, hitting refresh, watching a page come alive — that moment never got old. It just got bigger: pages, then forms, then entire component libraries.',
+      "Four years of Angular later, I'm at Aira Matrix — leading the v19 upgrade and building a 15+ component library for three product squads.",
     ],
     facts: [
       '4+ years across 3 companies',
@@ -114,8 +126,7 @@ export const PORTFOLIO = {
   journey: {
     titleStart: 'Turning curiosity into',
     accentWord: 'career.',
-    description:
-      'One timeline, told honestly — what each chapter taught me and what it actually shipped.',
+    description: 'Five chapters. What each one actually shipped.',
     entries: [
       {
         kind: 'role',
@@ -193,8 +204,7 @@ export const PORTFOLIO = {
     titleStart: 'Tools I',
     accentWord: 'think',
     titleEnd: 'in.',
-    description:
-      'Angular-first engineering with strong styling discipline and real test-automation experience.',
+    description: 'Angular-first, styling-disciplined, automation-tested.',
     groups: [
       { name: 'Core', items: ['Angular (v8–v19)', 'TypeScript', 'RxJS', 'JavaScript', 'Single SPA'] },
       { name: 'UI & Styling', items: ['HTML5', 'SCSS', 'LESS', 'Tailwind CSS', 'Angular Material', 'PrimeNG'] },
@@ -208,7 +218,7 @@ export const PORTFOLIO = {
     titleStart: "Things I've",
     accentWord: 'built',
     titleEnd: 'and shipped.',
-    description: 'Selected work — from live dashboards to the site you are reading right now.',
+    description: 'From live dashboards to the page you are reading.',
     items: [
       {
         name: 'AutoCrypto v3',
@@ -233,8 +243,8 @@ export const PORTFOLIO = {
       {
         name: 'This website',
         description:
-          'Portfolio v4: Angular 21, server-side rendered, zoneless, and fully config-driven — every word on this page lives in one typed file.',
-        techStack: ['Angular 21', 'SSR', 'SCSS', 'Jest'],
+          'Portfolio v4: Angular 21, prerendered, zoneless, config-driven — every word on this page lives in one typed file.',
+        techStack: ['Angular 21', 'SSG', 'SCSS', 'Jest'],
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',
@@ -246,8 +256,7 @@ export const PORTFOLIO = {
     titleStart: 'Beyond',
     accentWord: 'the code.',
     description: 'Capturing moments, listening to music, and exploring new places.',
-    extended:
-      'The notebook habit is the real one — interface ideas get sketched in pen first, and a few of them ended up on this very page.',
+    extended: 'Interface ideas get sketched in pen first — a few ended up on this very page.',
     hobbies: [
       { icon: 'camera', label: 'Photography' },
       { icon: 'music', label: 'Music' },
@@ -260,7 +269,7 @@ export const PORTFOLIO = {
     titleStart: "Let's build what's",
     accentWord: 'next.',
     description:
-      "I'm always open to new opportunities, collaborations, and good conversations about frontend. The form is the fastest way to reach me — or grab the resume and skip ahead.",
+      "That's the work. This is the reaching-out part — the form is fastest, or grab the resume and skip ahead.",
     channels: [
       { kind: 'email', label: 'singh16195@gmail.com', href: 'mailto:singh16195@gmail.com' },
       { kind: 'phone', label: '+91 93100 81407', href: 'tel:+919310081407' },
@@ -278,7 +287,7 @@ export const PORTFOLIO = {
 
   footer: {
     line: 'Designed & built by Pushpendra Singh',
-    stackNote: 'Angular 21 · SSR · no template',
+    stackNote: 'Angular 21 · zoneless · probably tweaking this footer again',
   },
 
   seo: {

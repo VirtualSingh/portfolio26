@@ -112,7 +112,7 @@ import { ScrollService } from '../../../core/services/scroll.service';
       z-index: 40;
       display: flex;
       flex-direction: column;
-      padding: 2rem 1.25rem;
+      padding: 1.75rem 0.875rem;
       border-right: 1px solid var(--color-border);
       background: var(--color-bg);
     }
@@ -160,7 +160,7 @@ import { ScrollService } from '../../../core/services/scroll.service';
       text-align: left;
       cursor: pointer;
       transition: color 180ms ease, background 180ms ease;
-      font-size: 0.875rem;
+      font-size: 1rem;
       font-weight: 500;
       width: 100%;
 
