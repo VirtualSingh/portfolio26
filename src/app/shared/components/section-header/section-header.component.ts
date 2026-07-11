@@ -6,13 +6,8 @@ import { ScrollRevealDirective } from '../scroll-reveal/scroll-reveal.directive'
   imports: [ScrollRevealDirective],
   template: `
     <div class="section-header" appScrollReveal>
-      @if (number()) {
-        <p class="section-number">{{ number() }}</p>
-      } @else if (eyebrow()) {
-        <p class="eyebrow">{{ eyebrow() }}</p>
-      }
       <h2>
-        {{ titleStart() || title() }}
+        {{ titleStart() }}
         @if (accentWord()) {
           <em class="accent-word">{{ accentWord() }}</em>
         }
@@ -33,16 +28,12 @@ import { ScrollRevealDirective } from '../scroll-reveal/scroll-reveal.directive'
 
     .section-header__description {
       max-width: 60ch;
-      font-size: 1.05rem;
       line-height: 1.7;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionHeaderComponent {
-  readonly number = input('');
-  readonly eyebrow = input('');
-  readonly title = input('');
   readonly titleStart = input('');
   readonly titleEnd = input('');
   readonly accentWord = input('');

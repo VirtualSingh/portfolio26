@@ -1,5 +1,4 @@
 .contact {
-  padding: var(--section-padding) 0;
   background: var(--color-surface);
 }
 
@@ -15,17 +14,24 @@
   gap: var(--space-6);
 }
 
-.contact__info-list {
+.contact__channels {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
   gap: var(--space-4);
 }
 
-.contact__info-row {
+.contact__channel {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   color: var(--color-text-main);
-  font-size: 0.95rem;
+
+  svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
 
   a {
     color: var(--color-primary);
@@ -37,12 +43,22 @@
   }
 }
 
+.contact__resume {
+  width: fit-content;
+  color: var(--color-primary-strong);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .contact__form {
+  position: relative;
   display: grid;
   gap: var(--space-4);
   background: var(--color-bg);
   padding: clamp(24px, 4vw, 40px);
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   box-shadow: 0 4px 32px -8px var(--color-shadow);
 }
@@ -50,7 +66,7 @@
 .contact__form label {
   display: grid;
   gap: var(--space-2);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-text-main);
 }
@@ -58,21 +74,24 @@
 .contact__form input,
 .contact__form textarea {
   width: 100%;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: var(--color-bg);
   color: var(--color-text-main);
   padding: 12px 16px;
+  font-weight: 400;
   transition: border-color 180ms ease;
 
   &::placeholder {
     color: var(--color-text-muted);
-    opacity: 0.7;
   }
 
-  &:focus {
-    outline: none;
+  &:focus-visible {
     border-color: var(--color-primary);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--color-error);
   }
 }
 
@@ -82,8 +101,9 @@
 }
 
 .contact__form small {
-  color: #dc2626;
-  font-size: 0.8rem;
+  color: var(--color-error);
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
 .contact__submit {
@@ -99,17 +119,33 @@
   animation: spin 0.8s linear infinite;
 }
 
+/* Always in the DOM so aria-live announces content changes; faded out when empty. */
 .contact__toast {
   margin: 0;
   padding: var(--space-3) var(--space-4);
-  border-radius: 12px;
-  background: color-mix(in srgb, #16a34a 15%, transparent);
-  color: var(--color-text-main);
-  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  background: var(--color-success-surface);
+  color: var(--color-success);
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 240ms ease, transform 240ms var(--ease-out);
+
+  &:not(.contact__toast--visible) {
+    position: absolute;
+    pointer-events: none;
+  }
+}
+
+.contact__toast--visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact__toast--error {
-  background: color-mix(in srgb, #dc2626 15%, transparent);
+  background: var(--color-error-surface);
+  color: var(--color-error);
 }
 
 @keyframes spin {

@@ -1,34 +1,57 @@
-<section class="journey" id="journey" #sectionRef>
+<section class="journey section-block" id="journey" [appSectionAnchor]="'journey'">
   <div class="section-shell">
     <app-section-header
-      number="04"
-      titleStart="Turning curiosity into"
-      accentWord="career."
-      description="From building my first webpage to architecting scalable component systems — every role shaped who I am as an engineer."
+      [titleStart]="content.titleStart"
+      [accentWord]="content.accentWord"
+      [description]="content.description"
     />
 
     <div class="journey__timeline">
-      @for (item of items; track item.company; let i = $index) {
-        <article class="journey__item" appScrollReveal [revealDelay]="i * 100">
+      @for (entry of content.entries; track entry.place + entry.dateRange; let i = $index) {
+        <article
+          class="journey__item"
+          [class.journey__item--milestone]="entry.kind === 'milestone'"
+          appScrollReveal
+          [revealDelay]="i * 90">
           <div class="journey__dot" aria-hidden="true"></div>
-          <div class="journey__content">
+
+          <div class="journey__card">
             <div class="journey__meta">
-              <span class="journey__date">{{ item.dateRange }}</span>
-              <span class="journey__location">{{ item.location }}</span>
+              <span class="journey__date mono-label">{{ entry.dateRange }}</span>
+              @if (entry.location) {
+                <span class="journey__location">{{ entry.location }}</span>
+              }
             </div>
+
             <h3 class="journey__title">
-              {{ item.title }} <span class="journey__company accent-word">@ {{ item.company }}</span>
+              {{ entry.title }}
+              <span class="journey__place">· {{ entry.place }}</span>
             </h3>
-            <ul class="journey__bullets">
-              @for (bullet of item.bullets; track bullet) {
-                <li>{{ bullet }}</li>
-              }
-            </ul>
-            <div class="journey__stack">
-              @for (tech of item.stack; track tech) {
-                <app-tech-badge [label]="tech" />
-              }
-            </div>
+
+            <p class="journey__story">{{ entry.story }}</p>
+
+            @if (entry.bullets.length) {
+              <ul class="journey__bullets">
+                @for (bullet of entry.bullets; track bullet) {
+                  <li>{{ bullet }}</li>
+                }
+              </ul>
+            }
+
+            @if (entry.highlight) {
+              <p class="journey__highlight">
+                <strong>{{ entry.highlight.value }}</strong>
+                <span>{{ entry.highlight.label }}</span>
+              </p>
+            }
+
+            @if (entry.stack.length) {
+              <div class="journey__stack">
+                @for (tech of entry.stack; track tech) {
+                  <app-tech-badge [label]="tech" tone="muted" />
+                }
+              </div>
+            }
           </div>
         </article>
       }

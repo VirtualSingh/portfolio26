@@ -21,6 +21,7 @@ h6 {
   line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--color-text-main);
+  text-wrap: balance;
 }
 
 h1 {
@@ -28,7 +29,7 @@ h1 {
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 4vw, 3.25rem);
 }
 
 h3 {
@@ -38,29 +39,24 @@ h3 {
 p {
   margin: 0;
   color: var(--color-text-muted);
+  text-wrap: pretty;
 }
 
-.eyebrow {
+/* The journal's marginalia voice: small mono annotations. Use sparingly. */
+.mono-label {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-primary);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
 }
 
+/* One iris word inside a heading. One word, not a phrase, not every heading. */
 .accent-word {
   color: var(--color-primary);
   font-style: italic;
   font-weight: 800;
-}
-
-.section-number {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.08em;
-  margin-bottom: 0.5rem;
 }

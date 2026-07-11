@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { PORTFOLIO } from '../../../core/content/portfolio.config';
 import { ScrollService } from '../../../core/services/scroll.service';
 
 @Component({
@@ -6,11 +7,19 @@ import { ScrollService } from '../../../core/services/scroll.service';
   template: `
     <footer class="footer">
       <div class="footer__content section-shell">
-        <p class="footer__copy">© 2025 Pushpendra Singh. Thanks for visiting. 🩵</p>
+        <p class="footer__copy">
+          © {{ year }} {{ line }} <span class="footer__note">· {{ stackNote }}</span>
+        </p>
         <div class="footer__links">
-          <a href="https://github.com/virtualsingh" target="_blank" rel="noreferrer" aria-label="Open GitHub profile">GitHub</a>
-          <a href="https://www.linkedin.com/in/ps-rajput" target="_blank" rel="noreferrer" aria-label="Open LinkedIn profile">LinkedIn</a>
-          <a href="mailto:singh16195@gmail.com" aria-label="Send an email to Pushpendra Singh">Email</a>
+          @for (social of socials; track social.label) {
+            <a
+              [href]="social.url"
+              [target]="social.icon === 'email' ? null : '_blank'"
+              rel="noreferrer"
+              [attr.aria-label]="social.label">
+              {{ social.label }}
+            </a>
+          }
           <button type="button" (click)="scrollService.scrollToSection(topTarget())" aria-label="Back to top">↑ Top</button>
         </div>
       </div>
@@ -30,9 +39,14 @@ import { ScrollService } from '../../../core/services/scroll.service';
     }
 
     .footer__copy {
-      font-size: 0.88rem;
+      font-size: 0.875rem;
       color: var(--color-text-muted);
       margin: 0;
+    }
+
+    .footer__note {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
     }
 
     .footer__links {
@@ -48,7 +62,7 @@ import { ScrollService } from '../../../core/services/scroll.service';
       background: none;
       border: 0;
       padding: 0;
-      font-size: 0.88rem;
+      font-size: 0.875rem;
       transition: color 180ms ease;
     }
 
@@ -69,4 +83,8 @@ import { ScrollService } from '../../../core/services/scroll.service';
 export class FooterComponent {
   readonly scrollService = inject(ScrollService);
   readonly topTarget = input('hero');
+  readonly year = new Date().getFullYear();
+  readonly line = PORTFOLIO.footer.line;
+  readonly stackNote = PORTFOLIO.footer.stackNote;
+  readonly socials = PORTFOLIO.identity.socials;
 }

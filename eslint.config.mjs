@@ -6,7 +6,17 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['dist/**', 'coverage/**', '.angular/**', 'node_modules/**', 'public/portfolio-v3/**', 'jest.config.ts', 'setup-jest.ts'],
+    ignores: [
+      'dist/**',
+      'coverage/**',
+      '.angular/**',
+      'node_modules/**',
+      '.claude/**',
+      '.impeccable/**',
+      'public/**',
+      'jest.config.ts',
+      'setup-jest.ts',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

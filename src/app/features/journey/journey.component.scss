@@ -1,89 +1,118 @@
-.journey {
-  padding: var(--section-padding) 0;
-}
-
 .journey__timeline {
   position: relative;
   display: grid;
   gap: var(--space-10);
+  padding-left: var(--space-8);
 
+  /* Timeline spine: a quiet hairline, not a gradient. */
   &::before {
     content: '';
     position: absolute;
-    left: 10px;
     top: 8px;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--color-primary), transparent);
-    border-radius: 2px;
+    bottom: 8px;
+    left: 5px;
+    width: 1px;
+    background: var(--color-border);
   }
 }
 
 .journey__item {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: var(--space-6);
   position: relative;
 }
 
 .journey__dot {
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  top: 10px;
+  left: calc(-1 * var(--space-8) + 1px);
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: var(--color-bg);
-  border: 3px solid var(--color-primary);
+  background: var(--color-primary);
   box-shadow: 0 0 0 4px var(--color-primary-light);
-  margin-top: 6px;
-  flex-shrink: 0;
 }
 
-.journey__content {
+.journey__item--milestone .journey__dot {
+  background: var(--color-bg);
+  border: 2px solid var(--color-primary);
+}
+
+.journey__card {
   display: grid;
   gap: var(--space-4);
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg);
+  box-shadow: 0 4px 32px -8px var(--color-shadow);
+}
+
+.journey__item--milestone .journey__card {
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  box-shadow: none;
 }
 
 .journey__meta {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  justify-content: space-between;
   gap: var(--space-4);
   flex-wrap: wrap;
 }
 
-.journey__date,
 .journey__location {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
-  letter-spacing: 0.04em;
-}
-
-.journey__date {
-  color: var(--color-primary);
-  font-weight: 600;
 }
 
 .journey__title {
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--color-text-main);
-  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
 }
 
-.journey__company {
-  font-style: italic;
+.journey__place {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.journey__story {
+  color: var(--color-text-main);
+  font-weight: 500;
+  max-width: 62ch;
 }
 
 .journey__bullets {
   margin: 0;
-  padding: 0 0 0 var(--space-5);
+  padding-left: 1.1em;
   display: grid;
   gap: var(--space-2);
+  color: var(--color-text-muted);
+  max-width: 70ch;
 
-  li {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
+  li::marker {
+    color: var(--color-primary);
+  }
+}
+
+.journey__highlight {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-light);
+  width: fit-content;
+
+  strong {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-primary-strong);
+    line-height: 1;
+  }
+
+  span {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-text-main);
   }
 }
 
@@ -91,4 +120,22 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .journey__timeline {
+    padding-left: var(--space-5);
+
+    &::before {
+      left: 3px;
+    }
+  }
+
+  .journey__dot {
+    left: calc(-1 * var(--space-5));
+  }
+
+  .journey__card {
+    padding: var(--space-5);
+  }
 }

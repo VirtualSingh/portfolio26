@@ -1,30 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal } from '@angular/core';
-import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import type { OnDestroy, OnInit } from '@angular/core';
-import { HERO_ROLES } from '../../core/content/portfolio.content';
+import { PORTFOLIO } from '../../core/content/portfolio.config';
 import { ScrollService } from '../../core/services/scroll.service';
-import { ScrollRevealDirective } from '../../shared/components/scroll-reveal/scroll-reveal.directive';
+import { SectionAnchorDirective } from '../../shared/components/section-anchor/section-anchor.directive';
 
 @Component({
   selector: 'app-hero',
-  imports: [ScrollRevealDirective],
+  imports: [SectionAnchorDirective],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
-  animations: [
-    trigger('heroIntro', [
-      transition(':enter', [
-        query(
-          '.hero__animate',
-          [
-            style({ opacity: 0, transform: 'translateY(24px)' }),
-            stagger(110, [animate('500ms cubic-bezier(0.22, 1, 0.36, 1)', style({ opacity: 1, transform: 'translateY(0)' }))]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroComponent implements OnInit, OnDestroy {
@@ -32,15 +17,27 @@ export class HeroComponent implements OnInit, OnDestroy {
   private readonly scrollService = inject(ScrollService);
   private timerId?: number;
 
-  readonly resumeUrl = '/Pushpendra_Singh_Resume.pdf';
+  readonly greeting = PORTFOLIO.identity.greeting;
+  readonly firstName = PORTFOLIO.identity.firstName;
+  readonly lastName = PORTFOLIO.identity.lastName;
+  readonly roles = PORTFOLIO.identity.roles;
+  readonly tagline = PORTFOLIO.identity.tagline;
+  readonly proofLine = PORTFOLIO.identity.proofLine;
+  readonly resume = PORTFOLIO.identity.resume;
+
   readonly roleIndex = signal(0);
   readonly characterCount = signal(0);
   readonly deleting = signal(false);
-  readonly currentRole = computed(() => HERO_ROLES[this.roleIndex()].slice(0, this.characterCount()));
+  readonly currentRole = computed(() => this.roles[this.roleIndex()].slice(0, this.characterCount()));
 
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
-      this.characterCount.set(HERO_ROLES[0].length);
+      this.characterCount.set(this.roles[0].length);
+      return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.characterCount.set(this.roles[0].length);
       return;
     }
 
@@ -58,7 +55,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   }
 
   private tickTypewriter(): void {
-    const activeRole = HERO_ROLES[this.roleIndex()];
+    const activeRole = this.roles[this.roleIndex()];
     const isDeleting = this.deleting();
     const nextLength = isDeleting ? this.characterCount() - 1 : this.characterCount() + 1;
 
@@ -72,7 +69,7 @@ export class HeroComponent implements OnInit, OnDestroy {
 
     if (isDeleting && nextLength === 0) {
       this.deleting.set(false);
-      this.roleIndex.set((this.roleIndex() + 1) % HERO_ROLES.length);
+      this.roleIndex.set((this.roleIndex() + 1) % this.roles.length);
       this.timerId = window.setTimeout(() => this.tickTypewriter(), 240);
       return;
     }

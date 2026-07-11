@@ -1,13 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-11T00:00:00Z",
+  "generatedAt": "2026-07-11T16:30:00Z",
   "title": "Design System: Pushpendra Singh Portfolio",
   "extensions": {
     "colorMeta": {
-      "electric-iris": { "role": "primary", "displayName": "Electric Iris", "canonical": "#6c63ff", "tonalRamp": ["oklch(25% 0.19 281)", "oklch(35% 0.21 281)", "oklch(45% 0.22 281)", "oklch(55% 0.21 281)", "oklch(62% 0.19 281)", "oklch(75% 0.13 281)", "oklch(87% 0.07 281)", "oklch(95% 0.03 281)"] },
+      "electric-iris": { "role": "primary", "displayName": "Electric Iris", "canonical": "#6c63ff", "tonalRamp": ["#2d2b52", "#5a50f0", "#6c63ff", "#7b73ff", "#8f88ff", "#948dff", "#d8d5ff", "#eeeeff"] },
+      "iris-strong": { "role": "primary", "displayName": "Iris Strong", "canonical": "#5a50f0", "tonalRamp": ["#2d2b52", "#4a41d6", "#5a50f0", "#6c63ff", "#8f88ff", "#b3aeff", "#d8d5ff", "#eeeeff"] },
+      "error-red": { "role": "state", "displayName": "Error Red", "canonical": "#b91c1c", "tonalRamp": ["#7f1d1d", "#991b1b", "#b91c1c", "#dc2626", "#ef4444", "#f87171", "#fecaca", "#fef2f2"] },
+      "success-green": { "role": "state", "displayName": "Success Green", "canonical": "#15803d", "tonalRamp": ["#14532d", "#166534", "#15803d", "#16a34a", "#22c55e", "#4ade80", "#bbf7d0", "#f0fdf4"] },
       "iris-mist": { "role": "primary", "displayName": "Iris Mist", "canonical": "#eeeeff", "tonalRamp": ["oklch(30% 0.06 281)", "oklch(45% 0.06 281)", "oklch(60% 0.06 281)", "oklch(72% 0.05 281)", "oklch(82% 0.04 281)", "oklch(89% 0.03 281)", "oklch(94% 0.02 281)", "oklch(97% 0.01 281)"] },
       "midnight-ink": { "role": "neutral", "displayName": "Midnight Ink", "canonical": "#1a1a2e", "tonalRamp": ["oklch(15% 0.03 285)", "oklch(22% 0.03 285)", "oklch(32% 0.03 285)", "oklch(45% 0.02 285)", "oklch(58% 0.02 285)", "oklch(72% 0.015 285)", "oklch(85% 0.01 285)", "oklch(95% 0.005 285)"] },
-      "slate-muted": { "role": "neutral", "displayName": "Slate Muted", "canonical": "#6b7280", "tonalRamp": ["oklch(20% 0.02 264)", "oklch(30% 0.02 264)", "oklch(40% 0.02 264)", "oklch(51% 0.02 264)", "oklch(62% 0.02 264)", "oklch(74% 0.015 264)", "oklch(86% 0.01 264)", "oklch(95% 0.005 264)"] },
+      "slate-muted": { "role": "neutral", "displayName": "Slate Muted", "canonical": "#5d6673", "tonalRamp": ["oklch(20% 0.02 264)", "oklch(30% 0.02 264)", "oklch(40% 0.02 264)", "oklch(48% 0.02 264)", "oklch(62% 0.02 264)", "oklch(74% 0.015 264)", "oklch(86% 0.01 264)", "oklch(95% 0.005 264)"] },
       "cloud-surface": { "role": "neutral", "displayName": "Cloud Surface", "canonical": "#f5f5f7", "tonalRamp": ["oklch(25% 0.005 286)", "oklch(40% 0.005 286)", "oklch(55% 0.005 286)", "oklch(68% 0.004 286)", "oklch(80% 0.003 286)", "oklch(88% 0.003 286)", "oklch(94% 0.002 286)", "oklch(97% 0.002 286)"] },
       "fog-border": { "role": "neutral", "displayName": "Fog Border", "canonical": "#e5e7eb", "tonalRamp": ["oklch(25% 0.005 264)", "oklch(40% 0.005 264)", "oklch(55% 0.005 264)", "oklch(68% 0.005 264)", "oklch(80% 0.004 264)", "oklch(88% 0.003 264)", "oklch(93% 0.003 264)", "oklch(97% 0.002 264)"] },
       "paper-white": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff", "tonalRamp": ["oklch(20% 0 0)", "oklch(35% 0 0)", "oklch(50% 0 0)", "oklch(65% 0 0)", "oklch(78% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(100% 0 0)"] }
@@ -17,7 +20,10 @@
       "headline": { "displayName": "Headline", "purpose": "Section headings (h2)." },
       "title": { "displayName": "Title", "purpose": "Card and subsection headings (h3)." },
       "body": { "displayName": "Body", "purpose": "Paragraphs in Slate Muted, 1.7 line height, ~50-65ch measure." },
-      "label": { "displayName": "Label / Mono", "purpose": "Eyebrows, section numbers, badges — the journal's marginalia voice." }
+      "label": { "displayName": "Label / Mono", "purpose": "Proof lines, timeline dates, badges — the journal's marginalia voice. Sentence case, 0.08em tracking." },
+      "lede": { "displayName": "Lede", "purpose": "Hero greeting and skill group names (1.125rem, 500)." },
+      "small": { "displayName": "Small", "purpose": "Interface text: nav links, footer, card descriptions, form labels (0.875rem, 500)." },
+      "card-title": { "displayName": "Card Title", "purpose": "Headings inside cards (1.35rem, 800)." }
     },
     "shadows": [
       { "name": "card-float", "value": "0 4px 32px -8px rgba(26, 26, 46, 0.08)", "purpose": "Default ambient lift for section cards." },

@@ -1,27 +1,29 @@
-import { ChangeDetectionStrategy, Component, ViewChild, inject, signal } from '@angular/core';
-import type { ElementRef, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
 import { environment } from '../../../environments/environment';
-import { ScrollService } from '../../core/services/scroll.service';
+import { PORTFOLIO } from '../../core/content/portfolio.config';
 import { ScrollRevealDirective } from '../../shared/components/scroll-reveal/scroll-reveal.directive';
+import { SectionAnchorDirective } from '../../shared/components/section-anchor/section-anchor.directive';
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
 
 type ToastState = { type: 'success' | 'error'; message: string } | null;
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule, ScrollRevealDirective, SectionHeaderComponent],
+  imports: [ReactiveFormsModule, ScrollRevealDirective, SectionAnchorDirective, SectionHeaderComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactComponent implements OnDestroy {
   private readonly fb = inject(FormBuilder);
-  private readonly scrollService = inject(ScrollService);
   private toastTimer?: number;
 
-  @ViewChild('sectionRef', { static: true }) sectionRef!: ElementRef<HTMLElement>;
+  readonly content = PORTFOLIO.contact;
+  readonly formCopy = PORTFOLIO.contact.form;
+  readonly resume = PORTFOLIO.identity.resume;
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -33,16 +35,10 @@ export class ContactComponent implements OnDestroy {
   readonly submitting = signal(false);
   readonly toast = signal<ToastState>(null);
 
-  constructor() {
-    queueMicrotask(() => this.scrollService.registerSection(this.sectionRef.nativeElement, 'contact'));
-  }
-
   ngOnDestroy(): void {
     if (this.toastTimer) {
       window.clearTimeout(this.toastTimer);
     }
-
-    this.scrollService.unregisterSection(this.sectionRef.nativeElement);
   }
 
   async submit(): Promise<void> {
@@ -52,7 +48,7 @@ export class ContactComponent implements OnDestroy {
     }
 
     if (!environment.emailJs.serviceId || !environment.emailJs.templateId || !environment.emailJs.publicKey) {
-      this.showToast('error', 'Add EmailJS credentials in environment.ts before sending messages.');
+      this.showToast('error', this.formCopy.notConfiguredMessage);
       return;
     }
 
@@ -72,9 +68,9 @@ export class ContactComponent implements OnDestroy {
       );
 
       this.form.reset();
-      this.showToast('success', 'Message sent successfully. I will get back to you soon.');
+      this.showToast('success', this.formCopy.successMessage);
     } catch {
-      this.showToast('error', 'Sending failed. Please try again after checking EmailJS credentials.');
+      this.showToast('error', this.formCopy.errorMessage);
     } finally {
       this.submitting.set(false);
     }
@@ -95,7 +91,7 @@ export class ContactComponent implements OnDestroy {
     }
 
     if (control.errors['minlength']) {
-      return `Minimum ${control.errors['minlength'].requiredLength} characters required.`;
+      return `At least ${control.errors['minlength'].requiredLength} characters, please.`;
     }
 
     return 'Invalid value.';
@@ -108,6 +104,6 @@ export class ContactComponent implements OnDestroy {
       window.clearTimeout(this.toastTimer);
     }
 
-    this.toastTimer = window.setTimeout(() => this.toast.set(null), 4000);
+    this.toastTimer = window.setTimeout(() => this.toast.set(null), 6000);
   }
 }

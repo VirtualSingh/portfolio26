@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, PLATFORM_ID, Renderer2, inject, input } from '@angular/core';
+import { Directive, ElementRef, PLATFORM_ID, Renderer2, RendererStyleFlags2, inject, input } from '@angular/core';
 import type { OnDestroy, OnInit } from '@angular/core';
 
 @Directive({
@@ -17,7 +17,7 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
   readonly revealDelay = input(0);
 
   ngOnInit(): void {
-    this.renderer.setStyle(this.elementRef.nativeElement, '--reveal-delay', `${this.revealDelay()}ms`);
+    this.renderer.setStyle(this.elementRef.nativeElement, '--reveal-delay', `${this.revealDelay()}ms`, RendererStyleFlags2.DashCase);
 
     if (!isPlatformBrowser(this.platformId)) {
       this.renderer.addClass(this.elementRef.nativeElement, 'is-visible');

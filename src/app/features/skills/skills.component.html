@@ -1,39 +1,30 @@
-<section class="skills" id="skills" #sectionRef>
+<section class="skills section-block" id="skills" [appSectionAnchor]="'skills'">
   <div class="section-shell">
     <app-section-header
-      number="03"
-      titleStart="Learning, Building,"
-      accentWord="Growing"
-      titleEnd="every day."
-      description="Angular-first engineering with strong styling discipline and test automation experience."
+      [titleStart]="content.titleStart"
+      [accentWord]="content.accentWord"
+      [titleEnd]="content.titleEnd"
+      [description]="content.description"
     />
 
-    <div class="skills__categories" @categoryStagger>
-      @for (category of categories; track category.name) {
-        <article class="skills__category" appScrollReveal>
-          <div class="skills__category-header">
-            <h3>{{ category.name }}</h3>
-            <span class="skills__proficiency">{{ category.proficiency }}%</span>
-          </div>
-
-          <div class="skills__progress" aria-hidden="true">
-            <span class="skills__progress-bar" [style.width.%]="barsVisible() ? category.proficiency : 0"></span>
-          </div>
-
+    <div class="skills__groups">
+      @for (group of content.groups; track group.name; let i = $index) {
+        <article class="skills__group" appScrollReveal [revealDelay]="i * 90">
+          <h3 class="skills__group-name">{{ group.name }}</h3>
           <div class="skills__badges">
-            @for (skill of category.items; track skill.label) {
-              <app-tech-badge [label]="skill.label" [icon]="skill.icon" />
+            @for (skill of group.items; track skill) {
+              <app-tech-badge [label]="skill" />
             }
           </div>
         </article>
       }
     </div>
 
-    <div class="skills__learning" appScrollReveal [revealDelay]="220">
-      <p class="eyebrow">Currently learning</p>
+    <div class="skills__learning" appScrollReveal [revealDelay]="240">
+      <p class="mono-label">{{ content.learningLabel }}</p>
       <div class="skills__badges">
-        @for (item of learning; track item) {
-          <app-tech-badge [label]="item" icon="↗" tone="muted" />
+        @for (item of content.learning; track item) {
+          <app-tech-badge [label]="item" tone="muted" />
         }
       </div>
     </div>

@@ -1,96 +1,67 @@
-# Pushpendra Singh Portfolio
+# Pushpendra Singh — Portfolio v4
 
-Production-ready personal portfolio built with Angular standalone components, SCSS, signals, deferred section loading, dark mode, and SSR-backed prerendering.
+Personal portfolio built with Angular 21: server-side rendered, zoneless, config-driven, and hand-designed (no template). Live sections: Hero, About, Journey, Skills, Projects, Beyond, Contact.
+
+## Editing content (the important part)
+
+**All site content lives in one typed file: [`src/app/core/content/portfolio.config.ts`](src/app/core/content/portfolio.config.ts).**
+
+Every section reads from the exported `PORTFOLIO` object. To change anything on the site, edit that file — no component changes needed:
+
+| Want to… | Edit |
+|---|---|
+| Change name, roles, tagline, hero proof line | `identity` |
+| Update the resume | Replace `public/Pushpendra_Singh_Resume.pdf` (keep the filename, or update `identity.resume`) |
+| Add/remove a job or milestone | `journey.entries` (kind `'role'` for jobs, `'milestone'` for origin-story beats) |
+| Change the highlight stat on a role | `journey.entries[n].highlight` |
+| Add a skill or skill group | `skills.groups` / `skills.learning` |
+| Add a project | `projects.items` (`monogram` + `coverHue` drive the generated cover art) |
+| Update contact channels or form copy | `contact` |
+| Change nav labels/order | `nav.items` (ids must match section element ids) |
+| SEO title/description | `seo` + `src/index.html` meta tags |
+
+A Jest suite (`portfolio.config.spec.ts`) guards the contract: nav ids must point at real sections, the resume file must exist in `public/`, and links must be well-formed. Run `npm run test:jest` after editing.
 
 ## Stack
 
-- Angular 21 standalone components with lazy home route and deferred section loading
-- SCSS design system with CSS custom properties and dark theme support
-- Angular signals for filters, typewriter state, theme state, and UI feedback
-- Angular animations for staged hero, skills, timeline, and card transitions
-- EmailJS placeholder integration for the contact form
-- Angular SSR/prerender output for static deployment to Netlify or Vercel
-- Jest, ESLint, and Prettier configuration for quality checks
+- Angular 21 standalone components, signals, zoneless change detection
+- SSR + prerender with incremental hydration (`@defer (hydrate on viewport)`) — full HTML for crawlers, lazy hydration for users
+- Self-hosted fonts via Fontsource (Plus Jakarta Sans Variable + JetBrains Mono) — no external font CDN
+- SCSS design system with CSS custom properties (see `DESIGN.md` for the full spec, `src/styles/_variables.scss` for tokens)
+- Hero scene and project covers are code-drawn (SVG/CSS) — zero raster assets to break
+- EmailJS contact form (optional; see below)
+- Jest, ESLint, Prettier
 
-## Project scripts
+## Scripts
 
 ```bash
 npm install
-npm start
-npm run build
-npm run prerender
-npm run test:jest
-npm run test
+npm start                  # dev server at http://localhost:4200
+npm run build              # production build + prerender → dist/portfolio
+npm run serve:ssr:portfolio  # serve the built SSR app at http://localhost:4000
+npm run test:jest          # Jest suites (config contract, contact form, app smoke)
 npm run lint
+npm run format
 ```
 
-## Local development
+## EmailJS setup (optional)
 
-Start the development server:
+The contact form uses EmailJS. Until configured, submissions show a friendly "not wired up yet" message and the direct email link still works.
 
-```bash
-npm start
-```
+Fill these keys in `src/environments/environment.ts` and `environment.production.ts`:
 
-The app will be available at `http://localhost:4200`.
+- `serviceId`, `templateId`, `publicKey`
 
-## EmailJS setup
+Note: these values are public by design (they ship in the browser bundle), but they will live in git history once committed.
 
-Add your EmailJS values in both files below:
+## Design system
 
-- `src/environments/environment.ts`
-- `src/environments/environment.production.ts`
+- `PRODUCT.md` — strategy: audience, positioning, brand personality, anti-references
+- `DESIGN.md` — the visual spec: palette, type ramp, elevation, components, do's & don'ts
+- `.impeccable/design.json` — machine-readable sidecar for design tooling
 
-Fill in these keys:
+The rules that matter most: one accent color (Electric Iris `#6c63ff`, under 10% of any screen), JetBrains Mono for metadata only, soft ambient shadows, 1px fog borders, refined 180ms interactions, and a reduced-motion alternative for every animation.
 
-- `serviceId`
-- `templateId`
-- `publicKey`
+## Deployment
 
-The contact form will show an inline error toast until all three values are configured.
-
-## Build and deployment
-
-Run the production build:
-
-```bash
-npm run build
-```
-
-Angular now prerenders the app during build. The generated static files live in:
-
-```bash
-dist/portfolio/browser
-```
-
-### Netlify
-
-- Build command: `npm run build`
-- Publish directory: `dist/portfolio/browser`
-
-### Vercel
-
-- Framework preset: `Other`
-- Build command: `npm run build`
-- Output directory: `dist/portfolio/browser`
-
-## Testing and quality
-
-- `npm run test:jest` runs Jest component and service tests.
-- `npm run test` runs Angular's built-in unit test pipeline.
-- `npm run lint` runs ESLint with TypeScript and Angular template checks.
-- `npm run format` formats the project with Prettier.
-
-## Lighthouse targets
-
-- Performance: 95+
-- Accessibility: 100
-- Best Practices: 95+
-- SEO: 100
-
-## Notes
-
-- Resume download buttons currently point to `public/Pushpendra_Singh_Resume.pdf`.
-- Project screenshots reuse assets from the earlier portfolio inside `public/portfolio-v3`.
-- Replace the hero initials badge with a real profile photo when available.
-- `public/sitemap.xml` ships with a placeholder production domain. Update it before deployment.
+`npm run build` prerenders the site into `dist/portfolio`. Deploy the browser output statically (Netlify/Vercel) or run the Node SSR server (`dist/portfolio/server/server.mjs`). Allowed hosts are configured in `angular.json` → `security.allowedHosts`; add your domain there if it changes.
