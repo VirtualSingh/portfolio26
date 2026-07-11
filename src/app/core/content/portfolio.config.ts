@@ -257,6 +257,8 @@ export const PORTFOLIO = {
     accentWord: 'the code.',
     description: 'Capturing moments, listening to music, and exploring new places.',
     extended: 'Interface ideas get sketched in pen first — a few ended up on this very page.',
+    /** Mono caption inside the code-drawn night-garden scene panel. */
+    sceneCaption: 'the night garden · drawn in code, no images',
     hobbies: [
       { icon: 'camera', label: 'Photography' },
       { icon: 'music', label: 'Music' },

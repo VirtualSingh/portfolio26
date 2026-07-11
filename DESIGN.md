@@ -10,6 +10,8 @@ colors:
   cloud-surface: "#f5f5f7"
   fog-border: "#e5e7eb"
   paper-white: "#ffffff"
+  scene-dusk-ink: "#232342"
+  scene-moonlight: "#dcdaff"
   error-red: "#b91c1c"
   error-surface: "#fef2f2"
   success-green: "#15803d"
@@ -147,7 +149,7 @@ A restrained single-accent palette: one electric voice against a quiet paper-and
 - **Electric Iris** (#6c63ff): The journal's ink for everything alive — links in their active state, the typewriter role line in the hero, mono annotations, active nav items, badge borders, the hero scene's foliage, and the primary button gradient. It is the color of momentum and appears only where attention should land.
 - **Iris Strong** (#5a50f0): The pressed/deep step of the accent — hover states on iris links and the value color inside journey highlight pills.
 - **Iris Mist** (#eeeeff): Electric Iris diluted to a wash. Backgrounds for active nav pills, tech badges (at 75% opacity via color-mix), highlight pills, and the hero gradient's start. Never used for text.
-- **Scene ramp** (#948dff, #8f88ff, #7b73ff, #2d2b52): Tonal steps of the iris hue reserved for the hero's code-drawn island illustration and generated project covers. Illustration-only; never interface chrome.
+- **Scene ramp** (#948dff, #8f88ff, #7b73ff, #2d2b52, #232342 Dusk Ink, #dcdaff Moonlight): Tonal steps of the iris hue reserved for the code-drawn illustrations — the hero's Ascent scene, the Beyond night garden, and generated project covers. Dusk Ink is the gradient step between Midnight Ink and #2d2b52 for night-scene backgrounds; Moonlight is the caption/text tint on those ink panels. Illustration-only; never interface chrome.
 
 ### Neutral
 - **Midnight Ink** (#1a1a2e): Headings, primary body emphasis, and the dark end of the accent gradient. A deep navy-violet black that keeps even the darkest text in the brand's hue family.
@@ -232,6 +234,9 @@ The code-drawn SVG staircase of version blocks — v8 → v14 → v17 rising lef
 
 ### Ink Marquee Ticker (signature component)
 A single slow band of Midnight Ink directly under the hero, scrolling mono craft phrases (from `PORTFOLIO.marquee.items`) separated by small iris sparks — the one place the ink of the Ascent scene bleeds into the page as a surface. Paper-white text on ink, 36s linear loop, pauses on hover, static under reduced motion. There is exactly one marquee on the site; a second would make it wallpaper.
+
+### Beyond Scene: "The Night Garden" (signature component)
+An ink dusk panel beside the Beyond copy: glowing iris flowers swaying in drawn grass, drifting fireflies, faint stars, and a dotted moon ring echoing the hero's ring — the after-hours counterpart to the Ascent's daytime altitude. Drawn entirely in SVG from the scene ramp (Dusk Ink #232342 background gradient step, Moonlight #dcdaff caption) and animated with CSS keyframes only — no canvas, no WebGL, no libraries. Sway/drift/blink all stop under reduced motion. The mono caption comes from `PORTFOLIO.beyond.sceneCaption`.
 
 ### Generated Project Covers (signature component)
 Project cards draw their own cover art: a `--cover-hue`-rotated iris gradient wash with an oversized mono monogram (AC, P3, V4). Hue rotation stays subtle (±40° around the brand hue). No stock photos, no screenshots that go stale.
