@@ -1,3 +1,9 @@
 dist
 node_modules
 .angular
+.claude
+.impeccable
+.vscode
+.github
+public
+package-lock.json

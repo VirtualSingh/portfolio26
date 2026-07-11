@@ -13,4 +13,10 @@ import { SectionHeaderComponent } from '../../shared/components/section-header/s
 })
 export class BeyondComponent {
   readonly content = PORTFOLIO.beyond;
+
+  /** Loop counters for the decorative Night Garden scene — presentation only. */
+  readonly flowers = [1, 2, 3];
+  readonly petals = [1, 2, 3, 4];
+  readonly lights = [1, 2, 3, 4, 5];
+  readonly foliage = ['left-a', 'left-b', 'mid-a', 'mid-b', 'right-a', 'right-b'];
 }

@@ -41,20 +41,20 @@
   }
 }
 
-/* ─── The Night Garden: ink dusk panel, drawn and animated entirely in code ─── */
+/* ─── The Night Garden ────────────────────────────────────────────────────────
+   Blooming flowers built the CodePen way: plain divs, organic border-radius
+   petals with 3D tilts, gradient stems, rising light motes. Sized in cqw so
+   the whole scene scales with its panel. The settled scene is the natural
+   state; the grow/bloom entrance only plays once `.is-visible` lands. */
 .beyond__scene {
   position: relative;
   margin: 0;
   border-radius: var(--radius-xl);
   overflow: hidden;
+  aspect-ratio: 6 / 5;
+  container-type: inline-size;
   background: linear-gradient(180deg, #1a1a2e 0%, #232342 100%);
   box-shadow: 0 24px 64px -32px var(--color-shadow-strong);
-
-  svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
 }
 
 .beyond__scene-caption {
@@ -62,60 +62,422 @@
   left: var(--space-5);
   bottom: var(--space-4);
   color: #dcdaff;
+  text-shadow: 0 1px 8px rgba(26, 26, 46, 0.85);
 }
 
-.garden__flower {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: garden-sway 7s ease-in-out infinite alternate;
+.garden {
+  position: absolute;
+  inset: 0;
 }
 
-.garden__flower--tall {
-  animation-duration: 8.5s;
-  animation-delay: -2s;
-}
-
-.garden__flower--late {
-  animation-duration: 6s;
-  animation-delay: -4s;
-}
-
-.garden__firefly {
-  animation:
-    garden-drift 9s ease-in-out infinite,
-    garden-blink 3.4s ease-in-out infinite;
-}
-
-.garden__firefly--slow {
-  animation-duration: 12s, 4.6s;
-  animation-delay: -3s, -1.2s;
-}
-
-.garden__firefly--late {
-  animation-duration: 10s, 5.2s;
-  animation-delay: -6s, -2.6s;
-}
-
+/* Sky */
 .garden__stars {
+  position: absolute;
+  top: 8cqw;
+  left: 14cqw;
+  width: 0.5cqw;
+  height: 0.5cqw;
+  border-radius: 50%;
+  background: #8f88ff;
+  box-shadow:
+    18cqw -2cqw 0 0.1cqw #8f88ff,
+    33cqw 8cqw 0 0 #8f88ff,
+    47cqw -4cqw 0 0.15cqw #8f88ff,
+    60cqw 10cqw 0 0 #8f88ff,
+    70cqw 26cqw 0 0.1cqw #8f88ff,
+    40cqw 22cqw 0 0 #8f88ff,
+    8cqw 24cqw 0 0 #8f88ff,
+    66cqw 34cqw 0 0.12cqw #8f88ff;
   animation: garden-blink 6s ease-in-out infinite alternate;
 }
 
-@keyframes garden-sway {
-  from {
-    transform: rotate(-1.6deg);
+/* Dashed moon ring — the same ring language as the hero's Ascent scene */
+.garden__moon {
+  position: absolute;
+  top: 7cqw;
+  right: 9cqw;
+  width: 13cqw;
+  height: 13cqw;
+  border: 2px dashed #8f88ff;
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.garden__ground {
+  position: absolute;
+  bottom: -4cqw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 96cqw;
+  height: 9cqw;
+  border-radius: 50%;
+  background: #2d2b52;
+  opacity: 0.55;
+}
+
+/* ─ Foliage: silhouetted blades on curved left borders, masked to fade out ─ */
+.garden__sprout {
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom center;
+
+  &--left-a {
+    left: 2cqw;
+    --w: 17cqw;
+    --h: 40cqw;
+    --d: 0.1s;
   }
-  to {
-    transform: rotate(1.8deg);
+
+  &--left-b {
+    left: 10cqw;
+    --w: 12cqw;
+    --h: 27cqw;
+    --base: rotate(7deg);
+    --d: 0.4s;
+    opacity: 0.75;
+  }
+
+  &--mid-a {
+    left: 23cqw;
+    --w: 7cqw;
+    --h: 14cqw;
+    --base: rotate(4deg);
+    --d: 0.75s;
+    opacity: 0.6;
+  }
+
+  &--mid-b {
+    right: 27cqw;
+    --w: 6cqw;
+    --h: 12cqw;
+    --base: rotateY(180deg) rotate(3deg);
+    --d: 0.9s;
+    opacity: 0.6;
+  }
+
+  &--right-a {
+    right: 2cqw;
+    --w: 16cqw;
+    --h: 36cqw;
+    --base: rotateY(180deg);
+    --d: 0.25s;
+  }
+
+  &--right-b {
+    right: 10cqw;
+    --w: 11cqw;
+    --h: 24cqw;
+    --base: rotateY(180deg) rotate(6deg);
+    --d: 0.55s;
+    opacity: 0.75;
   }
 }
 
-@keyframes garden-drift {
+.garden__leaf {
+  --base: rotate(0deg);
+  width: var(--w);
+  height: var(--h);
+  border-left: 1.4cqw solid #2d2b52;
+  border-top-left-radius: 100%;
+  transform: var(--base);
+  transform-origin: bottom center;
+  -webkit-mask-image: linear-gradient(to top, transparent 10%, #2d2b52 55%);
+  mask-image: linear-gradient(to top, transparent 10%, #2d2b52 55%);
+  animation: garden-leaf-sway 4.5s ease-in-out infinite;
+}
+
+/* ─ Flowers: absolute stem + head anchored at the stem tip; sized in em so
+   `--u` scales each flower as a unit ─ */
+.flower {
+  position: absolute;
+  bottom: 5cqw;
+  font-size: var(--u);
+  transform-origin: bottom center;
+
+  &--1 {
+    left: 29cqw;
+    --u: 0.85cqw;
+    --stem: 33cqw;
+    --d: 0.25s;
+    animation: garden-sway-1 4.6s ease-in-out infinite;
+  }
+
+  &--2 {
+    left: 52cqw;
+    --u: 1cqw;
+    --stem: 47cqw;
+    --d: 0s;
+    transform: rotate(5deg);
+    animation: garden-sway-2 5.4s ease-in-out infinite;
+  }
+
+  &--3 {
+    left: 71cqw;
+    --u: 0.72cqw;
+    --stem: 26cqw;
+    --d: 0.5s;
+    transform: rotate(-9deg);
+    animation: garden-sway-3 4s ease-in-out infinite;
+  }
+}
+
+.flower__line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.4em;
+  height: var(--stem);
+  border-radius: 1em;
+  background-image:
+    linear-gradient(to left, rgba(26, 26, 46, 0.35), transparent, rgba(238, 238, 255, 0.14)),
+    linear-gradient(to top, transparent 8%, #2d2b52 30%, #7b73ff);
+}
+
+.flower__stem-leaf {
+  position: absolute;
+  width: 6em;
+  height: 8em;
+  background-image: linear-gradient(to top, rgba(45, 43, 82, 0.55), #7b73ff);
+
+  &--r {
+    top: 24%;
+    left: 85%;
+    border-top-right-radius: 8em;
+    border-bottom-left-radius: 8em;
+    transform: rotate(70deg) rotateY(30deg);
+  }
+
+  &--l {
+    top: 44%;
+    right: 85%;
+    border-top-left-radius: 8em;
+    border-bottom-right-radius: 8em;
+    transform: rotate(-70deg) rotateY(30deg);
+  }
+}
+
+.flower__head {
+  position: absolute;
+  bottom: var(--stem);
+  left: 50%;
+
+  /* Ambient glow behind the bloom */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -100%);
+    width: 8em;
+    height: 8em;
+    background: #6c63ff;
+    filter: blur(7em);
+    z-index: -1;
+  }
+}
+
+.flower__petal {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 8em;
+  height: 11em;
+  border-radius: 51% 49% 47% 53% / 44% 45% 55% 69%;
+  background-image: linear-gradient(to top, #7b73ff, #dcdaff);
+  transform-origin: bottom center;
+  opacity: 0.92;
+  box-shadow: inset 0 0 2em rgba(238, 238, 255, 0.5);
+
+  &--1 {
+    transform: translate(-10%, 1%) rotateY(40deg) rotateX(-50deg);
+  }
+
+  &--2 {
+    transform: translate(-50%, -4%) rotateX(40deg);
+  }
+
+  &--3 {
+    transform: translate(-90%, 0%) rotateY(45deg) rotateX(50deg);
+  }
+
+  &--4 {
+    width: 8em;
+    height: 8em;
+    border-radius: 4em 10em 4em 4em;
+    background-image: linear-gradient(to top, #948dff, #dcdaff);
+    transform-origin: bottom left;
+    transform: translate(0, 18%) rotateX(70deg) rotate(-43deg);
+    opacity: 0.85;
+    z-index: 1;
+  }
+}
+
+.flower__center {
+  position: absolute;
+  left: -4.5em;
+  top: -3em;
+  width: 9em;
+  height: 4em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #eeeeff, #dcdaff 75%);
+  box-shadow: 0 0 1.5em rgba(238, 238, 255, 0.6);
+  z-index: 2;
+}
+
+/* Rising light motes shed by each bloom */
+.flower__light {
+  position: absolute;
+  bottom: 0;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background: #eeeeff;
+  filter: blur(0.2em);
+  animation: garden-light 4.2s linear infinite backwards;
+
+  &--1 {
+    left: -2em;
+    --fx: -2em;
+    --fy: -13em;
+    background: #6c63ff;
+    animation-delay: 1s;
+  }
+
+  &--2 {
+    left: 3em;
+    --fx: 3em;
+    --fy: -7em;
+    animation-delay: 0.4s;
+  }
+
+  &--3 {
+    left: -6em;
+    --fx: -6em;
+    --fy: -17em;
+    background: #6c63ff;
+    animation-delay: 1.8s;
+  }
+
+  &--4 {
+    left: 6em;
+    --fx: 6em;
+    --fy: -10em;
+    animation-delay: 2.7s;
+  }
+
+  &--5 {
+    left: -1em;
+    --fx: -1em;
+    --fy: -4em;
+    background: #6c63ff;
+    animation-delay: 3.4s;
+  }
+}
+
+/* ─ Entrance: stems grow, heads bloom, leaves unfurl — plays when the panel
+   scrolls into view; the settled scene is the default everywhere else ─ */
+@media (prefers-reduced-motion: no-preference) {
+  .beyond__scene.is-visible {
+    .garden__sprout {
+      animation: garden-grow-sprout 0.9s var(--d, 0s) cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+
+    .flower__line {
+      animation: garden-grow-stem 1.3s var(--d, 0s) cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+
+    .flower__head {
+      animation: garden-bloom 1.2s calc(var(--d, 0s) + 0.9s) cubic-bezier(0.22, 1, 0.36, 1)
+        backwards;
+    }
+
+    .flower__stem-leaf--r {
+      animation: garden-bloom-leaf-r 0.7s calc(var(--d, 0s) + 1.15s) cubic-bezier(0.22, 1, 0.36, 1)
+        backwards;
+    }
+
+    .flower__stem-leaf--l {
+      animation: garden-bloom-leaf-l 0.7s calc(var(--d, 0s) + 1.3s) cubic-bezier(0.22, 1, 0.36, 1)
+        backwards;
+    }
+  }
+}
+
+@keyframes garden-grow-stem {
+  from {
+    height: 0;
+  }
+}
+
+@keyframes garden-bloom {
+  from {
+    transform: scale(0);
+  }
+}
+
+@keyframes garden-bloom-leaf-r {
+  from {
+    transform-origin: left;
+    transform: rotate(70deg) rotateY(30deg) scale(0);
+  }
+}
+
+@keyframes garden-bloom-leaf-l {
+  from {
+    transform-origin: right;
+    transform: rotate(-70deg) rotateY(30deg) scale(0);
+  }
+}
+
+@keyframes garden-grow-sprout {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes garden-leaf-sway {
   0%,
   100% {
-    transform: translate(0, 0);
+    transform: var(--base);
   }
+
   50% {
-    transform: translate(8px, -11px);
+    transform: var(--base) rotate(2.4deg);
+  }
+}
+
+@keyframes garden-sway-1 {
+  0%,
+  100% {
+    transform: rotate(2deg);
+  }
+
+  50% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes garden-sway-2 {
+  0%,
+  100% {
+    transform: rotate(7deg);
+  }
+
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@keyframes garden-sway-3 {
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+
+  50% {
+    transform: rotate(-11.5deg);
   }
 }
 
@@ -124,8 +486,34 @@
   100% {
     opacity: 1;
   }
+
   50% {
-    opacity: 0.3;
+    opacity: 0.35;
+  }
+}
+
+@keyframes garden-light {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(2em, -13em);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-1.5em, -20em);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(0.5em, -27em);
   }
 }
 
@@ -136,9 +524,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .garden__flower,
-  .garden__firefly,
-  .garden__stars {
+  .garden__stars,
+  .garden__leaf,
+  .flower {
     animation: none;
+  }
+
+  /* Freeze the motes mid-drift instead of piling them at the flower centers */
+  .flower__light {
+    animation: none;
+    opacity: 0.85;
+    transform: translate(var(--fx, 0), var(--fy, -8em));
   }
 }
