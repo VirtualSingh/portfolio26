@@ -1,0 +1,49 @@
+<section class="hero" id="hero" @heroIntro>
+  <div class="hero__copy">
+    <p class="section-number hero__animate">01</p>
+    <p class="hero__greeting hero__animate">Hi, I'm</p>
+    <h1 class="hero__name hero__animate">
+      Pushpendra<br>
+      <em class="accent-word">Singh</em>
+    </h1>
+
+    <div class="hero__role hero__animate" aria-live="polite">
+      <span>{{ currentRole() }}</span>
+      <span class="hero__caret" aria-hidden="true"></span>
+    </div>
+
+    <p class="hero__tagline hero__animate">
+      Frontend Engineer crafting scalable, user-friendly and beautiful web experiences.
+    </p>
+
+    <div class="hero__actions hero__animate">
+      <button type="button" class="button-primary" (click)="scrollTo('journey')">Explore My Journey →</button>
+      <a class="button-secondary" [href]="resumeUrl" target="_blank" rel="noreferrer">View Resume</a>
+    </div>
+
+    <div class="hero__stats hero__animate">
+      <div class="hero__stat">
+        <span class="hero__stat-value">3+</span>
+        <span class="hero__stat-label">Years Exp</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-value">4+</span>
+        <span class="hero__stat-label">Projects</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-value">10+</span>
+        <span class="hero__stat-label">Commits</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__visual hero__animate" appScrollReveal [revealDelay]="200">
+    <div class="scene" role="img" aria-label="Cartoon character meditating on a floating island with trees and clouds">
+      <img class="scene__layer scene__clouds-bg" src="/assets/3d/clouds-small.png" alt="" loading="eager" />
+      <img class="scene__layer scene__island" src="/assets/3d/island-grass.png" alt="" loading="eager" />
+      <img class="scene__layer scene__trees" src="/assets/3d/trees-dark.png" alt="" loading="eager" />
+      <img class="scene__layer scene__character" src="/assets/3d/character-meditate.png" alt="" loading="eager" />
+      <img class="scene__layer scene__clouds-fg" src="/assets/3d/clouds-large.png" alt="" loading="eager" />
+    </div>
+  </div>
+</section>

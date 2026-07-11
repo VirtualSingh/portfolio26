@@ -1,0 +1,7 @@
+{
+  "files": ["src/index.html"],
+  "exclude": ["public/portfolio-v3/**"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

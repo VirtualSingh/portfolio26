@@ -1,0 +1,24 @@
+<section class="impact" id="impact" #sectionRef>
+  <div class="section-shell">
+    <div class="impact__inner">
+      <div class="impact__text">
+        <app-section-header
+          number="06"
+          titleStart="Impact that"
+          accentWord="matters."
+          description="Numbers from production work that reflect real improvements — not estimations."
+        />
+      </div>
+
+      <div class="impact__grid">
+        @for (metric of metrics; track metric.label; let i = $index) {
+          <article class="impact__card" appScrollReveal [revealDelay]="i * 80">
+            <span class="impact__icon" aria-hidden="true">{{ metric.icon }}</span>
+            <p class="impact__value">{{ metric.value }}</p>
+            <p class="impact__label">{{ metric.label }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+<section class="contact" id="contact" #sectionRef>
+  <div class="section-shell">
+    <div class="contact__inner">
+      <div class="contact__copy" appScrollReveal>
+        <app-section-header
+          number="10"
+          titleStart="Let's build something"
+          accentWord="amazing"
+          titleEnd="together."
+          description="I'm always open to new opportunities, collaborations and interesting projects. Top 10."
+        />
+
+        <div class="contact__info-list">
+          <div class="contact__info-row">
+            <span aria-hidden="true">📧</span>
+            <a href="mailto:singh16195@gmail.com">singh16195@gmail.com</a>
+          </div>
+          <div class="contact__info-row">
+            <span aria-hidden="true">📞</span>
+            <span>9310081407</span>
+          </div>
+          <div class="contact__info-row">
+            <span aria-hidden="true">📍</span>
+            <span>Thane, Maharashtra, India</span>
+          </div>
+          <div class="contact__info-row">
+            <span aria-hidden="true">🔗</span>
+            <a href="https://www.linkedin.com/in/ps-rajput" target="_blank" rel="noreferrer">linkedin.com/in/ps-rajput</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact__form" [formGroup]="form" (ngSubmit)="submit()" appScrollReveal [revealDelay]="120" novalidate>
+        <label>
+          <span>Name</span>
+          <input type="text" formControlName="name" autocomplete="name" placeholder="Your name" />
+          @if (fieldError('name'); as error) {
+            <small>{{ error }}</small>
+          }
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" formControlName="email" autocomplete="email" placeholder="your@email.com" />
+          @if (fieldError('email'); as error) {
+            <small>{{ error }}</small>
+          }
+        </label>
+
+        <label>
+          <span>Subject</span>
+          <input type="text" formControlName="subject" autocomplete="off" placeholder="What's this about?" />
+          @if (fieldError('subject'); as error) {
+            <small>{{ error }}</small>
+          }
+        </label>
+
+        <label>
+          <span>Message</span>
+          <textarea rows="5" formControlName="message" placeholder="Your message..."></textarea>
+          @if (fieldError('message'); as error) {
+            <small>{{ error }}</small>
+          }
+        </label>
+
+        <button class="button-primary contact__submit" type="submit" [disabled]="submitting()">
+          @if (submitting()) {
+            <span class="contact__spinner" aria-hidden="true"></span>
+          }
+          <span>{{ submitting() ? 'Sending...' : 'Start a Conversation →' }}</span>
+        </button>
+
+        @if (toast(); as toastState) {
+          <p class="contact__toast" [class.contact__toast--error]="toastState.type === 'error'">{{ toastState.message }}</p>
+        }
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,126 @@
+.projects {
+  padding: var(--section-padding) 0;
+}
+
+.projects__filters {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.projects__filter {
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+
+  &:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+}
+
+.projects__filter--active {
+  color: #fff;
+  border-color: transparent;
+  background: var(--gradient-accent);
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.projects__card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 64px -32px var(--color-shadow-strong);
+  }
+}
+
+.projects__media {
+  position: relative;
+  min-height: 200px;
+  background: var(--color-surface);
+}
+
+.projects__media img,
+.projects__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projects__placeholder {
+  display: grid;
+  place-content: center;
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  min-height: 200px;
+}
+
+.projects__status {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.projects__content {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+}
+
+.projects__stack,
+.projects__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.projects__links a {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 1024px) {
+  .projects__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
+}

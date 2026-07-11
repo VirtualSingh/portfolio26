@@ -1,0 +1,42 @@
+<section class="experience" id="experience" #sectionRef>
+  <div class="section-shell">
+    <app-section-header
+      number="05"
+      titleStart="Architecting for scale at"
+      accentWord="Aira Matrix."
+      description="Currently upgrading Angular 19, building a component library, and setting quality standards across the product."
+    />
+
+    <div class="experience__timeline" @timelineIn>
+      @for (item of items; track item.company + item.dateRange; let index = $index) {
+        <article class="experience__item" appScrollReveal [revealDelay]="index * 80">
+          <div class="experience__dot" aria-hidden="true"></div>
+          <div class="experience__card">
+            <div class="experience__meta">
+              <div>
+                <p class="eyebrow">{{ item.company }}</p>
+                <h3>{{ item.title }}</h3>
+              </div>
+              <div class="experience__meta-copy">
+                <p>{{ item.location }}</p>
+                <p>{{ item.dateRange }}</p>
+              </div>
+            </div>
+
+            <ul class="experience__list">
+              @for (bullet of item.bullets; track bullet) {
+                <li>{{ bullet }}</li>
+              }
+            </ul>
+
+            <div class="experience__stack">
+              @for (tech of item.stack; track tech) {
+                <app-tech-badge [label]="tech" icon="▣" tone="muted" />
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

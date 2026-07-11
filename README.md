@@ -1,59 +1,96 @@
-# Portfolio
+# Pushpendra Singh Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+Production-ready personal portfolio built with Angular standalone components, SCSS, signals, deferred section loading, dark mode, and SSR-backed prerendering.
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- Angular 21 standalone components with lazy home route and deferred section loading
+- SCSS design system with CSS custom properties and dark theme support
+- Angular signals for filters, typewriter state, theme state, and UI feedback
+- Angular animations for staged hero, skills, timeline, and card transitions
+- EmailJS placeholder integration for the contact form
+- Angular SSR/prerender output for static deployment to Netlify or Vercel
+- Jest, ESLint, and Prettier configuration for quality checks
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Project scripts
 
 ```bash
-ng generate component component-name
+npm install
+npm start
+npm run build
+npm run prerender
+npm run test:jest
+npm run test
+npm run lint
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Local development
+
+Start the development server:
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+The app will be available at `http://localhost:4200`.
 
-To build the project run:
+## EmailJS setup
+
+Add your EmailJS values in both files below:
+
+- `src/environments/environment.ts`
+- `src/environments/environment.production.ts`
+
+Fill in these keys:
+
+- `serviceId`
+- `templateId`
+- `publicKey`
+
+The contact form will show an inline error toast until all three values are configured.
+
+## Build and deployment
+
+Run the production build:
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Angular now prerenders the app during build. The generated static files live in:
 
 ```bash
-ng test
+dist/portfolio/browser
 ```
 
-## Running end-to-end tests
+### Netlify
 
-For end-to-end (e2e) testing, run:
+- Build command: `npm run build`
+- Publish directory: `dist/portfolio/browser`
 
-```bash
-ng e2e
-```
+### Vercel
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Framework preset: `Other`
+- Build command: `npm run build`
+- Output directory: `dist/portfolio/browser`
 
-## Additional Resources
+## Testing and quality
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `npm run test:jest` runs Jest component and service tests.
+- `npm run test` runs Angular's built-in unit test pipeline.
+- `npm run lint` runs ESLint with TypeScript and Angular template checks.
+- `npm run format` formats the project with Prettier.
+
+## Lighthouse targets
+
+- Performance: 95+
+- Accessibility: 100
+- Best Practices: 95+
+- SEO: 100
+
+## Notes
+
+- Resume download buttons currently point to `public/Pushpendra_Singh_Resume.pdf`.
+- Project screenshots reuse assets from the earlier portfolio inside `public/portfolio-v3`.
+- Replace the hero initials badge with a real profile photo when available.
+- `public/sitemap.xml` ships with a placeholder production domain. Update it before deployment.

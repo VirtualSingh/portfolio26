@@ -1,0 +1,27 @@
+<section class="future" id="future" #sectionRef>
+  <div class="section-shell">
+    <div class="future__inner" appScrollReveal>
+      <p class="section-number">09</p>
+      <h2 class="future__heading">
+        The journey <em class="accent-word">continues.</em>
+      </h2>
+      <p class="future__description">
+        I'm always learning, always building and excited about what's ahead. New technologies, new challenges, new routes to discover.
+      </p>
+
+      <div class="future__exploring">
+        <p class="future__exploring-label">Currently exploring</p>
+        <div class="future__tags">
+          @for (tech of exploring; track tech) {
+            <span class="future__tag">{{ tech }}</span>
+          }
+          <span class="future__tag future__tag--more">+ More to come</span>
+        </div>
+      </div>
+
+      <button type="button" class="button-primary future__cta" (click)="scrollToContact()">
+        Let's Build Something →
+      </button>
+    </div>
+  </div>
+</section>

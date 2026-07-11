@@ -42,3 +42,20 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Environment / secrets (EmailJS keys etc. — never commit real values)
+.env
+.env.*
+!.env.example
+
+# Claude Code (local machine-specific settings; skills stay tracked)
+.claude/settings.local.json
+
+# Impeccable (local state; design.json and live/config.json stay tracked)
+.impeccable/config.local.json
+.impeccable/live/sessions/
+
+# Logs
+*.log
+logs/

@@ -1,0 +1,27 @@
+<section class="beyond" id="beyond" #sectionRef>
+  <div class="section-shell">
+    <div class="beyond__inner">
+      <div appScrollReveal>
+        <app-section-header
+          number="08"
+          titleStart="Beyond"
+          accentWord="the code."
+          description="I love capturing moments, listening to music, exploring new places and sketching ideas that might become real someday."
+        />
+
+        <p class="beyond__extended">
+          When I'm not building, I'm usually reading, hiking, or scribbling UI concepts in a notebook.
+        </p>
+      </div>
+
+      <div class="beyond__hobbies" appScrollReveal [revealDelay]="120">
+        @for (item of items; track item.label) {
+          <div class="beyond__chip">
+            <span class="beyond__chip-icon" aria-hidden="true">{{ item.icon }}</span>
+            <span>{{ item.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

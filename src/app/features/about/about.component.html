@@ -1,0 +1,26 @@
+<section class="about" id="about" #sectionRef>
+  <div class="section-shell">
+    <div class="about__inner">
+      <div class="about__copy" appScrollReveal>
+        <app-section-header
+          number="02"
+          titleStart="Every journey starts with"
+          accentWord="curiosity."
+          description="I'm Pushpendra Singh — a Senior Angular Frontend Developer who started with tinkering and turned it into craft."
+        />
+        @for (paragraph of bio; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+      </div>
+
+      <div class="about__stats">
+        @for (stat of stats; track stat.label; let index = $index) {
+          <article class="about__stat-card" appScrollReveal [revealDelay]="index * 90">
+            <p class="about__stat-value">{{ displayedStats()[index] }}{{ stat.suffix }}</p>
+            <p class="about__stat-label">{{ stat.label }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

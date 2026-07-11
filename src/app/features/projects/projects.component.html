@@ -1,0 +1,66 @@
+<section class="projects" id="projects" #sectionRef>
+  <div class="section-shell">
+    <app-section-header
+      number="07"
+      titleStart="Things I've"
+      accentWord="built"
+      titleEnd="and explored."
+      description="A selection of work I'm proud of — from crypto dashboards to experimental side projects."
+    />
+
+    <div class="projects__filters" appScrollReveal>
+      @for (filter of filters; track filter) {
+        <button type="button" class="projects__filter" [class.projects__filter--active]="selectedFilter() === filter" (click)="setFilter(filter)">
+          {{ filter }}
+        </button>
+      }
+    </div>
+
+    <div class="projects__grid" @cardStagger>
+      @for (project of filteredProjects(); track trackProject($index, project)) {
+        <article class="projects__card" appScrollReveal [revealDelay]="$index * 70">
+          <div class="projects__media">
+            @if (project.imagePath) {
+              <img
+                [ngSrc]="project.imagePath"
+                width="640"
+                height="400"
+                [alt]="project.name + ' preview image'"
+              />
+            } @else {
+              <div class="projects__placeholder">
+                <p>{{ project.name }}</p>
+              </div>
+            }
+
+            @if (project.status) {
+              <span class="projects__status">{{ project.status }}</span>
+            }
+          </div>
+
+          <div class="projects__content">
+            <div>
+              <h3>{{ project.name }}</h3>
+              <p>{{ project.description }}</p>
+            </div>
+
+            <div class="projects__stack">
+              @for (tech of project.techStack; track tech) {
+                <app-tech-badge [label]="tech" icon="•" tone="muted" />
+              }
+            </div>
+
+            <div class="projects__links">
+              @if (project.live) {
+                <a [href]="project.live.url" target="_blank" rel="noreferrer" aria-label="Open live demo for {{ project.name }}">Live Demo ↗</a>
+              }
+              @if (project.repository) {
+                <a [href]="project.repository.url" target="_blank" rel="noreferrer" aria-label="Open GitHub repository for {{ project.name }}">GitHub ↗</a>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

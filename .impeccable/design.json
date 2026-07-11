@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-11T00:00:00Z",
+  "title": "Design System: Pushpendra Singh Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "electric-iris": { "role": "primary", "displayName": "Electric Iris", "canonical": "#6c63ff", "tonalRamp": ["oklch(25% 0.19 281)", "oklch(35% 0.21 281)", "oklch(45% 0.22 281)", "oklch(55% 0.21 281)", "oklch(62% 0.19 281)", "oklch(75% 0.13 281)", "oklch(87% 0.07 281)", "oklch(95% 0.03 281)"] },
+      "iris-mist": { "role": "primary", "displayName": "Iris Mist", "canonical": "#eeeeff", "tonalRamp": ["oklch(30% 0.06 281)", "oklch(45% 0.06 281)", "oklch(60% 0.06 281)", "oklch(72% 0.05 281)", "oklch(82% 0.04 281)", "oklch(89% 0.03 281)", "oklch(94% 0.02 281)", "oklch(97% 0.01 281)"] },
+      "midnight-ink": { "role": "neutral", "displayName": "Midnight Ink", "canonical": "#1a1a2e", "tonalRamp": ["oklch(15% 0.03 285)", "oklch(22% 0.03 285)", "oklch(32% 0.03 285)", "oklch(45% 0.02 285)", "oklch(58% 0.02 285)", "oklch(72% 0.015 285)", "oklch(85% 0.01 285)", "oklch(95% 0.005 285)"] },
+      "slate-muted": { "role": "neutral", "displayName": "Slate Muted", "canonical": "#6b7280", "tonalRamp": ["oklch(20% 0.02 264)", "oklch(30% 0.02 264)", "oklch(40% 0.02 264)", "oklch(51% 0.02 264)", "oklch(62% 0.02 264)", "oklch(74% 0.015 264)", "oklch(86% 0.01 264)", "oklch(95% 0.005 264)"] },
+      "cloud-surface": { "role": "neutral", "displayName": "Cloud Surface", "canonical": "#f5f5f7", "tonalRamp": ["oklch(25% 0.005 286)", "oklch(40% 0.005 286)", "oklch(55% 0.005 286)", "oklch(68% 0.004 286)", "oklch(80% 0.003 286)", "oklch(88% 0.003 286)", "oklch(94% 0.002 286)", "oklch(97% 0.002 286)"] },
+      "fog-border": { "role": "neutral", "displayName": "Fog Border", "canonical": "#e5e7eb", "tonalRamp": ["oklch(25% 0.005 264)", "oklch(40% 0.005 264)", "oklch(55% 0.005 264)", "oklch(68% 0.005 264)", "oklch(80% 0.004 264)", "oklch(88% 0.003 264)", "oklch(93% 0.003 264)", "oklch(97% 0.002 264)"] },
+      "paper-white": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff", "tonalRamp": ["oklch(20% 0 0)", "oklch(35% 0 0)", "oklch(50% 0 0)", "oklch(65% 0 0)", "oklch(78% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(100% 0 0)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero name only — the loudest moment on the page." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings (h2)." },
+      "title": { "displayName": "Title", "purpose": "Card and subsection headings (h3)." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs in Slate Muted, 1.7 line height, ~50-65ch measure." },
+      "label": { "displayName": "Label / Mono", "purpose": "Eyebrows, section numbers, badges — the journal's marginalia voice." }
+    },
+    "shadows": [
+      { "name": "card-float", "value": "0 4px 32px -8px rgba(26, 26, 46, 0.08)", "purpose": "Default ambient lift for section cards." },
+      { "name": "section-lift", "value": "0 24px 80px -48px rgba(26, 26, 46, 0.18)", "purpose": "Deeper ambient pool under large section surfaces." },
+      { "name": "iris-glow", "value": "0 18px 42px -22px rgba(108, 99, 255, 0.55)", "purpose": "Primary buttons only — accent-hued light cast by the button." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "180ms ease", "purpose": "Color, background, border, and transform state changes." },
+      { "name": "reveal", "value": "480ms ease", "purpose": "Scroll-reveal rise-and-fade (20px), staggered via --reveal-delay." }
+    ],
+    "breakpoints": [
+      { "name": "sidebar-collapse", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main CTA — pill shape, accent gradient, iris glow.",
+      "html": "<button class=\"ds-btn-primary\">Download Resume</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 9999px; border: 1px solid transparent; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; font-weight: 700; font-size: 1rem; background: linear-gradient(135deg, #6c63ff 0%, #1a1a2e 100%); color: #fff; box-shadow: 0 18px 42px -22px rgba(108, 99, 255, 0.55); transition: transform 180ms ease, box-shadow 180ms ease; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 3px solid rgba(108, 99, 255, 0.35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet fallback action — white pill with fog border.",
+      "html": "<button class=\"ds-btn-secondary\">Get in Touch</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 9999px; border: 1px solid #e5e7eb; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; font-weight: 700; font-size: 1rem; background: #ffffff; color: #1a1a2e; transition: transform 180ms ease, border-color 180ms ease; } .ds-btn-secondary:hover, .ds-btn-secondary:focus-visible { transform: translateY(-2px); } .ds-btn-secondary:focus-visible { outline: 3px solid rgba(108, 99, 255, 0.35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tech Badge",
+      "kind": "chip",
+      "refersTo": "tech-badge",
+      "description": "Mono-voiced technology chip with iris-tinted fill.",
+      "html": "<span class=\"ds-badge\"><span aria-hidden=\"true\">•</span><span>Angular 21</span></span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 16px; border: 1px solid rgba(108, 99, 255, 0.28); border-radius: 9999px; background: rgba(238, 238, 255, 0.75); color: #1a1a2e; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 0.84rem; white-space: nowrap; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sidebar link — slate at rest, iris-on-mist when active.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#\">About</a><a class=\"ds-nav-link ds-nav-link--active\" href=\"#\">Projects</a><a class=\"ds-nav-link\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 4px; width: 168px; } .ds-nav-link { display: block; padding: 10px 12px; border-radius: 8px; color: #6b7280; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; font-size: 0.95rem; text-decoration: none; transition: color 180ms ease, background 180ms ease; } .ds-nav-link:hover { color: #1a1a2e; background: #f5f5f7; } .ds-nav-link--active { color: #6c63ff; background: #eeeeff; font-weight: 700; }"
+    },
+    {
+      "name": "Section Card",
+      "kind": "card",
+      "refersTo": "section-card",
+      "description": "The journal page — white surface, fog hairline, ambient float.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card-eyebrow\">Projects</span><h3 class=\"ds-card-title\">AutoCrypto v3</h3><p class=\"ds-card-body\">Real-time cryptocurrency dashboard with live price charts and RxJS data streams.</p></div>",
+      "css": ".ds-card { max-width: 360px; padding: 32px; border: 1px solid #e5e7eb; border-radius: 24px; background: #ffffff; box-shadow: 0 4px 32px -8px rgba(26, 26, 46, 0.08); font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; } .ds-card-eyebrow { display: inline-block; margin-bottom: 12px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #6c63ff; } .ds-card-title { margin: 0 0 8px; font-size: 1.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: #1a1a2e; } .ds-card-body { margin: 0; font-size: 1rem; line-height: 1.7; color: #6b7280; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Contact-form field following the fog-border and iris-focus conventions.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Your name\" />",
+      "css": ".ds-input { width: 280px; min-height: 48px; padding: 0 16px; border: 1px solid #e5e7eb; border-radius: 12px; background: #ffffff; color: #1a1a2e; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; font-size: 1rem; transition: border-color 180ms ease; } .ds-input::placeholder { color: #6b7280; } .ds-input:focus-visible { outline: 3px solid rgba(108, 99, 255, 0.35); outline-offset: 3px; border-color: #6c63ff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Builder's Journal",
+    "overview": "A personal record of a career under construction — the story of what was built and who built it. The system reads like a well-kept engineer's journal: clean white pages, one electric ink color reserved for what matters, monospace annotations in the margins, and generous whitespace that lets each chapter of the journey breathe. Energy and ambition come from the typography and the pacing of sections, never from visual noise.",
+    "keyCharacteristics": [
+      "One accent color (Electric Iris) on white paper; everything else is ink, slate, and fog",
+      "Heavy, tightly-tracked display type against calm 1.7-line-height body prose",
+      "Pill-shaped interactive elements; large 24px+ radii on section surfaces",
+      "Monospace used as an annotation voice (eyebrows, section numbers, badges)",
+      "Ambient, low-opacity shadows that float surfaces rather than rank them",
+      "Refined, restrained interactions: small lifts, 180ms eases, nothing bouncy"
+    ],
+    "rules": [
+      { "name": "The One Ink Rule", "body": "Electric Iris is the only saturated color in the system and covers well under 10% of any screen. If a second accent seems needed, the answer is weight, size, or whitespace — not a new color.", "section": "colors" },
+      { "name": "The Gradient Exception", "body": "The only gradients permitted are the two committed ones: the accent gradient (135deg, Electric Iris → Midnight Ink) on primary buttons, and the hero wash (Iris Mist → Cloud Surface). No new gradients.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Jakarta Sans carries meaning; JetBrains Mono carries metadata. Never set a heading in mono, never set an annotation in the display face.", "section": "typography" },
+      { "name": "The Accent Word Rule", "body": "Inside a heading, a single word may take Electric Iris with italic 800 weight — one word, not a phrase, and not in every heading.", "section": "typography" },
+      { "name": "The Soft Air Rule", "body": "Every shadow is large-blur, negative-spread, and low-opacity. Tight, dark, small-blur shadows are forbidden; if an element looks like a 2014 material card, the blur is too small and the opacity too high.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Electric Iris (#6c63ff) under 10% of any viewport; it must always be the rarest color on screen.",
+      "Do use JetBrains Mono for all metadata voice — eyebrows, section numbers, badges — at 0.78–0.84rem.",
+      "Do keep every border 1px Fog Border (#e5e7eb) and every shadow soft, large-blur, low-opacity.",
+      "Do give every animation its reduced-motion alternative; the global kill-switch in global.scss must survive refactors.",
+      "Do keep hover feedback at the refined register: -2px lifts, 180ms eases, color shifts — nothing springy or elastic.",
+      "Do keep body prose in Slate Muted at 1rem+ on white only; on any tinted surface, step up to Midnight Ink."
+    ],
+    "donts": [
+      "Don't build anything resembling a generic template/theme portfolio: stock card grids of identical icon-heading-text tiles are prohibited.",
+      "Don't add flashy 3D/WebGL showcase effects that bury content — spectacle never outranks the story.",
+      "Don't drift into corporate resume-site dryness: every section keeps a personal, first-person voice.",
+      "Don't add badge walls, skill percentage bars, or star ratings — the cluttered everything-site is a named anti-reference.",
+      "Don't introduce new gradients, new saturated colors, or gradient text (background-clip: text is forbidden).",
+      "Don't use side-stripe borders (border-left/right > 1px as a colored accent) on cards, callouts, or list items.",
+      "Don't ship dark-theme UI until real [data-theme='dark'] token overrides exist; the toggle without the tokens is a broken promise."
+    ]
+  }
+}

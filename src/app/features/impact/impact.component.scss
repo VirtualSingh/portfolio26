@@ -1,0 +1,65 @@
+.impact {
+  padding: var(--section-padding) 0;
+  background: var(--color-surface);
+}
+
+.impact__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.impact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.impact__card {
+  padding: var(--space-6);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  display: grid;
+  gap: var(--space-2);
+  box-shadow: 0 2px 16px -4px var(--color-shadow);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px -8px var(--color-shadow-strong);
+  }
+}
+
+.impact__icon {
+  font-size: 1.5rem;
+}
+
+.impact__value {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+}
+
+.impact__label {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .impact__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .impact__grid {
+    grid-template-columns: 1fr;
+  }
+}

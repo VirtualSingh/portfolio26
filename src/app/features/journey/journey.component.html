@@ -1,0 +1,37 @@
+<section class="journey" id="journey" #sectionRef>
+  <div class="section-shell">
+    <app-section-header
+      number="04"
+      titleStart="Turning curiosity into"
+      accentWord="career."
+      description="From building my first webpage to architecting scalable component systems — every role shaped who I am as an engineer."
+    />
+
+    <div class="journey__timeline">
+      @for (item of items; track item.company; let i = $index) {
+        <article class="journey__item" appScrollReveal [revealDelay]="i * 100">
+          <div class="journey__dot" aria-hidden="true"></div>
+          <div class="journey__content">
+            <div class="journey__meta">
+              <span class="journey__date">{{ item.dateRange }}</span>
+              <span class="journey__location">{{ item.location }}</span>
+            </div>
+            <h3 class="journey__title">
+              {{ item.title }} <span class="journey__company accent-word">@ {{ item.company }}</span>
+            </h3>
+            <ul class="journey__bullets">
+              @for (bullet of item.bullets; track bullet) {
+                <li>{{ bullet }}</li>
+              }
+            </ul>
+            <div class="journey__stack">
+              @for (tech of item.stack; track tech) {
+                <app-tech-badge [label]="tech" />
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

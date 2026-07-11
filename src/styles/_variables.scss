@@ -1,0 +1,36 @@
+:root {
+  --color-primary: #6c63ff;
+  --color-primary-light: #eeeeff;
+  --color-text-main: #1a1a2e;
+  --color-text-muted: #6b7280;
+  --color-surface: #f5f5f7;
+  --color-border: #e5e7eb;
+  --color-bg: #ffffff;
+  --color-shadow: rgba(26, 26, 46, 0.08);
+  --color-shadow-strong: rgba(26, 26, 46, 0.18);
+  --gradient-hero: linear-gradient(135deg, #eeeeff 0%, #f5f5f7 100%);
+  --gradient-accent: linear-gradient(135deg, #6c63ff 0%, #1a1a2e 100%);
+  --gradient-card: linear-gradient(180deg, rgba(108, 99, 255, 0.06), rgba(26, 26, 46, 0.02));
+  --pattern-grid: none;
+  --font-sans: 'Plus Jakarta Sans', 'DM Sans', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+  --max-width: 1100px;
+  --sidebar-width: 200px;
+  --topbar-height: 64px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --section-padding: clamp(72px, 10vw, 120px);
+  color-scheme: light;
+}
