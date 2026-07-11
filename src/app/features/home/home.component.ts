@@ -23,11 +23,13 @@ import { SkillsComponent } from '../skills/skills.component';
     FooterComponent,
   ],
   template: `
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <div class="app-container">
       <app-nav />
 
       <div class="main-content">
-        <main>
+        <main id="main">
           <app-hero />
 
           @defer (hydrate on viewport) {

@@ -109,17 +109,42 @@ svg {
   transform: translateY(-2px);
 }
 
+/* Content is visible by default; the directive arms the hidden pre-state only for
+   below-fold elements right before observing, so no environment can ship blank sections. */
 .scroll-reveal {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
   transition:
     opacity 480ms ease var(--reveal-delay, 0ms),
     transform 480ms var(--ease-out) var(--reveal-delay, 0ms);
 }
 
-.scroll-reveal.is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+.scroll-reveal--armed:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+}
+
+@media print {
+  .scroll-reveal--armed:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 60;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-text-main);
+  color: var(--color-bg);
+  font-weight: 700;
+  font-size: 0.875rem;
+  transform: translateY(-200%);
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
 }
 
 .visually-hidden {
@@ -156,7 +181,8 @@ svg {
     scroll-behavior: auto !important;
   }
 
-  .scroll-reveal {
+  .scroll-reveal,
+  .scroll-reveal--armed:not(.is-visible) {
     opacity: 1;
     transform: none;
   }

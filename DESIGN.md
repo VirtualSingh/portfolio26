@@ -227,8 +227,8 @@ Depth in this system is ambient lift: surfaces float gently on soft, large-blur,
 - **Links:** 8px-radius soft pills; Slate Muted at rest, Midnight Ink on Cloud Surface when hovered, Electric Iris on Iris Mist when active, with a small iris dot marking the active section. 180ms color/background ease.
 - **Resume:** A pinned outline pill (iris text, iris-tinted border) at the sidebar's bottom and in the mobile top bar — the primary conversion is always one click away.
 
-### Hero Scene (signature component)
-The code-drawn SVG floating island: a meditating figure on an iris-toned island with abstract trees, soft white clouds, and a dotted orbit ring, floating on layered `float-slow`/`float-medium` loops. Drawn entirely from the brand palette and the iris scene ramp — no raster assets, nothing to 404. Reduced motion freezes every layer.
+### Hero Scene: "The Ascent" (signature component)
+The code-drawn SVG staircase of version blocks — v8 → v14 → v17 rising left to right, a builder figure on the top step reaching toward the floating iris v19 block above its dash-outlined landing slot, sparks around it, clouds below (we are at altitude). It is his actual migration ladder drawn as a scene: energy and ascent, not decoration. Drawn entirely from the brand palette and the iris scene ramp — no raster assets, nothing to 404. Reduced motion freezes every layer. The block labels come from `PORTFOLIO.identity.ascent`.
 
 ### Generated Project Covers (signature component)
 Project cards draw their own cover art: a `--cover-hue`-rotated iris gradient wash with an oversized mono monogram (AC, P3, V4). Hue rotation stays subtle (±40° around the brand hue). No stock photos, no screenshots that go stale.

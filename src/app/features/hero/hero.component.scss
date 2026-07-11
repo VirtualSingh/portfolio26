@@ -19,7 +19,7 @@
   animation: rise-in 500ms var(--ease-out) both;
 }
 
-@for $i from 1 through 7 {
+@for $i from 1 through 8 {
   .hero__animate:nth-child(#{$i}) {
     animation-delay: #{($i - 1) * 90}ms;
   }
@@ -46,20 +46,9 @@
 }
 
 .hero__role {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 40px;
-  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
-  color: var(--color-primary);
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: var(--color-primary-strong);
   font-weight: 700;
-}
-
-.hero__caret {
-  width: 2px;
-  height: 1.2em;
-  background: currentColor;
-  animation: blink 1s step-end infinite;
 }
 
 .hero__tagline {
@@ -85,7 +74,7 @@
   overflow-wrap: break-word;
 }
 
-/* ─── Scene ─── */
+/* ─── The Ascent scene ─── */
 .hero__visual {
   display: grid;
   place-items: center;
@@ -97,34 +86,21 @@
   height: auto;
 }
 
-.scene__clouds-back {
+.scene__clouds {
   animation: drift-left 20s ease-in-out infinite;
 }
 
-.scene__island {
-  animation: float-slow 8s ease-in-out infinite;
+.scene__ascent {
+  animation: float-slow 9s ease-in-out infinite;
   transform-origin: center;
 }
 
-.scene__rock--a {
-  animation: float-medium 6s ease-in-out infinite;
-  animation-delay: -1.2s;
+.scene__block-next {
+  animation: float-medium 4.5s ease-in-out infinite;
 }
 
-.scene__rock--b {
-  animation: float-medium 7s ease-in-out infinite;
-  animation-delay: -3s;
-}
-
-.scene__character {
-  animation: float-medium 6s ease-in-out infinite;
-  animation-delay: -0.8s;
-}
-
-.scene__pulse {
-  animation: pulse-ring 4s var(--ease-out) infinite;
-  transform-origin: 308px 238px;
-  opacity: 0.35;
+.scene__slot {
+  opacity: 0.7;
 }
 
 .scene__spark--a {
@@ -137,9 +113,14 @@
   animation-delay: -1s;
 }
 
-.scene__clouds-front {
-  animation: float-medium 6s ease-in-out infinite;
-  animation-delay: -2s;
+.scene__spark--c {
+  animation: float-medium 5.5s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.scene__lift {
+  animation: float-medium 3.5s ease-in-out infinite;
+  animation-delay: -0.6s;
 }
 
 /* ─── Responsive ─── */
@@ -172,24 +153,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__animate {
-    animation: none;
-  }
-
-  .scene__clouds-back,
-  .scene__island,
-  .scene__rock--a,
-  .scene__rock--b,
-  .scene__character,
+  .hero__animate,
+  .scene__clouds,
+  .scene__ascent,
+  .scene__block-next,
   .scene__spark--a,
   .scene__spark--b,
-  .scene__clouds-front,
-  .scene__pulse,
-  .hero__caret {
+  .scene__spark--c,
+  .scene__lift {
     animation: none;
-  }
-
-  .scene__pulse {
-    opacity: 0;
   }
 }

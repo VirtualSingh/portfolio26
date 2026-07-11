@@ -65,9 +65,11 @@ export const PORTFOLIO = {
     firstName: 'Pushpendra',
     lastName: 'Singh',
     greeting: "Hi, I'm",
-    roles: ['Angular Engineer', 'Frontend Engineer', 'UI Systems Builder'],
+    role: 'Frontend engineer · builder of UI systems',
     tagline:
-      'Four years deep in Angular — v8 through v19 — building micro-frontends, component libraries, and interfaces people actually enjoy using.',
+      "It started with one HTML file in a college lab. Four years later I lead Angular migrations and build component libraries for teams I've never met — and every screen still gets the care of that first page.",
+    /** The version blocks drawn in the hero's Ascent scene — the real migration ladder. */
+    ascent: ['v8', 'v14', 'v17', 'v19'],
     /** The quiet mono proof line under the hero CTAs. Keep it to real, checkable facts. */
     proofLine: 'Angular v8→v19 migrations · micro-frontends · 40% regression-testing time cut',
     resume: {
@@ -235,7 +237,6 @@ export const PORTFOLIO = {
         techStack: ['Angular 21', 'SSR', 'SCSS', 'Jest'],
         monogram: 'V4',
         coverHue: 340,
-        repository: { label: 'GitHub', url: 'https://github.com/virtualsingh' },
         status: 'You are here',
       },
     ] as readonly ProjectItem[],
@@ -244,9 +245,9 @@ export const PORTFOLIO = {
   beyond: {
     titleStart: 'Beyond',
     accentWord: 'the code.',
-    description:
-      'I love capturing moments, listening to music, exploring new places, and sketching UI ideas that might become real someday.',
-    extended: "When I'm not building, I'm usually reading, hiking, or scribbling interface concepts in a notebook.",
+    description: 'Capturing moments, listening to music, and exploring new places.',
+    extended:
+      'The notebook habit is the real one — interface ideas get sketched in pen first, and a few of them ended up on this very page.',
     hobbies: [
       { icon: 'camera', label: 'Photography' },
       { icon: 'music', label: 'Music' },

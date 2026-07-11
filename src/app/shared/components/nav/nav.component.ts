@@ -4,6 +4,9 @@ import { ScrollService } from '../../../core/services/scroll.service';
 
 @Component({
   selector: 'app-nav',
+  host: {
+    '(document:keydown.escape)': 'closeMenu()',
+  },
   template: `
     <!-- Desktop: fixed left sidebar -->
     <aside class="sidebar" [class.sidebar--open]="menuOpen()">
@@ -168,7 +171,7 @@ import { ScrollService } from '../../../core/services/scroll.service';
     }
 
     .sidebar__link--active {
-      color: var(--color-primary);
+      color: var(--color-primary-strong);
       background: var(--color-primary-light);
       font-weight: 700;
     }
@@ -199,7 +202,7 @@ import { ScrollService } from '../../../core/services/scroll.service';
       margin-top: var(--space-4);
       border: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
       border-radius: var(--radius-pill);
-      color: var(--color-primary);
+      color: var(--color-primary-strong);
       font-size: 0.875rem;
       font-weight: 700;
       transition: background 180ms ease, transform 180ms var(--ease-out);
@@ -255,11 +258,11 @@ import { ScrollService } from '../../../core/services/scroll.service';
     .topbar__resume {
       display: inline-flex;
       align-items: center;
-      min-height: 40px;
+      min-height: 44px;
       padding: 0 var(--space-4);
       border: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
       border-radius: var(--radius-pill);
-      color: var(--color-primary);
+      color: var(--color-primary-strong);
       font-size: 0.875rem;
       font-weight: 700;
     }
@@ -269,8 +272,8 @@ import { ScrollService } from '../../../core/services/scroll.service';
       border-radius: var(--radius-sm);
       background: var(--color-bg);
       color: var(--color-text-main);
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -339,5 +342,9 @@ export class NavComponent {
   handleNavClick(id: string): void {
     this.menuOpen.set(false);
     this.goTo(id);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
   }
 }

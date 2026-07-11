@@ -48,7 +48,8 @@ describe('PORTFOLIO config', () => {
   });
 
   it('hero content is complete', () => {
-    expect(PORTFOLIO.identity.roles.length).toBeGreaterThan(0);
+    expect(PORTFOLIO.identity.role.length).toBeGreaterThan(0);
+    expect(PORTFOLIO.identity.ascent.length).toBe(4);
     expect(PORTFOLIO.identity.tagline.length).toBeGreaterThan(0);
     expect(PORTFOLIO.identity.proofLine.length).toBeGreaterThan(0);
   });
