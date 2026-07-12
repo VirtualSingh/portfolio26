@@ -1,17 +1,51 @@
 .hero {
+  position: relative;
+  overflow: hidden;
   min-height: 100dvh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
   align-items: center;
-  gap: clamp(40px, 6vw, 80px);
   padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 72px);
-  background: radial-gradient(ellipse 90% 70% at 75% 40%, rgba(238, 238, 255, 0.55), transparent 70%);
+  background: radial-gradient(
+    ellipse 90% 70% at 75% 40%,
+    rgba(238, 238, 255, 0.55),
+    transparent 70%
+  );
+}
+
+/* ─── The Singularity: deep-space window feathered into the paper ───
+   A dark nebula wash gives the additive WebGL disk something to glow
+   against; the mask melts every edge so the scene reads as ambient
+   background, never a hard-edged panel. */
+.hero__space {
+  position: absolute;
+  inset: 0 -8% 0 auto;
+  width: 70%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 54% at 58% 46%,
+    #0a0918 0%,
+    #131034 38%,
+    rgba(26, 26, 46, 0.55) 58%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(ellipse 70% 68% at 58% 47%, #000 42%, transparent 70%);
+  animation: hero-space-in 1400ms var(--ease-out) 200ms both;
+}
+
+@keyframes hero-space-in {
+  from {
+    opacity: 0;
+  }
 }
 
 .hero__copy {
+  position: relative;
+  z-index: 1;
   display: grid;
   align-content: center;
   gap: var(--space-5);
+  max-width: 640px;
 }
 
 /* Staggered entrance, pure CSS. Fill-mode both keeps elements hidden until their delay. */
@@ -23,10 +57,6 @@
   .hero__animate:nth-child(#{$i}) {
     animation-delay: #{($i - 1) * 90}ms;
   }
-}
-
-.hero__visual.hero__animate {
-  animation-delay: 250ms;
 }
 
 .hero__greeting {
@@ -74,65 +104,19 @@
   overflow-wrap: break-word;
 }
 
-/* ─── The Ascent scene ─── */
-.hero__visual {
-  display: grid;
-  place-items: center;
-}
-
-.scene {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-}
-
-.scene__clouds {
-  animation: drift-left 20s ease-in-out infinite;
-}
-
-.scene__ascent {
-  animation: float-slow 9s ease-in-out infinite;
-  transform-origin: center;
-}
-
-.scene__block-next {
-  animation: float-medium 4.5s ease-in-out infinite;
-}
-
-.scene__slot {
-  opacity: 0.7;
-}
-
-.scene__spark--a {
-  animation: float-medium 5s ease-in-out infinite;
-  animation-delay: -2.2s;
-}
-
-.scene__spark--b {
-  animation: float-medium 4.5s ease-in-out infinite;
-  animation-delay: -1s;
-}
-
-.scene__spark--c {
-  animation: float-medium 5.5s ease-in-out infinite;
-  animation-delay: -3s;
-}
-
-.scene__lift {
-  animation: float-medium 3.5s ease-in-out infinite;
-  animation-delay: -0.6s;
-}
-
 /* ─── Responsive ─── */
 @media (max-width: 1024px) {
   .hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
+    min-height: 100dvh;
     padding-top: calc(var(--topbar-height) + clamp(32px, 6vh, 60px));
   }
 
-  .scene {
-    max-width: 340px;
+  /* The scene tucks into the bottom-right corner so the copy stays on paper */
+  .hero__space {
+    inset: auto -28% -12% auto;
+    width: 115%;
+    height: 62%;
+    opacity: 0.65;
   }
 }
 
@@ -147,20 +131,17 @@
     width: 100%;
   }
 
-  .scene {
-    max-width: 280px;
+  .hero__space {
+    inset: auto -45% -16% auto;
+    width: 160%;
+    height: 52%;
+    opacity: 0.5;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__animate,
-  .scene__clouds,
-  .scene__ascent,
-  .scene__block-next,
-  .scene__spark--a,
-  .scene__spark--b,
-  .scene__spark--c,
-  .scene__lift {
+  .hero__space {
     animation: none;
   }
 }

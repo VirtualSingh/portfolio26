@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { PORTFOLIO } from '../../core/content/portfolio.config';
 import { ScrollService } from '../../core/services/scroll.service';
 import { SectionAnchorDirective } from '../../shared/components/section-anchor/section-anchor.directive';
+import { BlackHoleComponent } from './black-hole/black-hole.component';
 
 @Component({
   selector: 'app-hero',
-  imports: [SectionAnchorDirective],
+  imports: [SectionAnchorDirective, BlackHoleComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

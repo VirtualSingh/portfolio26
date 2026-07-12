@@ -1,0 +1,145 @@
+<svg
+  class="scene"
+  viewBox="0 0 520 520"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <!-- backdrop -->
+  <circle cx="260" cy="252" r="212" fill="#eeeeff" />
+  <circle cx="260" cy="252" r="238" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="2 10" />
+
+  <!-- clouds below: we are at altitude -->
+  <g class="scene__clouds">
+    <g opacity="0.95">
+      <ellipse cx="120" cy="430" rx="46" ry="17" fill="#ffffff" />
+      <ellipse cx="154" cy="420" rx="28" ry="13" fill="#ffffff" />
+    </g>
+    <g opacity="0.9">
+      <ellipse cx="420" cy="392" rx="36" ry="14" fill="#ffffff" />
+      <ellipse cx="446" cy="384" rx="20" ry="10" fill="#ffffff" />
+    </g>
+    <g opacity="0.85">
+      <ellipse cx="300" cy="466" rx="30" ry="11" fill="#ffffff" />
+    </g>
+  </g>
+
+  <ellipse class="scene__shadow" cx="268" cy="452" rx="150" ry="14" fill="#1a1a2e" opacity="0.08" />
+
+  <g class="scene__ascent">
+    <!-- built steps: v8 → v14 → v17 -->
+    <g>
+      <path d="M110 340 L128 326 L204 326 L186 340 Z" fill="#413e70" />
+      <rect x="110" y="340" width="76" height="96" rx="4" fill="#2d2b52" />
+      <text
+        x="148"
+        y="394"
+        text-anchor="middle"
+        font-family="JetBrains Mono, monospace"
+        font-size="16"
+        fill="#948dff"
+      >
+        {{ ascent[0] }}
+      </text>
+    </g>
+    <g>
+      <path d="M190 292 L208 278 L284 278 L266 292 Z" fill="#302e5e" />
+      <rect x="190" y="292" width="76" height="144" rx="4" fill="#1a1a2e" />
+      <text
+        x="228"
+        y="370"
+        text-anchor="middle"
+        font-family="JetBrains Mono, monospace"
+        font-size="16"
+        fill="#948dff"
+      >
+        {{ ascent[1] }}
+      </text>
+    </g>
+    <g>
+      <path d="M270 244 L288 230 L364 230 L346 244 Z" fill="#413e70" />
+      <rect x="270" y="244" width="76" height="192" rx="4" fill="#2d2b52" />
+      <text
+        x="308"
+        y="346"
+        text-anchor="middle"
+        font-family="JetBrains Mono, monospace"
+        font-size="16"
+        fill="#948dff"
+      >
+        {{ ascent[2] }}
+      </text>
+    </g>
+
+    <!-- landing slot for the next block -->
+    <path
+      class="scene__slot"
+      d="M350 196 L368 182 L444 182 L426 196 L350 196 Z M350 196 L350 436 M426 196 L426 436"
+      stroke="#8f88ff"
+      stroke-width="1.5"
+      stroke-dasharray="4 7"
+    />
+
+    <!-- the builder, mid-placement on the v17 step -->
+    <g class="scene__builder">
+      <path d="M296 244 C 294 224 299 215 310 213 C 321 215 326 224 324 244 Z" fill="#1a1a2e" />
+      <path d="M314 219 L346 197" stroke="#1a1a2e" stroke-width="7" stroke-linecap="round" />
+      <path d="M307 222 L336 208" stroke="#1a1a2e" stroke-width="7" stroke-linecap="round" />
+      <circle cx="309" cy="201" r="12.5" fill="#1a1a2e" />
+    </g>
+
+    <!-- the next block: v19, still in the air -->
+    <g class="scene__block-next">
+      <circle cx="388" cy="132" r="54" fill="#ffffff" opacity="0.6" />
+      <path d="M350 118 L368 104 L444 104 L426 118 Z" fill="#8f88ff" />
+      <rect x="350" y="118" width="76" height="56" rx="4" fill="#6c63ff" />
+      <text
+        x="388"
+        y="152"
+        text-anchor="middle"
+        font-family="JetBrains Mono, monospace"
+        font-size="16"
+        fill="#eeeeff"
+      >
+        {{ ascent[3] }}
+      </text>
+      <rect
+        class="scene__spark scene__spark--a"
+        x="322"
+        y="92"
+        width="9"
+        height="9"
+        rx="2"
+        fill="#6c63ff"
+        transform="rotate(45 326.5 96.5)"
+      />
+      <rect
+        class="scene__spark scene__spark--b"
+        x="446"
+        y="140"
+        width="7"
+        height="7"
+        rx="2"
+        fill="#8f88ff"
+        transform="rotate(45 449.5 143.5)"
+      />
+      <rect
+        class="scene__spark scene__spark--c"
+        x="368"
+        y="66"
+        width="6"
+        height="6"
+        rx="2"
+        fill="#948dff"
+        transform="rotate(45 371 69)"
+      />
+    </g>
+
+    <!-- upward motion dashes -->
+    <g class="scene__lift" stroke="#8f88ff" stroke-width="3" stroke-linecap="round" opacity="0.65">
+      <path d="M466 210 v-26" />
+      <path d="M482 246 v-18" />
+      <path d="M452 168 v-14" />
+    </g>
+  </g>
+</svg>

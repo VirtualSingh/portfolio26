@@ -4,9 +4,14 @@
 
 .about__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 1fr);
+  grid-template-columns: minmax(280px, 1fr) minmax(0, 1.35fr);
   gap: clamp(40px, 6vw, 80px);
-  align-items: start;
+  align-items: center;
+}
+
+/* The Ascent scene, relocated from the hero to anchor the story it tells */
+.about__visual {
+  align-self: center;
 }
 
 .about__copy {
@@ -26,6 +31,7 @@
 .about__facts {
   display: grid;
   gap: var(--space-4);
+  margin-top: var(--space-4);
   padding: var(--space-6);
   border: 1px solid color-mix(in srgb, var(--color-primary) 15%, var(--color-border));
   border-radius: var(--radius-xl);
@@ -52,5 +58,12 @@
 @media (max-width: 860px) {
   .about__inner {
     grid-template-columns: 1fr;
+  }
+
+  /* Stacked: story first, illustration after */
+  .about__visual {
+    order: 2;
+    max-width: 360px;
+    margin-inline: auto;
   }
 }

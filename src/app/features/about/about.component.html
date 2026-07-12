@@ -1,24 +1,26 @@
 <section class="about section-block" id="about" [appSectionAnchor]="'about'">
   <div class="section-shell">
     <div class="about__inner">
-      <div class="about__copy" appScrollReveal>
-        <app-section-header
-          [titleStart]="content.titleStart"
-          [accentWord]="content.accentWord"
-        />
+      <div class="about__visual" appScrollReveal aria-hidden="true">
+        <!-- The Ascent: his actual Angular migration ladder, one block still being placed. -->
+        <app-ascent-scene />
+      </div>
+
+      <div class="about__copy" appScrollReveal [revealDelay]="120">
+        <app-section-header [titleStart]="content.titleStart" [accentWord]="content.accentWord" />
         @for (paragraph of content.paragraphs; track paragraph) {
           <p class="about__paragraph">{{ paragraph }}</p>
         }
-      </div>
 
-      <aside class="about__facts" appScrollReveal [revealDelay]="120">
-        <p class="about__facts-label mono-label">For the record</p>
-        <ul class="about__facts-list">
-          @for (fact of content.facts; track fact) {
-            <li>{{ fact }}</li>
-          }
-        </ul>
-      </aside>
+        <aside class="about__facts">
+          <p class="about__facts-label mono-label">For the record</p>
+          <ul class="about__facts-list">
+            @for (fact of content.facts; track fact) {
+              <li>{{ fact }}</li>
+            }
+          </ul>
+        </aside>
+      </div>
     </div>
   </div>
 </section>

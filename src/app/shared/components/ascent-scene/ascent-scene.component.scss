@@ -1,0 +1,59 @@
+:host {
+  display: grid;
+  place-items: center;
+}
+
+.scene {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.scene__clouds {
+  animation: drift-left 20s ease-in-out infinite;
+}
+
+.scene__ascent {
+  animation: float-slow 9s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.scene__block-next {
+  animation: float-medium 4.5s ease-in-out infinite;
+}
+
+.scene__slot {
+  opacity: 0.7;
+}
+
+.scene__spark--a {
+  animation: float-medium 5s ease-in-out infinite;
+  animation-delay: -2.2s;
+}
+
+.scene__spark--b {
+  animation: float-medium 4.5s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+.scene__spark--c {
+  animation: float-medium 5.5s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.scene__lift {
+  animation: float-medium 3.5s ease-in-out infinite;
+  animation-delay: -0.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene__clouds,
+  .scene__ascent,
+  .scene__block-next,
+  .scene__spark--a,
+  .scene__spark--b,
+  .scene__spark--c,
+  .scene__lift {
+    animation: none;
+  }
+}

@@ -27,6 +27,7 @@
     "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "rxjs": "~7.8.0",
+    "three": "^0.185.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.17.19",
+    "@types/three": "^0.185.1",
     "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",
     "jest": "^30.4.2",
