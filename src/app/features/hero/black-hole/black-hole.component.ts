@@ -67,7 +67,7 @@ export class BlackHoleComponent {
 
     const scene = createBlackHoleScene(this.canvasRef().nativeElement, {
       tiltDeg: this.tiltDeg(),
-      instanceCount: small ? 2600 : 4500,
+      instanceCount: small ? 2000 : 3600,
       maxPixelRatio: small ? 1.5 : 2,
     });
     this.scene = scene;

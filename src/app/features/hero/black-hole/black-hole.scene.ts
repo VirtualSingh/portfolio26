@@ -1,8 +1,10 @@
 /* "The Singularity" — ambient WebGL scene behind the hero copy.
  * Loaded on demand via dynamic import so three.js never touches the initial
- * bundle. Recolored from the classic orange accretion palette into the site's
- * Electric Iris family so the one-accent system holds. All tunables live in
- * BlackHoleSettings; the component owns lifecycle (start/stop/resize/dispose). */
+ * bundle. Drawn straight on the paper (no dark backdrop), so the disk uses
+ * normal alpha blending — additive light would vanish on white. The ramp runs
+ * sun-white and pale gold at the core out to Electric Iris and deep indigo at
+ * the rim. All tunables live in BlackHoleSettings; the component owns
+ * lifecycle (start/stop/resize/dispose). */
 import * as THREE from 'three';
 
 export interface BlackHoleSettings {
@@ -28,7 +30,7 @@ const DISK_OUTER = 45;
 const CAMERA_POSITION = new THREE.Vector3(0, 26, 74);
 /** How wavy the disk surface is and how fast matter orbits. */
 const TURBULENCE = 1.6;
-const ORBIT_SPEED = 1.1;
+const ORBIT_SPEED = 0.6;
 
 /** Simplex noise by Ashima Arts / Stefan Gustavson (MIT), as used in the source pen. */
 const NOISE_CHUNK = /* glsl */ `
@@ -97,14 +99,16 @@ const DISK_VERTEX = /* glsl */ `
     vec3 orbitDir = normalize(mat3(modelMatrix) * vec3(-sin(currentAngle), 0.0, cos(currentAngle)));
     float doppler = dot(orbitDir, viewDir);
 
-    // Electric Iris ramp: deep indigo rim -> iris body -> near-white core
-    vec3 hot = vec3(0.96, 0.95, 1.0);
-    vec3 warm = vec3(0.52, 0.46, 1.0);
-    vec3 cool = vec3(0.16, 0.12, 0.58);
-    vec3 color = mix(cool, warm, smoothstep(45.0, 12.0, r));
-    color = mix(color, hot, smoothstep(10.0, 4.0, r));
-    vColor = color * (1.3 + doppler * 0.7);
-    vOpacity = (smoothstep(3.8, 5.5, r) * (1.0 - smoothstep(38.0, 48.0, r))) * 0.8;
+    // Core out to rim: sun white -> pale gold -> Electric Iris -> deep indigo
+    vec3 core = vec3(1.0, 0.98, 0.9);
+    vec3 gold = vec3(1.0, 0.84, 0.45);
+    vec3 iris = vec3(0.42, 0.39, 1.0);
+    vec3 indigo = vec3(0.09, 0.11, 0.42);
+    vec3 color = mix(iris, indigo, smoothstep(22.0, 45.0, r));
+    color = mix(gold, color, smoothstep(8.0, 16.0, r));
+    color = mix(core, color, smoothstep(4.5, 8.0, r));
+    vColor = color * (0.92 + doppler * 0.22);
+    vOpacity = (smoothstep(3.8, 5.5, r) * (1.0 - smoothstep(38.0, 48.0, r))) * 0.85;
 
     // Keep each streak aligned with its orbit as it advances
     float deltaAngle = currentAngle - initialAngle;
@@ -139,7 +143,7 @@ const AURA_FRAGMENT = /* glsl */ `
   varying vec3 vView;
   void main() {
     float rim = pow(1.0 - max(dot(vNormal, vView), 0.0), 4.0);
-    gl_FragColor = vec4(vec3(0.62, 0.55, 1.0) * rim * 4.0, 1.0);
+    gl_FragColor = vec4(vec3(1.0, 0.88, 0.55), rim);
   }
 `;
 
@@ -158,9 +162,8 @@ export function createBlackHoleScene(
     antialias: true,
     powerPreference: 'high-performance',
   });
+  // No tone mapping: the ramp colors are brand values and should land as-is
   renderer.setClearColor(0x000000, 0);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.5;
 
   // Everything hangs off one tilted group so the lean stays a single knob
   const root = new THREE.Group();
@@ -177,7 +180,6 @@ export function createBlackHoleScene(
     fragmentShader: AURA_FRAGMENT,
     side: THREE.BackSide,
     transparent: true,
-    blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
   root.add(new THREE.Mesh(auraGeo, auraMat));
@@ -189,7 +191,6 @@ export function createBlackHoleScene(
     vertexShader: DISK_VERTEX,
     fragmentShader: DISK_FRAGMENT,
     transparent: true,
-    blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
   const disk = new THREE.InstancedMesh(streakGeo, diskMat, settings.instanceCount);

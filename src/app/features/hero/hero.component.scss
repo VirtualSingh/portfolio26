@@ -12,24 +12,17 @@
   );
 }
 
-/* ─── The Singularity: deep-space window feathered into the paper ───
-   A dark nebula wash gives the additive WebGL disk something to glow
-   against; the mask melts every edge so the scene reads as ambient
-   background, never a hard-edged panel. */
+/* ─── The Singularity: drawn straight on the paper ───
+   No backdrop — the disk renders with normal alpha blending, so the ink
+   sits directly on the page. The mask still melts every edge so the scene
+   reads as ambient background, never a hard-edged panel. */
 .hero__space {
   position: absolute;
   inset: 0 -8% 0 auto;
   width: 70%;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 60% 54% at 58% 46%,
-    #0a0918 0%,
-    #131034 38%,
-    rgba(26, 26, 46, 0.55) 58%,
-    transparent 76%
-  );
-  mask-image: radial-gradient(ellipse 70% 68% at 58% 47%, #000 42%, transparent 70%);
+  mask-image: radial-gradient(ellipse 70% 68% at 58% 47%, #000 48%, transparent 74%);
   animation: hero-space-in 1400ms var(--ease-out) 200ms both;
 }
 
