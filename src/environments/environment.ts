@@ -5,7 +5,6 @@ export const environment = {
     serviceId: '',
     // TODO: Replace with your EmailJS template ID.
     templateId: '',
-    // TODO: Replace with your EmailJS public key.
-    publicKey: '',
+    publicKey: 'l6pG1ohY1T4m_5vZ-',
   },
 };
