@@ -45,7 +45,11 @@ import { SkillsComponent } from '../skills/skills.component';
           @defer (hydrate on viewport) {
             <app-journey />
           } @placeholder {
-            <div class="defer-placeholder" style="--placeholder-height: 720px" aria-hidden="true"></div>
+            <div
+              class="defer-placeholder"
+              style="--placeholder-height: 720px"
+              aria-hidden="true"
+            ></div>
           }
 
           @defer (hydrate on viewport) {
@@ -57,19 +61,31 @@ import { SkillsComponent } from '../skills/skills.component';
           @defer (hydrate on viewport) {
             <app-projects />
           } @placeholder {
-            <div class="defer-placeholder" style="--placeholder-height: 560px" aria-hidden="true"></div>
+            <div
+              class="defer-placeholder"
+              style="--placeholder-height: 560px"
+              aria-hidden="true"
+            ></div>
           }
 
           @defer (hydrate on viewport) {
             <app-beyond />
           } @placeholder {
-            <div class="defer-placeholder" style="--placeholder-height: 240px" aria-hidden="true"></div>
+            <div
+              class="defer-placeholder"
+              style="--placeholder-height: 240px"
+              aria-hidden="true"
+            ></div>
           }
 
           @defer (hydrate on viewport) {
             <app-contact />
           } @placeholder {
-            <div class="defer-placeholder" style="--placeholder-height: 640px" aria-hidden="true"></div>
+            <div
+              class="defer-placeholder"
+              style="--placeholder-height: 640px"
+              aria-hidden="true"
+            ></div>
           }
         </main>
 

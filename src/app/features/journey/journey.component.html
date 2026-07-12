@@ -12,13 +12,13 @@
       <p class="range__caption mono-label">{{ content.rangeCaption }}</p>
 
       <div class="range__stage">
-        <svg viewBox="0 0 1200 400" aria-hidden="true" focusable="false">
+        <svg viewBox="0 0 1200 360" aria-hidden="true" focusable="false">
           @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
             <g
               class="range__mountain"
               [class.range__mountain--active]="selected() === i"
               (mouseenter)="select(i)"
-              (click)="select(i)"
+              (click)="select(i, true)"
             >
               <clipPath [attr.id]="'range-clip-' + i">
                 <path [attr.d]="peak.silhouette" />
@@ -51,14 +51,17 @@
             [style.left.%]="peak.leftPct"
             [style.bottom.%]="peak.peakPct"
             [attr.aria-pressed]="selected() === i"
-            [attr.aria-label]="peak.label + ' — ' + peak.entry.title + ', ' + peak.entry.dateRange"
+            [attr.aria-label]="peak.ariaLabel"
             (mouseenter)="select(i)"
             (focus)="select(i)"
-            (click)="select(i)"
+            (click)="select(i, true)"
           >
             <span class="range__marker-label" aria-hidden="true">
               <span class="range__marker-year mono-label">{{ peak.year }}</span>
               <span class="range__marker-place">{{ peak.label }}</span>
+              @if (peak.stat) {
+                <span class="range__marker-stat mono-label">{{ peak.stat }}</span>
+              }
             </span>
             <span class="range__marker-line" aria-hidden="true"></span>
             <span class="range__marker-dot" aria-hidden="true"></span>
@@ -66,7 +69,7 @@
         }
       </div>
 
-      <div class="range__card-slot" aria-live="polite">
+      <div class="range__card-slot" aria-live="polite" #cardSlot>
         @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
           <article class="range__card" [hidden]="selected() !== i">
             <div class="range__card-meta">

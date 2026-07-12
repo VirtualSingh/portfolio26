@@ -31,10 +31,22 @@
 
             <div class="projects__links">
               @if (project.live) {
-                <a [href]="project.live.url" target="_blank" rel="noreferrer" aria-label="Open live demo for {{ project.name }}">{{ project.live.label }} ↗</a>
+                <a
+                  [href]="project.live.url"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Open live demo for {{ project.name }}"
+                  >{{ project.live.label }} ↗</a
+                >
               }
               @if (project.repository) {
-                <a [href]="project.repository.url" target="_blank" rel="noreferrer" aria-label="Open repository for {{ project.name }}">{{ project.repository.label }} ↗</a>
+                <a
+                  [href]="project.repository.url"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Open repository for {{ project.name }}"
+                  >{{ project.repository.label }} ↗</a
+                >
               }
             </div>
           </div>

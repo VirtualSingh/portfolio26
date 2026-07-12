@@ -7,7 +7,12 @@ import { TechBadgeComponent } from '../../shared/components/tech-badge/tech-badg
 
 @Component({
   selector: 'app-projects',
-  imports: [ScrollRevealDirective, SectionAnchorDirective, SectionHeaderComponent, TechBadgeComponent],
+  imports: [
+    ScrollRevealDirective,
+    SectionAnchorDirective,
+    SectionHeaderComponent,
+    TechBadgeComponent,
+  ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

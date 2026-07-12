@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, signal } from '@angular/core';
 import type { OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
@@ -12,18 +12,35 @@ type ToastState = { type: 'success' | 'error'; message: string } | null;
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule, ScrollRevealDirective, SectionAnchorDirective, SectionHeaderComponent],
+  imports: [
+    ReactiveFormsModule,
+    ScrollRevealDirective,
+    SectionAnchorDirective,
+    SectionHeaderComponent,
+  ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactComponent implements OnDestroy {
   private readonly fb = inject(FormBuilder);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private toastTimer?: number;
 
   readonly content = PORTFOLIO.contact;
   readonly formCopy = PORTFOLIO.contact.form;
   readonly resume = PORTFOLIO.identity.resume;
+
+  /** A form that can only fail is a trap — when the EmailJS keys aren't
+   *  configured yet, the form yields to a direct-email panel instead. */
+  readonly formConfigured = Boolean(
+    environment.emailJs.serviceId &&
+    environment.emailJs.templateId &&
+    environment.emailJs.publicKey,
+  );
+
+  readonly emailHref =
+    PORTFOLIO.contact.channels.find((channel) => channel.kind === 'email')?.href ?? '';
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -44,10 +61,14 @@ export class ContactComponent implements OnDestroy {
   async submit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      // Bring the first offender into view — focus() scrolls to it natively
+      setTimeout(() => {
+        this.host.nativeElement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      });
       return;
     }
 
-    if (!environment.emailJs.serviceId || !environment.emailJs.templateId || !environment.emailJs.publicKey) {
+    if (!this.formConfigured) {
       this.showToast('error', this.formCopy.notConfiguredMessage);
       return;
     }

@@ -194,7 +194,7 @@ A restrained single-accent palette: one electric voice against a quiet paper-and
 
 **The Two Voices Rule.** Jakarta Sans carries meaning; JetBrains Mono carries metadata. Never set a heading in mono, never set an annotation in the display face.
 
-**The Accent Word Rule.** Inside a heading, a single word may take Electric Iris with italic 800 weight (`.accent-word`) — one word, not a phrase, and not in every heading.
+**The Accent Word Rule.** Inside a heading, a single word may take Electric Iris with italic 800 weight (`.accent-word`) — one word, not a phrase, and not in every heading. The committed cadence: four of the six section headings carry one (_curiosity, career, code, next_ — the narrative beats); Skills and Projects stay plain so the device keeps its charge.
 
 ## 4. Elevation
 

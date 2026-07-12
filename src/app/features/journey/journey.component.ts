@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
+import type { ElementRef } from '@angular/core';
 import { PORTFOLIO } from '../../core/content/portfolio.config';
 import type { JourneyEntry } from '../../core/content/portfolio.config';
 import { ScrollRevealDirective } from '../../shared/components/scroll-reveal/scroll-reveal.directive';
@@ -20,14 +21,19 @@ interface RangePeak {
   /** Marker position as percentages of the stage box. */
   leftPct: number;
   peakPct: number;
+  /** The chapter's headline metric, shown at the summit so proof greets a skimmer. */
+  stat: string | null;
+  ariaLabel: string;
   silhouette: string;
   contours: RangeContour[];
 }
 
+/* A shallower box than the original 1200x400 keeps the chapter card within
+ * reach of a 900px-tall viewport without touching the mountain art. */
 const VIEW_W = 1200;
-const VIEW_H = 400;
-const MIN_HEIGHT = 95;
-const MAX_HEIGHT = 330;
+const VIEW_H = 360;
+const MIN_HEIGHT = 86;
+const MAX_HEIGHT = 300;
 
 /** Deterministic LCG so every ridge and striation is stable across renders. */
 function seededRandom(seed: number): () => number {
@@ -157,12 +163,19 @@ export class JourneyComponent {
     const half = (VIEW_W / n) * 1.35;
     const { points, apex } = buildSilhouette(cx, half, height, rand);
 
+    const label = entry.peakLabel ?? entry.place;
+    const stat = entry.highlight?.value ?? null;
+
     return {
       entry,
       year: /\d{4}/.exec(entry.dateRange)?.[0] ?? '',
-      label: entry.peakLabel ?? entry.place,
+      label,
       leftPct: (apex[0] / VIEW_W) * 100,
       peakPct: ((VIEW_H - apex[1]) / VIEW_H) * 100,
+      stat,
+      ariaLabel:
+        `${label} — ${entry.title}, ${entry.dateRange}` +
+        (entry.highlight ? `. ${entry.highlight.value} ${entry.highlight.label}` : ''),
       silhouette: toRidgePath(points, true),
       contours: buildContours(points, height, rand),
     };
@@ -171,7 +184,18 @@ export class JourneyComponent {
   /** The tallest, most recent peak starts selected. */
   readonly selected = signal(this.peaks.length - 1);
 
-  select(index: number): void {
+  private readonly cardSlot = viewChild<ElementRef<HTMLElement>>('cardSlot');
+
+  /** `reveal` is set by click/tap so the swapped card is never an off-screen
+   *  mystery; hover and focus swap silently to keep casual mousing calm. */
+  select(index: number, reveal = false): void {
     this.selected.set(index);
+    if (reveal) {
+      const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.cardSlot()?.nativeElement.scrollIntoView({
+        block: 'nearest',
+        behavior: smooth ? 'smooth' : 'auto',
+      });
+    }
   }
 }

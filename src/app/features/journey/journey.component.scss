@@ -8,7 +8,8 @@
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--color-surface);
-  padding-top: clamp(90px, 10vw, 150px);
+  /* Kept shallow so the chapter card stays within reach of a 900px viewport */
+  padding-top: clamp(56px, 7vw, 96px);
 }
 
 .range__stage {
@@ -69,6 +70,17 @@
   cursor: pointer;
   z-index: 2;
 
+  /* Invisible 44px hit area around the summit dot — fingers, not just cursors */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+  }
+
   &:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
@@ -93,6 +105,12 @@
   font-weight: 600;
   color: var(--color-text-main);
   white-space: nowrap;
+}
+
+/* The chapter's headline number stands at the summit — proof before interaction */
+.range__marker-stat {
+  color: var(--color-primary-strong);
+  font-weight: 700;
 }
 
 .range__marker-line {
@@ -137,6 +155,8 @@
 .range__card-slot {
   margin: var(--space-6);
   max-width: 760px;
+  /* Steady floor so swapping between short and tall chapters never jolts the page */
+  min-height: 300px;
 }
 
 .range__card {
@@ -144,7 +164,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-bg);
-  box-shadow: 0 20px 48px -24px var(--color-shadow-strong);
+  box-shadow: 0 4px 32px -8px var(--color-shadow);
   animation: range-card-in 240ms var(--ease-out);
 }
 
@@ -281,9 +301,15 @@
 }
 
 @media (max-width: 640px) {
-  /* Only the active summit keeps its label; the rest stay as dots */
-  .range__marker:not(.range__marker--active) .range__marker-label {
-    opacity: 0;
+  /* The margin note collides with summit labels on narrow screens */
+  .range__caption {
+    display: none;
+  }
+
+  /* Every summit keeps its year as a tap affordance; only the active one names itself */
+  .range__marker:not(.range__marker--active) .range__marker-place,
+  .range__marker:not(.range__marker--active) .range__marker-stat {
+    display: none;
   }
 
   .range__marker-line {

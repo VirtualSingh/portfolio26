@@ -226,9 +226,9 @@ export const PORTFOLIO = {
   },
 
   skills: {
-    titleStart: 'Tools I',
-    accentWord: 'think',
-    titleEnd: 'in.',
+    titleStart: 'Tools I think in.',
+    accentWord: '',
+    titleEnd: '',
     description: 'Angular-first, styling-disciplined, automation-tested.',
     /** The "borrow the light" fish bowl beside the skills list — each item is a
      *  glowing skill icon disguised as a firefly that flares and names itself on
@@ -266,9 +266,9 @@ export const PORTFOLIO = {
   },
 
   projects: {
-    titleStart: "Things I've",
-    accentWord: 'built',
-    titleEnd: 'and shipped.',
+    titleStart: "Things I've built and shipped.",
+    accentWord: '',
+    titleEnd: '',
     description: 'From live dashboards to the page you are reading.',
     items: [
       {
@@ -304,8 +304,8 @@ export const PORTFOLIO = {
   },
 
   beyond: {
-    titleStart: 'Beyond',
-    accentWord: 'the code.',
+    titleStart: 'Beyond the',
+    accentWord: 'code.',
     description: 'Capturing moments, listening to music, and exploring new places.',
     extended: 'Interface ideas get sketched in pen first — a few ended up on this very page.',
     /** Mono caption inside the code-drawn night-garden scene panel. */
@@ -322,7 +322,7 @@ export const PORTFOLIO = {
     titleStart: "Let's build what's",
     accentWord: 'next.',
     description:
-      "That's the work. This is the reaching-out part — the form is fastest, or grab the resume and skip ahead.",
+      "That's the work. This is the reaching-out part — pick whichever channel suits, or grab the resume and skip ahead.",
     channels: [
       { kind: 'email', label: 'singh16195@gmail.com', href: 'mailto:singh16195@gmail.com' },
       { kind: 'phone', label: '+91 93100 81407', href: 'tel:+919310081407' },
@@ -339,6 +339,10 @@ export const PORTFOLIO = {
       successMessage: "Message sent — I'll get back to you soon.",
       errorMessage: "That didn't go through. Please try again, or email me directly.",
       notConfiguredMessage: 'The contact form is not wired up yet — please email me directly.',
+      /** Shown instead of the form while EmailJS credentials are not configured. */
+      offlineNote:
+        "The form is still warming up — until it's live, email reaches me fastest. I reply within a day.",
+      offlineCta: 'Email me directly',
     },
   },
 

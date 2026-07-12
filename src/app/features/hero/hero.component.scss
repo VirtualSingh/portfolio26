@@ -124,11 +124,13 @@
     width: 100%;
   }
 
+  /* Cropped hard into the corner so only disk streaks show — a partially
+     visible event horizon reads as a gray smudge at this size */
   .hero__space {
-    inset: auto -45% -16% auto;
-    width: 160%;
-    height: 52%;
-    opacity: 0.5;
+    inset: auto -60% -24% auto;
+    width: 175%;
+    height: 54%;
+    opacity: 0.55;
   }
 }
 
