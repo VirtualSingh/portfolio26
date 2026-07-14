@@ -11,7 +11,10 @@
     <div class="journey__range" appScrollReveal>
       <p class="range__caption mono-label">{{ content.rangeCaption }}</p>
 
-      <div class="range__stage">
+      <!-- On phones this scroller lets the panorama keep its size and pan,
+           following whichever card is swiped into view. Inert on desktop. -->
+      <div class="range__scroller" #stageScroller>
+        <div class="range__stage">
         <svg viewBox="0 0 1200 360" aria-hidden="true" focusable="false">
           @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
             <g
@@ -67,9 +70,10 @@
             <span class="range__marker-dot" aria-hidden="true"></span>
           </button>
         }
+        </div>
       </div>
 
-      <div class="range__card-slot" aria-live="polite" #cardSlot>
+      <div class="range__card-slot" aria-live="polite" #cardSlot (scroll)="onCardScroll()">
         @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
           <article class="range__card" [hidden]="selected() !== i">
             <div class="range__card-meta">
@@ -88,7 +92,7 @@
 
             @if (peak.entry.bullets.length) {
               <ul class="range__card-bullets" [attr.id]="'range-bullets-' + i">
-                @for (bullet of visibleBullets(peak); track bullet) {
+                @for (bullet of visibleBullets(peak, i); track bullet) {
                   <li>{{ bullet }}</li>
                 }
               </ul>
@@ -96,13 +100,13 @@
                 <button
                   type="button"
                   class="range__card-expand"
-                  [class.range__card-expand--open]="bulletsExpanded()"
-                  [attr.aria-expanded]="bulletsExpanded()"
+                  [class.range__card-expand--open]="isExpanded(i)"
+                  [attr.aria-expanded]="isExpanded(i)"
                   [attr.aria-controls]="'range-bullets-' + i"
-                  (click)="bulletsExpanded.set(!bulletsExpanded())"
+                  (click)="toggleBullets(i)"
                 >
                   {{
-                    bulletsExpanded()
+                    isExpanded(i)
                       ? content.bulletsLessLabel
                       : '+' +
                         (peak.entry.bullets.length - bulletPreviewCount) +

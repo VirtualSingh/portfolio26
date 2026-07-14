@@ -153,6 +153,7 @@
 
 /* ─ The chapter card sits below the panorama so no peak is ever covered ─ */
 .range__card-slot {
+  position: relative; /* offsetParent for the deck's centering math */
   margin: var(--space-6);
   max-width: 760px;
   /* Steady floor so swapping between short and tall chapters never jolts the page */
@@ -329,32 +330,62 @@
   }
 }
 
+/* ─ No hover below this width: the panorama becomes a pannable strip and the
+     cards a swipeable snap deck. Swiping a card lights up + pans to its peak;
+     tapping a peak slides its card in. All movement is horizontal — swapping
+     chapters never scrolls the page. Must match CAROUSEL_QUERY in the TS. ─ */
 @media (max-width: 860px) {
   .journey__range {
-    padding-top: clamp(56px, 10vw, 100px);
+    padding-top: var(--space-3);
   }
 
-  .range__card-slot {
-    margin: var(--space-4);
-  }
-}
-
-@media (max-width: 640px) {
-  /* The margin note collides with summit labels on narrow screens */
+  /* The margin note would sit on top of the pannable strip */
   .range__caption {
     display: none;
   }
 
-  /* Every summit keeps its year as a tap affordance; only the active one names itself */
-  .range__marker:not(.range__marker--active) .range__marker-place,
-  .range__marker:not(.range__marker--active) .range__marker-stat {
-    display: none;
+  .range__scroller {
+    overflow-x: auto;
+    /* Sky lives inside the strip: overflow clipping would otherwise cut the
+       tallest summit's label, which floats 79px above the stage box (measured
+       at 390px: 3-row label + leader line above the 300/360-high peak) */
+    padding-top: 88px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
-  .range__marker-line {
-    height: 16px;
+  /* The mountains keep a real canvas instead of shrinking into a thumbnail */
+  .range__stage {
+    min-width: 680px;
+  }
+
+  .range__card-slot {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-3);
+    margin: var(--space-4);
+    /* Slides share the tallest card's height, so no floor is needed */
+    min-height: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .range__card {
+    flex: 0 0 86%; /* the neighbour peeks in — the "swipe me" affordance */
+    scroll-snap-align: center;
+    /* Every chapter rides the deck; [hidden] only means "inactive" on desktop */
+    display: block !important;
   }
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   .range__card,

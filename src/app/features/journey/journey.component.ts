@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterNextRender, signal, viewChild } from '@angular/core';
 import type { ElementRef } from '@angular/core';
 import { PORTFOLIO } from '../../core/content/portfolio.config';
 import type { JourneyEntry } from '../../core/content/portfolio.config';
@@ -34,6 +34,10 @@ const VIEW_W = 1200;
 const VIEW_H = 360;
 const MIN_HEIGHT = 86;
 const MAX_HEIGHT = 300;
+
+/* Below this width there is no hover: the panorama becomes a pannable strip and
+ * the cards a swipeable snap deck, kept in sync. Must match the SCSS breakpoint. */
+const CAROUSEL_QUERY = '(max-width: 860px)';
 
 /** Deterministic LCG so every ridge and striation is stable across renders. */
 function seededRandom(seed: number): () => number {
@@ -185,31 +189,115 @@ export class JourneyComponent {
   readonly selected = signal(this.peaks.length - 1);
 
   /** Cards preview this many bullets; the rest live behind the expand toggle,
-   *  so long chapters stay short — especially on phones. */
+   *  so long chapters stay short — especially on phones. Expansion is remembered
+   *  per chapter because on the mobile deck several cards are visible at once. */
   readonly bulletPreviewCount = 2;
-  readonly bulletsExpanded = signal(false);
+  private readonly expandedBullets = signal<ReadonlySet<number>>(new Set<number>());
 
   private readonly cardSlot = viewChild<ElementRef<HTMLElement>>('cardSlot');
+  private readonly stageScroller = viewChild<ElementRef<HTMLElement>>('stageScroller');
+  private scrollRaf = 0;
 
-  visibleBullets(peak: RangePeak): readonly string[] {
-    return this.bulletsExpanded()
+  constructor() {
+    // The newest chapter starts selected, so both strips open at their right end.
+    afterNextRender(() => {
+      if (window.matchMedia(CAROUSEL_QUERY).matches) {
+        this.scrollCardIntoView(this.selected(), false);
+        this.panPanoramaTo(this.selected(), false);
+      }
+    });
+  }
+
+  isExpanded(index: number): boolean {
+    return this.expandedBullets().has(index);
+  }
+
+  toggleBullets(index: number): void {
+    this.expandedBullets.update((set) => {
+      const next = new Set(set);
+      if (!next.delete(index)) {
+        next.add(index);
+      }
+      return next;
+    });
+  }
+
+  visibleBullets(peak: RangePeak, index: number): readonly string[] {
+    return this.isExpanded(index)
       ? peak.entry.bullets
       : peak.entry.bullets.slice(0, this.bulletPreviewCount);
   }
 
   /** `reveal` is set by click/tap so the swapped card is never an off-screen
-   *  mystery; hover and focus swap silently to keep casual mousing calm. */
+   *  mystery; hover and focus swap silently to keep casual mousing calm.
+   *  On the mobile deck all movement is horizontal — no vertical jumps. */
   select(index: number, reveal = false): void {
-    if (index !== this.selected()) {
-      this.bulletsExpanded.set(false);
-    }
     this.selected.set(index);
-    if (reveal) {
-      const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reveal) {
+      return;
+    }
+    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.matchMedia(CAROUSEL_QUERY).matches) {
+      this.scrollCardIntoView(index, smooth);
+      this.panPanoramaTo(index, smooth);
+    } else {
       this.cardSlot()?.nativeElement.scrollIntoView({
         block: 'nearest',
         behavior: smooth ? 'smooth' : 'auto',
       });
     }
+  }
+
+  /** Swiping the card deck drives the scene: the centered card's peak lights up
+   *  and the panorama pans to keep it in view. */
+  onCardScroll(): void {
+    const slot = this.cardSlot()?.nativeElement;
+    if (!slot || slot.scrollWidth <= slot.clientWidth) {
+      return;
+    }
+    cancelAnimationFrame(this.scrollRaf);
+    this.scrollRaf = requestAnimationFrame(() => {
+      const center = slot.scrollLeft + slot.clientWidth / 2;
+      let nearest = 0;
+      let nearestDist = Infinity;
+      slot.querySelectorAll<HTMLElement>('.range__card').forEach((card, i) => {
+        const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearest = i;
+        }
+      });
+      if (nearest !== this.selected()) {
+        this.selected.set(nearest);
+        this.panPanoramaTo(nearest, true);
+      }
+    });
+  }
+
+  private scrollCardIntoView(index: number, smooth: boolean): void {
+    const slot = this.cardSlot()?.nativeElement;
+    const card = slot?.querySelectorAll<HTMLElement>('.range__card')[index];
+    if (!slot || !card) {
+      return;
+    }
+    slot.scrollTo({
+      left: card.offsetLeft - (slot.clientWidth - card.offsetWidth) / 2,
+      behavior: smooth ? 'smooth' : 'auto',
+    });
+  }
+
+  private panPanoramaTo(index: number, smooth: boolean): void {
+    const scroller = this.stageScroller()?.nativeElement;
+    if (!scroller || scroller.scrollWidth <= scroller.clientWidth) {
+      return;
+    }
+    const marker = scroller.querySelectorAll<HTMLElement>('.range__marker')[index];
+    if (!marker) {
+      return;
+    }
+    scroller.scrollTo({
+      left: marker.offsetLeft - scroller.clientWidth / 2,
+      behavior: smooth ? 'smooth' : 'auto',
+    });
   }
 }
