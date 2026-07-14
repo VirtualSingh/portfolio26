@@ -279,7 +279,7 @@ export const PORTFOLIO = {
       {
         name: 'Ngx-Echarts Implementation',
         description:
-          'A professional, responsive analytics dashboard built with Angular 21 and Apache ECharts, showcasing comprehensive image processing metrics through interactive data visualizations.',
+          'A professional, responsive analytics dashboard showcasing comprehensive metrics through interactive data visualizations.',
         techStack: ['Angular', 'TypeScript', 'Chart.js', 'RxJS'],
         monogram: 'AC',
         coverHue: 0,
