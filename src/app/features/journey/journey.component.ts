@@ -184,11 +184,25 @@ export class JourneyComponent {
   /** The tallest, most recent peak starts selected. */
   readonly selected = signal(this.peaks.length - 1);
 
+  /** Cards preview this many bullets; the rest live behind the expand toggle,
+   *  so long chapters stay short — especially on phones. */
+  readonly bulletPreviewCount = 2;
+  readonly bulletsExpanded = signal(false);
+
   private readonly cardSlot = viewChild<ElementRef<HTMLElement>>('cardSlot');
+
+  visibleBullets(peak: RangePeak): readonly string[] {
+    return this.bulletsExpanded()
+      ? peak.entry.bullets
+      : peak.entry.bullets.slice(0, this.bulletPreviewCount);
+  }
 
   /** `reveal` is set by click/tap so the swapped card is never an off-screen
    *  mystery; hover and focus swap silently to keep casual mousing calm. */
   select(index: number, reveal = false): void {
+    if (index !== this.selected()) {
+      this.bulletsExpanded.set(false);
+    }
     this.selected.set(index);
     if (reveal) {
       const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;

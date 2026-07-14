@@ -227,6 +227,45 @@
   }
 }
 
+/* Quiet text toggle: long chapters preview two bullets, the rest fold away */
+.range__card-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  /* Padding grows the tap target; the negative margin keeps the text aligned */
+  padding: var(--space-2);
+  margin-left: calc(-1 * var(--space-2));
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary-strong);
+  border-radius: var(--radius-sm);
+
+  svg {
+    width: 12px;
+    height: 12px;
+    transition: transform 180ms var(--ease-out);
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.range__card-expand--open svg {
+  transform: rotate(180deg);
+}
+
 .range__card-highlight {
   display: inline-flex;
   align-items: baseline;
@@ -321,6 +360,10 @@
   .range__card,
   .range__mountain {
     animation: none;
+  }
+
+  .range__card-expand svg {
+    transition: none;
   }
 }
 

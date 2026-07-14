@@ -133,7 +133,7 @@ export const PORTFOLIO = {
     accentWord: 'curiosity.',
     paragraphs: [
       'Hand-writing HTML in a college lab, hitting refresh, watching a page come alive — that moment never got old. It just got bigger: pages, then forms, then entire component libraries.',
-      "Four years of Angular later, I'm at Aira Matrix — leading the v22 upgrade and building a 15+ component library for three product squads.",
+      "Four years of Angular later, I'm at Aira Matrix — leading the v22 upgrade, building dashboards and refactoring entire codebases end to end.",
     ],
     facts: [
       '4+ years across 3 companies',
@@ -148,6 +148,9 @@ export const PORTFOLIO = {
     description: 'Five chapters. What each one actually shipped.',
     /** Mono caption inside the mountain-range scene panel. */
     rangeCaption: 'the range · every peak is a chapter',
+    /** Chapter cards preview two bullets; the toggle reads "+N more" / this collapse label. */
+    bulletsMoreLabel: 'more',
+    bulletsLessLabel: 'Show less',
     entries: [
       {
         kind: 'role',
@@ -157,12 +160,13 @@ export const PORTFOLIO = {
         dateRange: 'Aug 2025 — Present',
         story: 'The systems chapter: making an entire codebase easier for the next engineer.',
         bullets: [
-          'Led the production upgrade to Angular 22 for a team of 8+ engineers.',
-          'Resolved 30+ critical SonarQube issues, lifting code coverage by ~18%.',
-          'Architecting an in-house component library — 15+ components serving three product squads.',
+          'Revamped complete dashboard of existing product, replaced chart.js with ngx-echarts, and improved performance by 30%.',
+          'Led the production upgrade to Angular 22 for 3 products end to end.',
+          'Resolved 30+ critical and Blocker SonarQube issues, lifting code coverage by 85%.',
+          'Set up a AI pipeline for fixing SonarQube issues and adding test cases to increase coverage, cutting manual effort by 60% and improving code quality.',
         ],
-        stack: ['Angular 22', 'Angular Material', 'LESS', 'OpenSeaDragon', 'SonarQube'],
-        highlight: { value: '15+', label: 'library components across 3 squads' },
+        stack: ['Angular 22', 'Angular Material', 'LESS', 'SonarQube Cloud','SonarQube MCP Server', 'Claude Code', 'Ngx-Echarts', 'RxJS', 'TypeScript'],
+        highlight: { value: '85%', label: 'Code Coverage across 3 products' },
       },
       {
         kind: 'role',
@@ -174,8 +178,8 @@ export const PORTFOLIO = {
           'The depth chapter: forms, migrations, and learning to automate myself out of repetition.',
         bullets: [
           'Built configurable intake forms with conditional logic — data-collection efficiency up 30%.',
-          'Led the migration of 6 modules from Angular 8 to 14, cutting maintenance overhead by 20%.',
-          'Built Playwright + Cucumber automation suites that cut manual regression testing by 40%.',
+          'Helped the migration of 3 modules from Angular 8 to 14, cutting maintenance overhead by 20%.',
+          'Built Playwright + Cucumber automation suites with 3 team members that cut manual regression testing by 50%.',
         ],
         stack: ['Angular', 'TypeScript', 'RxJS', 'PrimeNG', 'SCSS', 'Single SPA'],
         highlight: { value: '40%', label: 'less manual regression testing' },
@@ -188,11 +192,11 @@ export const PORTFOLIO = {
         dateRange: 'Feb 2022 — Jul 2022',
         story: 'The proving chapter: wireframes in, working prototypes out.',
         bullets: [
-          'Turned Figma wireframes into working prototypes for 2 client pitches — both won contracts.',
+          'Turned Figma wireframes into working prototypes for client pitches.',
           'Built reactive forms with multi-step validation, cutting submission errors by ~20%.',
         ],
         stack: ['Angular', 'TypeScript', 'HTML', 'SCSS'],
-        highlight: { value: '2/2', label: 'prototypes that won the contract' },
+        highlight: { value: '2/2', label: 'prototypes' },
         peakLabel: 'Vitrana · intern',
       },
       {

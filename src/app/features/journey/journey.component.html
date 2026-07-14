@@ -87,11 +87,40 @@
             <p class="range__card-story">{{ peak.entry.story }}</p>
 
             @if (peak.entry.bullets.length) {
-              <ul class="range__card-bullets">
-                @for (bullet of peak.entry.bullets; track bullet) {
+              <ul class="range__card-bullets" [attr.id]="'range-bullets-' + i">
+                @for (bullet of visibleBullets(peak); track bullet) {
                   <li>{{ bullet }}</li>
                 }
               </ul>
+              @if (peak.entry.bullets.length > bulletPreviewCount) {
+                <button
+                  type="button"
+                  class="range__card-expand"
+                  [class.range__card-expand--open]="bulletsExpanded()"
+                  [attr.aria-expanded]="bulletsExpanded()"
+                  [attr.aria-controls]="'range-bullets-' + i"
+                  (click)="bulletsExpanded.set(!bulletsExpanded())"
+                >
+                  {{
+                    bulletsExpanded()
+                      ? content.bulletsLessLabel
+                      : '+' +
+                        (peak.entry.bullets.length - bulletPreviewCount) +
+                        ' ' +
+                        content.bulletsMoreLabel
+                  }}
+                  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+                    <path
+                      d="M2.5 4.5 6 8l3.5-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              }
             }
 
             @if (peak.entry.highlight) {
