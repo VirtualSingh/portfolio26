@@ -310,7 +310,7 @@ export const PORTFOLIO = {
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',
-        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
+        // live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
         repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/portfolio26' },
       },
     ] as readonly ProjectItem[],
