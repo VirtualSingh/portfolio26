@@ -10,7 +10,11 @@
     <div class="projects__grid">
       @for (project of content.items; track project.name; let i = $index) {
         <article class="projects__card" appScrollReveal [revealDelay]="i * 80">
-          <div class="projects__cover" [style.--cover-hue]="project.coverHue">
+          <div
+            class="projects__cover"
+            [class.projects__cover--art]="!project.image"
+            [style.--cover-hue]="project.coverHue"
+          >
             @if (project.image) {
               <img [src]="project.image" alt="Screenshot of {{ project.name }}" loading="lazy" />
             } @else {

@@ -22,13 +22,31 @@
   }
 }
 
-/* Cover: real screenshot when the config provides one; otherwise the generated
-   brand-hue wash + oversized mono monogram. The wash doubles as the loading
-   backdrop behind lazy screenshots. */
+/* Cover: the screenshot floats inset on the card's own paper — no wash behind
+   it — with its own rounded corners. A hairline keeps light screenshots from
+   melting into the card. */
 .projects__cover {
   position: relative;
+  padding: var(--space-5) var(--space-5) 0;
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 8 / 5;
+    object-fit: cover;
+    /* Screenshots read from their top edge — never crop the header off */
+    object-position: top;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* Fallback for projects without a screenshot: the generated full-bleed
+   brand-hue wash + oversized mono monogram */
+.projects__cover--art {
   display: grid;
   place-items: center;
+  padding: 0;
   aspect-ratio: 8 / 5;
   background:
     radial-gradient(
@@ -41,16 +59,6 @@
       hsl(calc(244 + var(--cover-hue, 0)) 92% 70%),
       hsl(calc(244 + var(--cover-hue, 0)) 45% 22%)
     );
-
-  img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Screenshots read from their top edge — never crop the header off */
-    object-position: top;
-  }
 }
 
 .projects__monogram {
@@ -64,14 +72,22 @@
 
 .projects__status {
   position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
+  /* Sits on the inset image's top-right corner (cover padding + a step in) */
+  top: calc(var(--space-5) + var(--space-3));
+  right: calc(var(--space-5) + var(--space-3));
   padding: 4px 12px;
   border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
   background: rgba(255, 255, 255, 0.92);
   color: var(--color-text-main);
   font-family: var(--font-mono);
   font-size: 0.78rem;
+}
+
+/* On the generated-art fallback the pill keeps its original corner seat */
+.projects__cover--art .projects__status {
+  top: var(--space-4);
+  right: var(--space-4);
 }
 
 .projects__content {
