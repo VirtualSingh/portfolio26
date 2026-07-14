@@ -47,7 +47,8 @@ export interface ProjectItem {
   name: string;
   description: string;
   techStack: readonly string[];
-  /** Cover screenshot, served from /public (e.g. '/images/foo.png').
+  /** Cover screenshot, served from /public (e.g. 'images/foo.png' — keep it
+   *  relative so it resolves against <base href> on GitHub Pages).
    *  Omit to fall back to the generated monogram cover. */
   image?: string;
   /** Two-letter mark drawn on the generated cover art (fallback when no image). */
@@ -96,8 +97,9 @@ export const PORTFOLIO = {
     proofLine: 'Angular v14→v22 migrations · micro-frontends · 40% regression-testing time cut',
     resume: {
       label: 'Resume',
-      /** File lives in /public. Replace the PDF there to update the download. */
-      url: '/Pushpendra_Singh_Resume.pdf',
+      /** File lives in /public. Kept relative (no leading slash) so it resolves
+       *  against <base href> and works on GitHub Pages' /portfolio26/ subpath. */
+      url: 'Pushpendra_Singh_Resume.pdf',
       fileName: 'Pushpendra_Singh_Resume.pdf',
     },
     socials: [
@@ -284,7 +286,7 @@ export const PORTFOLIO = {
         description:
           'A professional, responsive analytics dashboard showcasing comprehensive metrics through interactive data visualizations.',
         techStack: ['Angular', 'TypeScript', 'Chart.js', 'RxJS'],
-        image: '/images/ngxecharts.png',
+        image: 'images/ngxecharts.png',
         monogram: 'AC',
         coverHue: 0,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/echarts-dashboard-implementation/' },
@@ -295,7 +297,7 @@ export const PORTFOLIO = {
         description:
           'The previous generation of this site — hand-rolled HTML, CSS, and JavaScript with smooth scroll animations.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
-        image: '/images/portfolio3.png',
+        image: 'images/portfolio3.png',
         monogram: 'P3',
         coverHue: 24,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
@@ -306,11 +308,11 @@ export const PORTFOLIO = {
         description:
           'Portfolio v4: Angular 22, prerendered, zoneless, config-driven — every word on this page lives in one typed file.',
         techStack: ['Angular 22', 'SSG', 'SCSS', 'Jest'],
-        image: '/images/portfolio4.png',
+        image: 'images/portfolio4.png',
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',
-        // live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
+        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio26/' },
         repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/portfolio26' },
       },
     ] as readonly ProjectItem[],
