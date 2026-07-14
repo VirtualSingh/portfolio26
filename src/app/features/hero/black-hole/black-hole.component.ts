@@ -35,6 +35,8 @@ import type { BlackHoleScene } from './black-hole.scene';
 export class BlackHoleComponent {
   /** Screen-space lean of the singularity and its disk, in degrees. */
   readonly tiltDeg = input(25);
+  /** Lean on small screens (<768px), where the scene runs level, edge to edge. */
+  readonly tiltDegSmall = input(0);
 
   private readonly canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -66,7 +68,7 @@ export class BlackHoleComponent {
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const scene = createBlackHoleScene(this.canvasRef().nativeElement, {
-      tiltDeg: this.tiltDeg(),
+      tiltDeg: small ? this.tiltDegSmall() : this.tiltDeg(),
       instanceCount: small ? 2000 : 3600,
       maxPixelRatio: small ? 1.5 : 2,
     });
