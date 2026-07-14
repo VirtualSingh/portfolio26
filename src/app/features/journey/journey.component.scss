@@ -297,9 +297,10 @@
 }
 
 /* Rides the badge row in the same pill language; dashed border marks it as
-   the one badge that's a button */
+   the one badge that's a button. Desktop has room for the full stack, so the
+   toggle only exists below 860px (see the media block further down). */
 .range__stack-toggle {
-  display: inline-flex;
+  display: none;
   align-items: center;
   min-height: 32px;
   padding: 0 var(--space-4);
@@ -412,6 +413,16 @@
     scroll-snap-align: center;
     /* Every chapter rides the deck; [hidden] only means "inactive" on desktop */
     display: block !important;
+  }
+
+  /* Tight cards: preview the first four badges (matches stackPreviewCount in
+     the TS) and surface the +N pill that reveals the rest */
+  .range__stack-toggle {
+    display: inline-flex;
+  }
+
+  .range__card-stack--collapsed app-tech-badge:nth-of-type(n + 5) {
+    display: none;
   }
 }
 

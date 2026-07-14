@@ -36,6 +36,15 @@ describe('PORTFOLIO config', () => {
     });
   });
 
+  it('project cover images point at files that exist in /public', () => {
+    PORTFOLIO.projects.items.forEach((project) => {
+      if (project.image) {
+        const filePath = join(__dirname, '..', '..', '..', '..', 'public', project.image.replace(/^\//, ''));
+        expect(existsSync(filePath)).toBe(true);
+      }
+    });
+  });
+
   it('journey role entries carry bullets and a stack; milestones may omit them', () => {
     PORTFOLIO.journey.entries.forEach((entry) => {
       if (entry.kind === 'role') {

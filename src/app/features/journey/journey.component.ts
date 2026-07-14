@@ -245,12 +245,6 @@ export class JourneyComponent {
     });
   }
 
-  visibleStack(peak: RangePeak, index: number): readonly string[] {
-    return this.isStackExpanded(index)
-      ? peak.entry.stack
-      : peak.entry.stack.slice(0, this.stackPreviewCount);
-  }
-
   /** `reveal` is set by click/tap so the swapped card is never an off-screen
    *  mystery; hover and focus swap silently to keep casual mousing calm.
    *  On the mobile deck all movement is horizontal — no vertical jumps. */

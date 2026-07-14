@@ -134,9 +134,15 @@
               </p>
             }
 
+            <!-- Every badge stays in the DOM; below 860px the CSS previews the
+                 first four and this pill reveals the rest. Desktop has room. -->
             @if (peak.entry.stack.length) {
-              <div class="range__card-stack" [attr.id]="'range-stack-' + i">
-                @for (tech of visibleStack(peak, i); track tech) {
+              <div
+                class="range__card-stack"
+                [class.range__card-stack--collapsed]="!isStackExpanded(i)"
+                [attr.id]="'range-stack-' + i"
+              >
+                @for (tech of peak.entry.stack; track tech) {
                   <app-tech-badge [label]="tech" tone="muted" />
                 }
                 @if (peak.entry.stack.length > stackPreviewCount) {

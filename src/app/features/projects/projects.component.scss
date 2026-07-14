@@ -22,7 +22,9 @@
   }
 }
 
-/* Generated cover: brand-hue wash + oversized mono monogram. No images to break. */
+/* Cover: real screenshot when the config provides one; otherwise the generated
+   brand-hue wash + oversized mono monogram. The wash doubles as the loading
+   backdrop behind lazy screenshots. */
 .projects__cover {
   position: relative;
   display: grid;
@@ -39,6 +41,16 @@
       hsl(calc(244 + var(--cover-hue, 0)) 92% 70%),
       hsl(calc(244 + var(--cover-hue, 0)) 45% 22%)
     );
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Screenshots read from their top edge — never crop the header off */
+    object-position: top;
+  }
 }
 
 .projects__monogram {

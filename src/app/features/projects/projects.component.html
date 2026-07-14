@@ -10,8 +10,12 @@
     <div class="projects__grid">
       @for (project of content.items; track project.name; let i = $index) {
         <article class="projects__card" appScrollReveal [revealDelay]="i * 80">
-          <div class="projects__cover" [style.--cover-hue]="project.coverHue" aria-hidden="true">
-            <span class="projects__monogram">{{ project.monogram }}</span>
+          <div class="projects__cover" [style.--cover-hue]="project.coverHue">
+            @if (project.image) {
+              <img [src]="project.image" alt="Screenshot of {{ project.name }}" loading="lazy" />
+            } @else {
+              <span class="projects__monogram" aria-hidden="true">{{ project.monogram }}</span>
+            }
             @if (project.status) {
               <span class="projects__status">{{ project.status }}</span>
             }

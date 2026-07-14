@@ -47,7 +47,10 @@ export interface ProjectItem {
   name: string;
   description: string;
   techStack: readonly string[];
-  /** Two-letter mark drawn on the generated cover art. */
+  /** Cover screenshot, served from /public (e.g. '/images/foo.png').
+   *  Omit to fall back to the generated monogram cover. */
+  image?: string;
+  /** Two-letter mark drawn on the generated cover art (fallback when no image). */
   monogram: string;
   /** Cover accent hue rotation in degrees (0 = brand iris). Keep subtle: 0–40. */
   coverHue: number;
@@ -281,6 +284,7 @@ export const PORTFOLIO = {
         description:
           'A professional, responsive analytics dashboard showcasing comprehensive metrics through interactive data visualizations.',
         techStack: ['Angular', 'TypeScript', 'Chart.js', 'RxJS'],
+        image: '/images/ngxecharts.png',
         monogram: 'AC',
         coverHue: 0,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/echarts-dashboard-implementation/' },
@@ -291,6 +295,7 @@ export const PORTFOLIO = {
         description:
           'The previous generation of this site — hand-rolled HTML, CSS, and JavaScript with smooth scroll animations.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
+        image: '/images/portfolio3.png',
         monogram: 'P3',
         coverHue: 24,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
@@ -301,6 +306,7 @@ export const PORTFOLIO = {
         description:
           'Portfolio v4: Angular 22, prerendered, zoneless, config-driven — every word on this page lives in one typed file.',
         techStack: ['Angular 22', 'SSG', 'SCSS', 'Jest'],
+        image: '/images/portfolio4.png',
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',

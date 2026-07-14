@@ -35,7 +35,9 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --section-padding: clamp(72px, 10vw, 120px);
+  /* Sections share the paper background, so this is the whole visual seam
+     between them — kept tight enough that adjacent sections read as one page */
+  --section-padding: clamp(48px, 6vw, 80px);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
