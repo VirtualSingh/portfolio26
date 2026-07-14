@@ -188,11 +188,14 @@ export class JourneyComponent {
   /** The tallest, most recent peak starts selected. */
   readonly selected = signal(this.peaks.length - 1);
 
-  /** Cards preview this many bullets; the rest live behind the expand toggle,
-   *  so long chapters stay short — especially on phones. Expansion is remembered
-   *  per chapter because on the mobile deck several cards are visible at once. */
+  /** Cards preview this many bullets / stack badges; the rest live behind
+   *  expand toggles, so long chapters stay short — especially on phones.
+   *  Expansion is remembered per chapter because on the mobile deck several
+   *  cards are visible at once. */
   readonly bulletPreviewCount = 2;
+  readonly stackPreviewCount = 4;
   private readonly expandedBullets = signal<ReadonlySet<number>>(new Set<number>());
+  private readonly expandedStacks = signal<ReadonlySet<number>>(new Set<number>());
 
   private readonly cardSlot = viewChild<ElementRef<HTMLElement>>('cardSlot');
   private readonly stageScroller = viewChild<ElementRef<HTMLElement>>('stageScroller');
@@ -226,6 +229,26 @@ export class JourneyComponent {
     return this.isExpanded(index)
       ? peak.entry.bullets
       : peak.entry.bullets.slice(0, this.bulletPreviewCount);
+  }
+
+  isStackExpanded(index: number): boolean {
+    return this.expandedStacks().has(index);
+  }
+
+  toggleStack(index: number): void {
+    this.expandedStacks.update((set) => {
+      const next = new Set(set);
+      if (!next.delete(index)) {
+        next.add(index);
+      }
+      return next;
+    });
+  }
+
+  visibleStack(peak: RangePeak, index: number): readonly string[] {
+    return this.isStackExpanded(index)
+      ? peak.entry.stack
+      : peak.entry.stack.slice(0, this.stackPreviewCount);
   }
 
   /** `reveal` is set by click/tap so the swapped card is never an off-screen

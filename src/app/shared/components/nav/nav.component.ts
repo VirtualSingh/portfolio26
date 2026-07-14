@@ -76,7 +76,12 @@ import { ScrollService } from '../../../core/services/scroll.service';
         PS
       </button>
       <div class="topbar__actions">
-        <a class="topbar__resume" [href]="resume.url" [attr.download]="resume.fileName">Resume</a>
+        <!-- The hero has its own Resume button; this one appears once that scrolls away -->
+        <a
+          class="topbar__resume"
+          [class.topbar__resume--hidden]="activeSection() === 'hero'"
+          [href]="resume.url"
+          [attr.download]="resume.fileName">Resume</a>
         <button
           type="button"
           class="topbar__hamburger"
@@ -265,6 +270,14 @@ import { ScrollService } from '../../../core/services/scroll.service';
       color: var(--color-primary-strong);
       font-size: 0.875rem;
       font-weight: 700;
+      transition: opacity 180ms ease, visibility 180ms;
+    }
+
+    /* Hidden while the hero (with its own Resume CTA) is on screen; visibility
+       also drops it from the tab order and accessibility tree */
+    .topbar__resume--hidden {
+      opacity: 0;
+      visibility: hidden;
     }
 
     .topbar__hamburger {

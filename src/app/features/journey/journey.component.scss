@@ -269,7 +269,9 @@
 
 .range__card-highlight {
   display: inline-flex;
-  align-items: baseline;
+  /* Center, not baseline: the big value stays vertically centered when the
+     label wraps to two lines on narrow cards */
+  align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-4);
   padding: var(--space-2) var(--space-4);
@@ -292,6 +294,33 @@
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-4);
+}
+
+/* Rides the badge row in the same pill language; dashed border marks it as
+   the one badge that's a button */
+.range__stack-toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 var(--space-4);
+  border: 1px dashed color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-primary-strong);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 180ms ease;
+
+  &:hover {
+    background: var(--color-primary-light);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 /* Corner label in the empty sky, like a journal margin note */

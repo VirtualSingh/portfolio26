@@ -107,11 +107,11 @@
                 >
                   {{
                     isExpanded(i)
-                      ? content.bulletsLessLabel
+                      ? content.lessLabel
                       : '+' +
                         (peak.entry.bullets.length - bulletPreviewCount) +
                         ' ' +
-                        content.bulletsMoreLabel
+                        content.moreLabel
                   }}
                   <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
                     <path
@@ -135,9 +135,24 @@
             }
 
             @if (peak.entry.stack.length) {
-              <div class="range__card-stack">
-                @for (tech of peak.entry.stack; track tech) {
+              <div class="range__card-stack" [attr.id]="'range-stack-' + i">
+                @for (tech of visibleStack(peak, i); track tech) {
                   <app-tech-badge [label]="tech" tone="muted" />
+                }
+                @if (peak.entry.stack.length > stackPreviewCount) {
+                  <button
+                    type="button"
+                    class="range__stack-toggle"
+                    [attr.aria-expanded]="isStackExpanded(i)"
+                    [attr.aria-controls]="'range-stack-' + i"
+                    (click)="toggleStack(i)"
+                  >
+                    {{
+                      isStackExpanded(i)
+                        ? content.lessLabel
+                        : '+' + (peak.entry.stack.length - stackPreviewCount) + ' ' + content.moreLabel
+                    }}
+                  </button>
                 }
               </div>
             }

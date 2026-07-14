@@ -148,9 +148,10 @@ export const PORTFOLIO = {
     description: 'Five chapters. What each one actually shipped.',
     /** Mono caption inside the mountain-range scene panel. */
     rangeCaption: 'the range · every peak is a chapter',
-    /** Chapter cards preview two bullets; the toggle reads "+N more" / this collapse label. */
-    bulletsMoreLabel: 'more',
-    bulletsLessLabel: 'Show less',
+    /** Chapter cards preview 2 bullets and 4 stack badges; the expand toggles
+     *  read "+N more" / this collapse label. */
+    moreLabel: 'more',
+    lessLabel: 'Show less',
     entries: [
       {
         kind: 'role',
@@ -165,7 +166,7 @@ export const PORTFOLIO = {
           'Resolved 30+ critical and Blocker SonarQube issues, lifting code coverage by 85%.',
           'Set up a AI pipeline for fixing SonarQube issues and adding test cases to increase coverage, cutting manual effort by 60% and improving code quality.',
         ],
-        stack: ['Angular 22', 'Angular Material', 'LESS', 'SonarQube Cloud','SonarQube MCP Server', 'Claude Code', 'Ngx-Echarts', 'RxJS', 'TypeScript'],
+        stack: ['Angular 22', 'RxJS','LESS', 'TypeScript','Angular Material',  'SonarQube Cloud','SonarQube MCP Server', 'Claude Code', 'Ngx-Echarts'],
         highlight: { value: '85%', label: 'Code Coverage across 3 products' },
       },
       {
