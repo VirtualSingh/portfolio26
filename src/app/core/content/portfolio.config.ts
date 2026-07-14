@@ -88,11 +88,11 @@ export const PORTFOLIO = {
     tagline:
       "It started with one HTML file in a college lab. Now I lead Angular migrations and build component libraries for teams I've never met.",
     /** The version blocks drawn in the hero's Ascent scene — the real migration ladder. */
-    ascent: ['v8', 'v14', 'v17', 'v19'],
+    ascent: ['v8', 'v14', 'v19', 'v22'],
     /** The quiet mono proof line under the hero CTAs. Keep it to real, checkable facts. */
-    proofLine: 'Angular v8→v19 migrations · micro-frontends · 40% regression-testing time cut',
+    proofLine: 'Angular v14→v22 migrations · micro-frontends · 40% regression-testing time cut',
     resume: {
-      label: 'Download Resume',
+      label: 'Resume',
       /** File lives in /public. Replace the PDF there to update the download. */
       url: '/Pushpendra_Singh_Resume.pdf',
       fileName: 'Pushpendra_Singh_Resume.pdf',
@@ -107,7 +107,7 @@ export const PORTFOLIO = {
   /** Phrases scrolling through the ink ticker strip under the hero. Keep each ≤3 words. */
   marquee: {
     items: [
-      'Angular v8→v19',
+      'Angular v14→v22',
       'Component libraries',
       'Micro-frontends',
       'Design systems',
@@ -133,7 +133,7 @@ export const PORTFOLIO = {
     accentWord: 'curiosity.',
     paragraphs: [
       'Hand-writing HTML in a college lab, hitting refresh, watching a page come alive — that moment never got old. It just got bigger: pages, then forms, then entire component libraries.',
-      "Four years of Angular later, I'm at Aira Matrix — leading the v19 upgrade and building a 15+ component library for three product squads.",
+      "Four years of Angular later, I'm at Aira Matrix — leading the v22 upgrade and building a 15+ component library for three product squads.",
     ],
     facts: [
       '4+ years across 3 companies',
@@ -157,11 +157,11 @@ export const PORTFOLIO = {
         dateRange: 'Aug 2025 — Present',
         story: 'The systems chapter: making an entire codebase easier for the next engineer.',
         bullets: [
-          'Led the production upgrade to Angular 19 for a team of 8+ engineers.',
+          'Led the production upgrade to Angular 22 for a team of 8+ engineers.',
           'Resolved 30+ critical SonarQube issues, lifting code coverage by ~18%.',
           'Architecting an in-house component library — 15+ components serving three product squads.',
         ],
-        stack: ['Angular 19', 'Angular Material', 'LESS', 'OpenSeaDragon', 'SonarQube'],
+        stack: ['Angular 22', 'Angular Material', 'LESS', 'OpenSeaDragon', 'SonarQube'],
         highlight: { value: '15+', label: 'library components across 3 squads' },
       },
       {
@@ -250,7 +250,7 @@ export const PORTFOLIO = {
     groups: [
       {
         name: 'Core',
-        items: ['Angular (v8–v19)', 'TypeScript', 'RxJS', 'JavaScript', 'Single SPA'],
+        items: ['Angular (v14–v22)', 'TypeScript', 'RxJS', 'JavaScript', 'Single SPA'],
       },
       {
         name: 'UI & Styling',
@@ -272,14 +272,14 @@ export const PORTFOLIO = {
     description: 'From live dashboards to the page you are reading.',
     items: [
       {
-        name: 'AutoCrypto v3',
+        name: 'Ngx-Echarts Implementation',
         description:
-          'Real-time cryptocurrency dashboard with live price charts and portfolio tracking, built on RxJS data streams.',
+          'A professional, responsive analytics dashboard built with Angular 21 and Apache ECharts, showcasing comprehensive image processing metrics through interactive data visualizations.',
         techStack: ['Angular', 'TypeScript', 'Chart.js', 'RxJS'],
         monogram: 'AC',
         coverHue: 0,
-        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/autocrypto-v3' },
-        repository: { label: 'GitHub', url: 'https://github.com/virtualsingh/autocrypto-v3' },
+        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/echarts-dashboard-implementation/' },
+        repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/echarts-dashboard-implementation' },
       },
       {
         name: 'Portfolio v3',
@@ -294,11 +294,13 @@ export const PORTFOLIO = {
       {
         name: 'This website',
         description:
-          'Portfolio v4: Angular 21, prerendered, zoneless, config-driven — every word on this page lives in one typed file.',
-        techStack: ['Angular 21', 'SSG', 'SCSS', 'Jest'],
+          'Portfolio v4: Angular 22, prerendered, zoneless, config-driven — every word on this page lives in one typed file.',
+        techStack: ['Angular 22', 'SSG', 'SCSS', 'Jest'],
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',
+        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
+        repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/portfolio26' },
       },
     ] as readonly ProjectItem[],
   },
@@ -348,13 +350,13 @@ export const PORTFOLIO = {
 
   footer: {
     line: 'Designed & built by Pushpendra Singh',
-    stackNote: 'Angular 21 · zoneless · probably tweaking this footer again',
+    stackNote: 'Angular 22 · zoneless · probably tweaking this footer again',
   },
 
   seo: {
     title: 'Pushpendra Singh — Angular & Frontend Engineer',
     description:
-      'Frontend engineer with 4+ years in Angular (v8–v19): micro-frontends, component libraries, and measurable outcomes. Portfolio, experience, and contact.',
+      'Frontend engineer with 4+ years in Angular (v14–v22): micro-frontends, component libraries, and measurable outcomes. Portfolio, experience, and contact.',
     siteUrl: 'https://pushpendra-singh.dev',
   },
 } as const;
