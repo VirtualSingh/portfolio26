@@ -98,7 +98,7 @@ export const PORTFOLIO = {
     resume: {
       label: 'Resume',
       /** File lives in /public. Kept relative (no leading slash) so it resolves
-       *  against <base href> and works on GitHub Pages' /portfolio26/ subpath. */
+       *  against <base href> and works at the domain root or any subpath. */
       url: 'Pushpendra_Singh_Resume.pdf',
       fileName: 'Pushpendra_Singh_Resume.pdf',
     },
@@ -312,7 +312,7 @@ export const PORTFOLIO = {
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',
-        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio26/' },
+        live: { label: 'Live Demo', url: 'https://pushpendrasingh.dev/' },
         repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/portfolio26' },
       },
     ] as readonly ProjectItem[],

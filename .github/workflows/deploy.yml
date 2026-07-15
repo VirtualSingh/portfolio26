@@ -32,14 +32,15 @@ jobs:
       - name: Run the content-config contract spec
         run: npx jest
 
-      - name: Build (prerendered, served from the /portfolio26/ subpath)
-        run: npx ng build --base-href /portfolio26/
+      - name: Build (prerendered, served from the custom-domain root)
+        run: npx ng build
 
       - name: Prepare Pages payload
         run: |
           cd dist/portfolio/browser
-          cp index.html 404.html   # direct hits on unknown paths fall back to the shell
-          touch .nojekyll          # serve files as-is, no Jekyll pass
+          cp index.html 404.html            # direct hits on unknown paths fall back to the shell
+          touch .nojekyll                    # serve files as-is, no Jekyll pass
+          echo 'pushpendrasingh.dev' > CNAME # keeps the custom domain across force-pushes
 
       - name: Push to gh-pages
         run: |
