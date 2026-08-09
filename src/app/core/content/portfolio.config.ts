@@ -88,13 +88,13 @@ export const PORTFOLIO = {
     firstName: 'Pushpendra',
     lastName: 'Singh',
     greeting: "Hi, I'm",
-    role: 'Frontend engineer · builder of UI systems',
+    role: 'Angular engineer · enterprise healthcare SaaS',
     tagline:
-      "It started with one HTML file in a college lab. Now I lead Angular migrations and build component libraries for teams I've never met.",
+      'I build the Angular front ends behind healthcare software — dashboards pathologists at UCSF and Memorial Sloan Kettering read scans on. 5 years, v8→v22 migrations across 3 products.',
     /** The version blocks drawn in the hero's Ascent scene — the real migration ladder. */
     ascent: ['v8', 'v14', 'v19', 'v22'],
-    /** The quiet mono proof line under the hero CTAs. Keep it to real, checkable facts. */
-    proofLine: 'Angular v14→v22 migrations · micro-frontends · 40% regression-testing time cut',
+    /** The proof line under the hero CTAs. Keep it to real, checkable facts. */
+    proofLine: 'v8→v22 migrations · micro-frontends · 58→90% code coverage · 40% regression time cut',
     resume: {
       label: 'Resume',
       /** File lives in /public. Kept relative (no leading slash) so it resolves
@@ -112,7 +112,8 @@ export const PORTFOLIO = {
   /** Phrases scrolling through the ink ticker strip under the hero. Keep each ≤3 words. */
   marquee: {
     items: [
-      'Angular v14→v22',
+      'Angular v8→v22',
+      'Healthcare dashboards',
       'Component libraries',
       'Micro-frontends',
       'Design systems',
@@ -138,10 +139,10 @@ export const PORTFOLIO = {
     accentWord: 'curiosity.',
     paragraphs: [
       'Hand-writing HTML in a college lab, hitting refresh, watching a page come alive — that moment never got old. It just got bigger: pages, then forms, then entire component libraries.',
-      "Four years of Angular later, I'm at Aira Matrix — leading the v22 upgrade, building dashboards and refactoring entire codebases end to end.",
+      "Five years of Angular later, I'm at Aira Matrix — leading the v22 upgrade across 3 products and building the pathology QC dashboards clinicians use at UCSF and Memorial Sloan Kettering.",
     ],
     facts: [
-      '4+ years across 3 companies',
+      '5 years across 3 companies',
       'Meta Front-End Developer certificate',
       'Front-End JavaScript Frameworks: Angular — Coursera',
     ],
@@ -164,15 +165,15 @@ export const PORTFOLIO = {
         place: 'Aira Matrix',
         location: 'Thane, MH',
         dateRange: 'Aug 2025 — Present',
-        story: 'The systems chapter: making an entire codebase easier for the next engineer.',
+        story: 'The systems chapter: enterprise healthcare SaaS, making an entire codebase easier for the next engineer.',
         bullets: [
-          'Revamped complete dashboard of existing product, replaced chart.js with ngx-echarts, and improved performance by 30%.',
-          'Led the production upgrade to Angular 22 for 3 products end to end.',
-          'Resolved 30+ critical and Blocker SonarQube issues, lifting code coverage by 85%.',
-          'Set up a AI pipeline for fixing SonarQube issues and adding test cases to increase coverage, cutting manual effort by 60% and improving code quality.',
+          'Led the production upgrade of 3 Angular products from v14 to v22 — full NgModule-to-standalone migration with zero functional regressions, unlocking Signals for a team of 8+ engineers.',
+          'Revamped the AIRAQc pathology QC dashboard used at UCSF and Memorial Sloan Kettering: replaced Chart.js with ngx-echarts and rebuilt KPI cards, drill-downs, and gauges — 30% faster rendering.',
+          'Built an AI code-quality pipeline (Claude Code + SonarQube MCP): resolved 30+ critical/blocker issues and automated test generation, lifting code coverage from 58% to 90%.',
+          'Designed and shipped pushpendrasingh.dev — Angular 22, prerendered SSG, zero CLS — via agentic workflows with automated CI/CD.',
         ],
-        stack: ['Angular 22', 'RxJS','LESS', 'TypeScript','Angular Material',  'SonarQube Cloud','SonarQube MCP Server', 'Claude Code', 'Ngx-Echarts'],
-        highlight: { value: '85%', label: 'Code Coverage across 3 products' },
+        stack: ['Angular 22', 'RxJS', 'LESS', 'TypeScript', 'Angular Material', 'SonarQube Cloud', 'SonarQube MCP Server', 'Claude Code', 'Ngx-Echarts'],
+        highlight: { value: '58→90%', label: 'code coverage across 3 products' },
       },
       {
         kind: 'role',
@@ -183,12 +184,13 @@ export const PORTFOLIO = {
         story:
           'The depth chapter: forms, migrations, and learning to automate myself out of repetition.',
         bullets: [
-          'Built configurable intake forms with conditional logic — data-collection efficiency up 30%.',
-          'Helped the migration of 3 modules from Angular 8 to 14, cutting maintenance overhead by 20%.',
-          'Built Playwright + Cucumber automation suites with 3 team members that cut manual regression testing by 50%.',
+          'Designed and shipped configurable intake forms with conditional logic and multi-step validation — data-collection efficiency up 30% across 5+ operations teams.',
+          'Architected drag-and-drop dynamic field grouping for form builders, cutting setup time by 35% — direct client praise across 3 consecutive quarterly reviews.',
+          'Led the migration of 6 Angular modules from v8 to v14 with standalone components and typed forms, reducing maintenance overhead by 20%.',
+          'Built Playwright + Cucumber BDD automation suites for 3 modules, cutting manual regression time by 40% and enabling reliable 2-week CI/CD cycles.',
         ],
         stack: ['Angular', 'TypeScript', 'RxJS', 'PrimeNG', 'SCSS', 'Single SPA'],
-        highlight: { value: '40%', label: 'less manual regression testing' },
+        highlight: { value: '40%', label: 'less manual regression time per release' },
       },
       {
         kind: 'role',
@@ -202,7 +204,7 @@ export const PORTFOLIO = {
           'Built reactive forms with multi-step validation, cutting submission errors by ~20%.',
         ],
         stack: ['Angular', 'TypeScript', 'HTML', 'SCSS'],
-        highlight: { value: '2/2', label: 'prototypes' },
+        highlight: { value: '6 mo', label: 'from intern to full-time offer' },
         peakLabel: 'Vitrana · intern',
       },
       {
@@ -214,11 +216,11 @@ export const PORTFOLIO = {
         story:
           'The fundamentals chapter: no framework, no safety net — just HTML, CSS, and deadlines.',
         bullets: [
-          'Designed and shipped 4 responsive websites from scratch.',
+          'Designed and shipped 4 fully responsive client websites from scratch, all delivered on schedule.',
           'Built and cross-tested 4 HTML email templates across Gmail, Outlook, and Apple Mail.',
         ],
         stack: ['HTML', 'CSS', 'JavaScript'],
-        highlight: { value: '4', label: 'sites shipped from a blank editor' },
+        highlight: { value: '0', label: 'post-delivery defects across 8 deliverables' },
       },
       {
         kind: 'milestone',
@@ -260,19 +262,23 @@ export const PORTFOLIO = {
     groups: [
       {
         name: 'Core',
-        items: ['Angular (v14–v22)', 'TypeScript', 'RxJS', 'JavaScript', 'Single SPA'],
+        items: ['Angular (v8–v22)', 'TypeScript', 'Signals', 'RxJS', 'JavaScript', 'Single SPA'],
       },
       {
         name: 'UI & Styling',
         items: ['HTML5', 'SCSS', 'LESS', 'Tailwind CSS', 'Angular Material', 'PrimeNG'],
       },
       {
+        name: 'Charts & Imaging',
+        items: ['ngx-echarts', 'ECharts', 'Chart.js', 'OpenSeaDragon'],
+      },
+      {
         name: 'Testing & Tools',
-        items: ['Jest', 'Playwright', 'Cucumber', 'Git', 'SonarQube', 'Webpack'],
+        items: ['Jest', 'Playwright', 'Cucumber BDD', 'Git', 'SonarQube', 'Docker', 'Webpack'],
       },
     ] as readonly SkillGroup[],
     learningLabel: 'Currently learning',
-    learning: ['React', 'Three.js', 'OpenSeaDragon'],
+    learning: ['React', 'Three.js', 'NgRx'],
   },
 
   projects: {
@@ -282,26 +288,25 @@ export const PORTFOLIO = {
     description: 'From live dashboards to the page you are reading.',
     items: [
       {
-        name: 'Ngx-Echarts Implementation',
+        name: 'ECharts Dashboard Implementation',
         description:
-          'A professional, responsive analytics dashboard showcasing comprehensive metrics through interactive data visualizations.',
-        techStack: ['Angular', 'TypeScript', 'Chart.js', 'RxJS'],
+          'Professional analytics dashboard showcasing advanced ECharts patterns — layered charts, custom tooltips, responsive KPI cards, and a real-time data-stream simulation.',
+        techStack: ['Angular', 'TypeScript', 'ngx-echarts', 'ECharts'],
         image: 'images/ngxecharts.png',
-        monogram: 'AC',
+        monogram: 'EC',
         coverHue: 0,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/echarts-dashboard-implementation/' },
         repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/echarts-dashboard-implementation' },
       },
       {
-        name: 'Portfolio v3',
+        name: 'MyPrint — Print Marketplace',
         description:
-          'The previous generation of this site — hand-rolled HTML, CSS, and JavaScript with smooth scroll animations.',
-        techStack: ['HTML', 'CSS', 'JavaScript'],
-        image: 'images/portfolio3.png',
-        monogram: 'P3',
-        coverHue: 24,
-        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
-        repository: { label: 'GitHub', url: 'https://github.com/virtualsingh/portfolio-v3' },
+          'A two-sided print marketplace for Delhi NCR. Co-founded the venture and designed and built the landing experience end to end — live on Vercel.',
+        techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+        image: 'images/myprint.png',
+        monogram: 'MP',
+        coverHue: 18,
+        live: { label: 'Live Demo', url: 'https://my-print-jet.vercel.app/' },
       },
       {
         name: 'This website',
@@ -314,6 +319,28 @@ export const PORTFOLIO = {
         status: 'You are here',
         live: { label: 'Live Demo', url: 'https://pushpendrasingh.dev/' },
         repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/portfolio26' },
+      },
+      {
+        name: 'T&T — Tour & Travel',
+        description:
+          'Fully responsive tour-and-travel website delivered against a live client brief — smooth animations, cross-browser tested.',
+        techStack: ['HTML', 'CSS', 'JavaScript'],
+        image: 'images/tnt.png',
+        monogram: 'TT',
+        coverHue: 32,
+        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/TNT-live-V2.0/' },
+        repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/TNT-live-V2.0' },
+      },
+      {
+        name: 'Portfolio v3',
+        description:
+          'The previous generation of this site — hand-rolled HTML, CSS, and JavaScript with smooth scroll animations.',
+        techStack: ['HTML', 'CSS', 'JavaScript'],
+        image: 'images/portfolio3.png',
+        monogram: 'P3',
+        coverHue: 24,
+        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
+        repository: { label: 'GitHub', url: 'https://github.com/virtualsingh/portfolio-v3' },
       },
     ] as readonly ProjectItem[],
   },
