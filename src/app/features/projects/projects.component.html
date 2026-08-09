@@ -7,66 +7,139 @@
       [description]="content.description"
     />
 
-    <div class="projects__grid">
-      @for (project of content.items; track project.name; let i = $index) {
-        <article class="projects__card" appScrollReveal [revealDelay]="i * 80">
-          <div
-            class="projects__cover"
-            [class.projects__cover--art]="!project.image"
-            [style.--cover-hue]="project.coverHue"
+    <!-- One row, swipe/click to browse; gently auto-advances until the visitor
+         takes the wheel (any swipe, arrow, dot, or focus stops it for good). -->
+    <div class="projects__carousel" appScrollReveal>
+      <div
+        class="projects__viewport"
+        #viewport
+        role="region"
+        aria-roledescription="carousel"
+        [attr.aria-label]="'Projects — ' + content.items.length + ' items'"
+        (scroll)="onScroll()"
+        (pointerdown)="stopAuto()"
+        (focusin)="stopAuto()"
+        (mouseenter)="hovering = true"
+        (mouseleave)="hovering = false"
+      >
+        @for (project of content.items; track project.name; let i = $index) {
+          <article
+            class="projects__card"
+            role="group"
+            aria-roledescription="slide"
+            [attr.aria-label]="i + 1 + ' of ' + content.items.length + ': ' + project.name"
           >
-            @if (project.image) {
-              <img
-                [src]="project.image"
-                alt="Screenshot of {{ project.name }}"
-                width="1600"
-                height="1000"
-                loading="lazy"
-                decoding="async"
-              />
-            } @else {
-              <span class="projects__monogram" aria-hidden="true">{{ project.monogram }}</span>
-            }
-            @if (project.status) {
-              <span class="projects__status">{{ project.status }}</span>
-            }
-          </div>
-
-          <div class="projects__content">
-            <div>
-              <h3>{{ project.name }}</h3>
-              <p>{{ project.description }}</p>
-            </div>
-
-            <div class="projects__stack">
-              @for (tech of project.techStack; track tech) {
-                <app-tech-badge [label]="tech" tone="muted" />
+            <div
+              class="projects__cover"
+              [class.projects__cover--art]="!project.image"
+              [style.--cover-hue]="project.coverHue"
+            >
+              @if (project.image) {
+                <img
+                  [src]="project.image"
+                  alt="Screenshot of {{ project.name }}"
+                  width="1600"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                />
+              } @else {
+                <span class="projects__monogram" aria-hidden="true">{{ project.monogram }}</span>
+              }
+              @if (project.status) {
+                <span class="projects__status">{{ project.status }}</span>
               }
             </div>
 
-            <div class="projects__links">
-              @if (project.live) {
-                <a
-                  [href]="project.live.url"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Open live demo for {{ project.name }}"
-                  >{{ project.live.label }} ↗</a
-                >
-              }
-              @if (project.repository) {
-                <a
-                  [href]="project.repository.url"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Open repository for {{ project.name }}"
-                  >{{ project.repository.label }} ↗</a
-                >
-              }
+            <div class="projects__content">
+              <div>
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.description }}</p>
+              </div>
+
+              <div class="projects__stack">
+                @for (tech of project.techStack; track tech) {
+                  <app-tech-badge [label]="tech" tone="muted" />
+                }
+              </div>
+
+              <div class="projects__links">
+                @if (project.live) {
+                  <a
+                    [href]="project.live.url"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Open live demo for {{ project.name }}"
+                    >{{ project.live.label }} ↗</a
+                  >
+                }
+                @if (project.repository) {
+                  <a
+                    [href]="project.repository.url"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Open repository for {{ project.name }}"
+                    >{{ project.repository.label }} ↗</a
+                  >
+                }
+              </div>
             </div>
-          </div>
-        </article>
-      }
+          </article>
+        }
+      </div>
+
+      <div class="projects__controls">
+        <button
+          type="button"
+          class="projects__arrow"
+          [disabled]="active() === 0"
+          aria-label="Previous project"
+          (click)="step(-1)"
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M10 3 5 8l5 5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <div class="projects__dots">
+          @for (project of content.items; track project.name; let i = $index) {
+            <button
+              type="button"
+              class="projects__dot"
+              [class.projects__dot--active]="active() === i"
+              [attr.aria-current]="active() === i ? 'true' : null"
+              [attr.aria-label]="'Go to project ' + (i + 1) + ': ' + project.name"
+              (click)="goTo(i, true)"
+            ></button>
+          }
+        </div>
+
+        <button
+          type="button"
+          class="projects__arrow"
+          [disabled]="active() === content.items.length - 1"
+          aria-label="Next project"
+          (click)="step(1)"
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M6 3l5 5-5 5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
