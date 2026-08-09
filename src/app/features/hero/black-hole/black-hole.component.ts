@@ -17,7 +17,7 @@ import type { BlackHoleScene } from './black-hole.scene';
  *  reduced-motion visitors get a single still frame. */
 @Component({
   selector: 'app-black-hole',
-  template: '<canvas #canvas></canvas>',
+  template: '<canvas #canvas aria-hidden="true"></canvas>',
   styles: `
     :host {
       display: block;
@@ -59,6 +59,16 @@ export class BlackHoleComponent {
   }
 
   private async init(): Promise<void> {
+    // The scene is pure ornament: when the visitor signals constraint
+    // (Save-Data on, or under 4GB of device memory) we skip it entirely —
+    // that also skips downloading the ~111KB three.js chunk.
+    const nav = navigator as Navigator & {
+      connection?: { saveData?: boolean };
+      deviceMemory?: number;
+    };
+    if (nav.connection?.saveData === true || (nav.deviceMemory ?? 8) < 4) {
+      return;
+    }
     const { createBlackHoleScene } = await import('./black-hole.scene');
     if (this.destroyed) {
       return;

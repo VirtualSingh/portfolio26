@@ -94,7 +94,8 @@ export const PORTFOLIO = {
     /** The version blocks drawn in the hero's Ascent scene — the real migration ladder. */
     ascent: ['v8', 'v14', 'v19', 'v22'],
     /** The proof line under the hero CTAs. Keep it to real, checkable facts. */
-    proofLine: 'v8→v22 migrations · micro-frontends · 58→90% code coverage · 40% regression time cut',
+    proofLine:
+      'v8→v22 migrations · micro-frontends · 58→90% code coverage · 40% regression time cut',
     resume: {
       label: 'Resume',
       /** File lives in /public. Kept relative (no leading slash) so it resolves
@@ -165,14 +166,25 @@ export const PORTFOLIO = {
         place: 'Aira Matrix',
         location: 'Thane, MH',
         dateRange: 'Aug 2025 — Present',
-        story: 'The systems chapter: enterprise healthcare SaaS, making an entire codebase easier for the next engineer.',
+        story:
+          'The systems chapter: enterprise healthcare SaaS, making an entire codebase easier for the next engineer.',
         bullets: [
           'Led the production upgrade of 3 Angular products from v14 to v22 — full NgModule-to-standalone migration with zero functional regressions, unlocking Signals for a team of 8+ engineers.',
           'Revamped the AIRAQc pathology QC dashboard used at UCSF and Memorial Sloan Kettering: replaced Chart.js with ngx-echarts and rebuilt KPI cards, drill-downs, and gauges — 30% faster rendering.',
           'Built an AI code-quality pipeline (Claude Code + SonarQube MCP): resolved 30+ critical/blocker issues and automated test generation, lifting code coverage from 58% to 90%.',
           'Designed and shipped pushpendrasingh.dev — Angular 22, prerendered SSG, zero CLS — via agentic workflows with automated CI/CD.',
         ],
-        stack: ['Angular 22', 'RxJS', 'LESS', 'TypeScript', 'Angular Material', 'SonarQube Cloud', 'SonarQube MCP Server', 'Claude Code', 'Ngx-Echarts'],
+        stack: [
+          'Angular 22',
+          'RxJS',
+          'LESS',
+          'TypeScript',
+          'Angular Material',
+          'SonarQube Cloud',
+          'SonarQube MCP Server',
+          'Claude Code',
+          'Ngx-Echarts',
+        ],
         highlight: { value: '58→90%', label: 'code coverage across 3 products' },
       },
       {
@@ -292,18 +304,24 @@ export const PORTFOLIO = {
         description:
           'Professional analytics dashboard showcasing advanced ECharts patterns — layered charts, custom tooltips, responsive KPI cards, and a real-time data-stream simulation.',
         techStack: ['Angular', 'TypeScript', 'ngx-echarts', 'ECharts'],
-        image: 'images/ngxecharts.png',
+        image: 'images/ngxecharts.webp',
         monogram: 'EC',
         coverHue: 0,
-        live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/echarts-dashboard-implementation/' },
-        repository: { label: 'GitHub', url: 'https://github.com/VirtualSingh/echarts-dashboard-implementation' },
+        live: {
+          label: 'Live Demo',
+          url: 'https://virtualsingh.github.io/echarts-dashboard-implementation/',
+        },
+        repository: {
+          label: 'GitHub',
+          url: 'https://github.com/VirtualSingh/echarts-dashboard-implementation',
+        },
       },
       {
         name: 'MyPrint — Print Marketplace',
         description:
           'A two-sided print marketplace for Delhi NCR. Co-founded the venture and designed and built the landing experience end to end — live on Vercel.',
         techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-        image: 'images/myprint.png',
+        image: 'images/myprint.webp',
         monogram: 'MP',
         coverHue: 18,
         live: { label: 'Live Demo', url: 'https://my-print-jet.vercel.app/' },
@@ -313,7 +331,7 @@ export const PORTFOLIO = {
         description:
           'Portfolio v4: Angular 22, prerendered, zoneless, config-driven — every word on this page lives in one typed file.',
         techStack: ['Angular 22', 'SSG', 'SCSS', 'Jest'],
-        image: 'images/portfolio4.png',
+        image: 'images/portfolio4.webp',
         monogram: 'V4',
         coverHue: 340,
         status: 'You are here',
@@ -325,7 +343,7 @@ export const PORTFOLIO = {
         description:
           'Fully responsive tour-and-travel website delivered against a live client brief — smooth animations, cross-browser tested.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
-        image: 'images/tnt.png',
+        image: 'images/tnt.webp',
         monogram: 'TT',
         coverHue: 32,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/TNT-live-V2.0/' },
@@ -336,7 +354,7 @@ export const PORTFOLIO = {
         description:
           'The previous generation of this site — hand-rolled HTML, CSS, and JavaScript with smooth scroll animations.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
-        image: 'images/portfolio3.png',
+        image: 'images/portfolio3.webp',
         monogram: 'P3',
         coverHue: 24,
         live: { label: 'Live Demo', url: 'https://virtualsingh.github.io/portfolio-v3' },
@@ -368,7 +386,7 @@ export const PORTFOLIO = {
     channels: [
       { kind: 'email', label: 'singh16195@gmail.com', href: 'mailto:singh16195@gmail.com' },
       { kind: 'phone', label: '+91 93100 81407', href: 'tel:+919310081407' },
-      { kind: 'location', label: 'Thane, Maharashtra, India' },
+      { kind: 'location', label: 'Noida, India · open to remote worldwide' },
       {
         kind: 'linkedin',
         label: 'linkedin.com/in/ps-rajput',
@@ -381,6 +399,8 @@ export const PORTFOLIO = {
       successMessage: "Message sent — I'll get back to you soon.",
       errorMessage: "That didn't go through. Please try again, or email me directly.",
       notConfiguredMessage: 'The contact form is not wired up yet — please email me directly.',
+      /** Shown when a second send is attempted inside the 60s cooldown window. */
+      cooldownNote: 'Easy there - your last message just went through. Give it a minute.',
       /** Shown instead of the form while EmailJS credentials are not configured. */
       offlineNote:
         "The form is still warming up — until it's live, email reaches me fastest. I reply within a day.",

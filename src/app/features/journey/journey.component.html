@@ -15,61 +15,61 @@
            following whichever card is swiped into view. Inert on desktop. -->
       <div class="range__scroller" #stageScroller>
         <div class="range__stage">
-        <svg viewBox="0 0 1200 360" aria-hidden="true" focusable="false">
+          <svg viewBox="0 0 1200 360" aria-hidden="true" focusable="false">
+            @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
+              <g
+                class="range__mountain"
+                [class.range__mountain--active]="selected() === i"
+                (mouseenter)="select(i)"
+                (click)="select(i, true)"
+              >
+                <clipPath [attr.id]="'range-clip-' + i">
+                  <path [attr.d]="peak.silhouette" />
+                </clipPath>
+                <path
+                  class="range__silhouette"
+                  [attr.d]="peak.silhouette"
+                  vector-effect="non-scaling-stroke"
+                />
+                <!-- Striations are clipped to their own silhouette so no line ever leaks out -->
+                <g [attr.clip-path]="'url(#range-clip-' + i + ')'">
+                  @for (contour of peak.contours; track $index) {
+                    <path
+                      class="range__contour"
+                      [attr.d]="contour.d"
+                      [attr.stroke-opacity]="contour.opacity"
+                      vector-effect="non-scaling-stroke"
+                    />
+                  }
+                </g>
+              </g>
+            }
+          </svg>
+
           @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
-            <g
-              class="range__mountain"
-              [class.range__mountain--active]="selected() === i"
+            <button
+              type="button"
+              class="range__marker"
+              [class.range__marker--active]="selected() === i"
+              [style.left.%]="peak.leftPct"
+              [style.bottom.%]="peak.peakPct"
+              [attr.aria-pressed]="selected() === i"
+              [attr.aria-label]="peak.ariaLabel"
               (mouseenter)="select(i)"
+              (focus)="select(i)"
               (click)="select(i, true)"
             >
-              <clipPath [attr.id]="'range-clip-' + i">
-                <path [attr.d]="peak.silhouette" />
-              </clipPath>
-              <path
-                class="range__silhouette"
-                [attr.d]="peak.silhouette"
-                vector-effect="non-scaling-stroke"
-              />
-              <!-- Striations are clipped to their own silhouette so no line ever leaks out -->
-              <g [attr.clip-path]="'url(#range-clip-' + i + ')'">
-                @for (contour of peak.contours; track $index) {
-                  <path
-                    class="range__contour"
-                    [attr.d]="contour.d"
-                    [attr.stroke-opacity]="contour.opacity"
-                    vector-effect="non-scaling-stroke"
-                  />
+              <span class="range__marker-label" aria-hidden="true">
+                <span class="range__marker-year mono-label">{{ peak.year }}</span>
+                <span class="range__marker-place">{{ peak.label }}</span>
+                @if (peak.stat) {
+                  <span class="range__marker-stat mono-label">{{ peak.stat }}</span>
                 }
-              </g>
-            </g>
+              </span>
+              <span class="range__marker-line" aria-hidden="true"></span>
+              <span class="range__marker-dot" aria-hidden="true"></span>
+            </button>
           }
-        </svg>
-
-        @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
-          <button
-            type="button"
-            class="range__marker"
-            [class.range__marker--active]="selected() === i"
-            [style.left.%]="peak.leftPct"
-            [style.bottom.%]="peak.peakPct"
-            [attr.aria-pressed]="selected() === i"
-            [attr.aria-label]="peak.ariaLabel"
-            (mouseenter)="select(i)"
-            (focus)="select(i)"
-            (click)="select(i, true)"
-          >
-            <span class="range__marker-label" aria-hidden="true">
-              <span class="range__marker-year mono-label">{{ peak.year }}</span>
-              <span class="range__marker-place">{{ peak.label }}</span>
-              @if (peak.stat) {
-                <span class="range__marker-stat mono-label">{{ peak.stat }}</span>
-              }
-            </span>
-            <span class="range__marker-line" aria-hidden="true"></span>
-            <span class="range__marker-dot" aria-hidden="true"></span>
-          </button>
-        }
         </div>
       </div>
 
@@ -96,7 +96,8 @@
                   <li>{{ bullet }}</li>
                 }
               </ul>
-              @if (peak.entry.bullets.length > bulletPreviewCount) {
+              <!-- The newest chapter never collapses, so it never gets a toggle -->
+              @if (i !== newestIndex && peak.entry.bullets.length > bulletPreviewCount) {
                 <button
                   type="button"
                   class="range__card-expand"
@@ -145,7 +146,7 @@
                 @for (tech of peak.entry.stack; track tech) {
                   <app-tech-badge [label]="tech" tone="muted" />
                 }
-                @if (peak.entry.stack.length > stackPreviewCount) {
+                @if (i !== newestIndex && peak.entry.stack.length > stackPreviewCount) {
                   <button
                     type="button"
                     class="range__stack-toggle"
@@ -156,13 +157,32 @@
                     {{
                       isStackExpanded(i)
                         ? content.lessLabel
-                        : '+' + (peak.entry.stack.length - stackPreviewCount) + ' ' + content.moreLabel
+                        : '+' +
+                          (peak.entry.stack.length - stackPreviewCount) +
+                          ' ' +
+                          content.moreLabel
                     }}
                   </button>
                 }
               </div>
             }
           </article>
+        }
+      </div>
+
+      <!-- Deck dots: where-am-I for the mobile swipe deck, one per chapter.
+           Tapping a dot slides its card in — same path as tapping a peak.
+           Hidden above 860px, where the panorama shows every chapter at once. -->
+      <div class="range__deck-dots">
+        @for (peak of peaks; track peak.entry.place + peak.entry.dateRange; let i = $index) {
+          <button
+            type="button"
+            class="range__deck-dot"
+            [class.range__deck-dot--active]="selected() === i"
+            [attr.aria-current]="selected() === i ? 'true' : null"
+            [attr.aria-label]="'Chapter ' + (i + 1) + ': ' + peak.label"
+            (click)="select(i, true)"
+          ></button>
         }
       </div>
     </div>

@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-tech-badge',
-  template: `
-    <span class="badge" [class.badge--muted]="tone() === 'muted'">{{ label() }}</span>
-  `,
+  template: ` <span class="badge" [class.badge--muted]="tone() === 'muted'">{{ label() }}</span> `,
   styles: `
     .badge {
       display: inline-flex;

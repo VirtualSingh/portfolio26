@@ -41,6 +41,26 @@
   max-width: 640px;
 }
 
+/* Between 1150–1440px the particle field drifts under the copy. A feathered
+   pool of paper behind the text keeps it legible without ever reading as a
+   panel — the gradient dies out long before any edge. Desktop only: below
+   768px the scene is its own band under the copy, so no scrim is needed. */
+@media (min-width: 768px) {
+  .hero__copy::before {
+    content: '';
+    position: absolute;
+    inset: -10% -14%;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 85% 90% at 42% 50%,
+      color-mix(in srgb, var(--color-bg) 94%, transparent) 45%,
+      color-mix(in srgb, var(--color-bg) 55%, transparent) 72%,
+      transparent 100%
+    );
+  }
+}
+
 /* Staggered entrance, pure CSS. Fill-mode both keeps elements hidden until their delay. */
 .hero__animate {
   animation: rise-in 500ms var(--ease-out) both;
@@ -89,12 +109,16 @@
   padding-top: var(--space-2);
 }
 
+/* The proof line is the highest-signal sentence — it must be readable,
+   so it gets body ink and a real size while keeping the mono voice. */
 .hero__proof {
   display: block;
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
   max-width: 52ch;
   overflow-wrap: break-word;
+  font-size: 0.9375rem;
+  color: var(--color-text-main);
 }
 
 /* ─── Responsive ─── */

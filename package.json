@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "node scripts/gen-build-info.mjs",
     "build": "ng build",
     "prerender": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -50,6 +51,7 @@
     "jsdom": "^28.0.0",
     "playwright-core": "^1.61.1",
     "prettier": "^3.8.1",
+    "sharp": "^0.35.3",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.59.4",
     "vitest": "^4.0.8"

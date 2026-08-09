@@ -1,8 +1,9 @@
 import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
-	{
-		path: '',
-		loadComponent: () => import('./features/home/home.component').then((module) => module.HomeComponent),
-	},
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/home/home.component').then((module) => module.HomeComponent),
+  },
 ];

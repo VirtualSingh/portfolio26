@@ -333,6 +333,50 @@
   color: var(--color-text-muted);
 }
 
+/* ─ Deck dots: where-am-I for the swipe deck. Desktop shows every chapter in
+     the panorama at once, so the row only exists below 860px. ─ */
+.range__deck-dots {
+  display: none;
+  justify-content: center;
+  margin: 0 var(--space-4) var(--space-4);
+}
+
+.range__deck-dot {
+  /* The 24px button box is the finger target; the ::before dot is the visual */
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  /* Color-only transition, so no reduced-motion override is needed */
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-pill);
+  }
+}
+
+.range__deck-dot--active::before {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
 /* Mountains rise into place when the panel scrolls into view */
 @media (prefers-reduced-motion: no-preference) {
   .journey__range.is-visible .range__mountain {
@@ -394,10 +438,13 @@
 
   .range__card-slot {
     display: flex;
-    align-items: stretch;
+    /* The always-open newest card is the tallest; flex-start keeps shorter
+       chapters at their natural height. The deck still reserves the tallest
+       slide's height, so the page never jumps. */
+    align-items: flex-start;
     gap: var(--space-3);
     margin: var(--space-4);
-    /* Slides share the tallest card's height, so no floor is needed */
+    /* The deck is as tall as its tallest slide, so no floor is needed */
     min-height: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -424,8 +471,12 @@
   .range__card-stack--collapsed app-tech-badge:nth-of-type(n + 5) {
     display: none;
   }
-}
 
+  /* The dots only make sense where the deck exists */
+  .range__deck-dots {
+    display: flex;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .range__card,
@@ -441,5 +492,10 @@
 @media print {
   .range__card[hidden] {
     display: block !important;
+  }
+
+  /* The dots are swipe navigation; paper has no swiping */
+  .range__deck-dots {
+    display: none;
   }
 }

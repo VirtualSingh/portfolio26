@@ -35,6 +35,16 @@ export default [
     },
   },
   {
+    // Plain-node build scripts (gen-build-info, inject-font-preload, optimize-covers)
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
+  },
+  {
     files: ['**/*.html'],
     languageOptions: {
       parser: angularTemplateParser,

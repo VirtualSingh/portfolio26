@@ -1,6 +1,6 @@
-# Pushpendra Singh — Portfolio v4
+# Pushpendra Singh — Portfolio
 
-Personal portfolio built with Angular 21: statically prerendered, zoneless, config-driven, and hand-designed (no template). Live sections: Hero, About, Journey, Skills, Projects, Beyond, Contact.
+Angular 22 prerendered portfolio at [pushpendrasingh.dev](https://pushpendrasingh.dev) — config-driven content, zoneless, WebGL hero.
 
 ## Editing content (the important part)
 
@@ -15,24 +15,24 @@ Every section reads from the exported `PORTFOLIO` object. To change anything on 
 | Add/remove a job or milestone | `journey.entries` (kind `'role'` for jobs, `'milestone'` for origin-story beats) |
 | Change the highlight stat on a role | `journey.entries[n].highlight` |
 | Add a skill or skill group | `skills.groups` / `skills.learning` |
-| Add a project | `projects.items` (`monogram` + `coverHue` drive the generated cover art) |
+| Add a project | `projects.items` (`image` for a screenshot; otherwise `monogram` + `coverHue` draw the cover art) |
 | Update contact channels or form copy | `contact` |
 | Change nav labels/order | `nav.items` (ids must match section element ids) |
 | SEO title/description | `seo` + `src/index.html` meta tags |
 
-A Jest suite (`portfolio.config.spec.ts`) guards the contract: nav ids must point at real sections, the resume file must exist in `public/`, and links must be well-formed. Run `npm run test:jest` after editing.
+A Jest suite (`portfolio.config.spec.ts`) guards the contract: nav ids must point at real sections, the resume file must exist in `public/`, referenced images must exist, and links must be well-formed. Run `npm run test:jest` after editing.
 
 ## Stack
 
-- Angular 21 standalone components, signals, zoneless change detection
+- Angular 22 standalone components, signals, zoneless change detection
 - Statically prerendered (SSG) with incremental hydration (`@defer (hydrate on viewport)`) — full HTML for crawlers, lazy hydration for users, no server to run
+- WebGL hero (three.js) in its own lazy chunk, loaded during idle time; constrained devices skip it entirely. Every other scene is code-drawn SVG/CSS
 - Self-hosted fonts via Fontsource (Plus Jakarta Sans Variable + JetBrains Mono) — no external font CDN
 - SCSS design system with CSS custom properties (see `DESIGN.md` for the full spec, `src/styles/_variables.scss` for tokens)
-- Hero scene and project covers are code-drawn (SVG/CSS) — zero raster assets to break
 - EmailJS contact form (optional; see below)
 - ESLint + Prettier; one Jest spec guarding the content-config contract
 
-## Scripts
+## Development
 
 ```bash
 npm install
@@ -42,6 +42,10 @@ npm run test:jest          # Jest: the content-config contract spec
 npm run lint
 npm run format
 ```
+
+## Deployment
+
+Push to `main` → GitHub Actions builds and prerenders → publishes to the `gh-pages` branch → served at [pushpendrasingh.dev](https://pushpendrasingh.dev). The output in `dist/portfolio/browser` is plain static files, so any static host works. Allowed hosts for the dev server are configured in `angular.json` → `security.allowedHosts`.
 
 ## EmailJS setup (optional)
 
@@ -60,7 +64,3 @@ Note: these values are public by design (they ship in the browser bundle), but t
 - `.impeccable/design.json` — machine-readable sidecar for design tooling
 
 The rules that matter most: one accent color (Electric Iris `#6c63ff`, under 10% of any screen), JetBrains Mono for metadata only, soft ambient shadows, 1px fog borders, refined 180ms interactions, and a reduced-motion alternative for every animation.
-
-## Deployment
-
-`npm run build` prerenders the site into `dist/portfolio/browser` as plain static files — deploy that folder to any static host (GitHub Pages, Netlify, Vercel, Cloudflare Pages). There is no server to run. Allowed hosts for the dev server are configured in `angular.json` → `security.allowedHosts`.

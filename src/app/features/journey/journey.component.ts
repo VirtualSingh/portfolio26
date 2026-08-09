@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, afterNextRender, signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  afterNextRender,
+  signal,
+  viewChild,
+} from '@angular/core';
 import type { ElementRef } from '@angular/core';
 import { PORTFOLIO } from '../../core/content/portfolio.config';
 import type { JourneyEntry } from '../../core/content/portfolio.config';
@@ -185,6 +191,10 @@ export class JourneyComponent {
     };
   });
 
+  /** The newest chapter is always fully open — recruiters shouldn't have to
+   *  click "+N more" on the current role. Its toggles never render. */
+  readonly newestIndex = this.peaks.length - 1;
+
   /** The tallest, most recent peak starts selected. */
   readonly selected = signal(this.peaks.length - 1);
 
@@ -212,7 +222,7 @@ export class JourneyComponent {
   }
 
   isExpanded(index: number): boolean {
-    return this.expandedBullets().has(index);
+    return index === this.newestIndex || this.expandedBullets().has(index);
   }
 
   toggleBullets(index: number): void {
@@ -232,7 +242,7 @@ export class JourneyComponent {
   }
 
   isStackExpanded(index: number): boolean {
-    return this.expandedStacks().has(index);
+    return index === this.newestIndex || this.expandedStacks().has(index);
   }
 
   toggleStack(index: number): void {

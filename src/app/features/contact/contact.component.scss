@@ -120,6 +120,22 @@
   font-weight: 500;
 }
 
+/* Errors sit outside the <label> for aria-describedby wiring; the negative
+   margin collapses the form's row gap back to the label's own gap. */
+.contact__error {
+  margin: calc(var(--space-2) - var(--space-4)) 0 0;
+}
+
+/* Honeypot: parked off-canvas, not display:none — bots must still fill it.
+   Scoped under .contact__form to outweigh the shared input sizing rule. */
+.contact__form .contact__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .contact__submit {
   justify-self: start;
 }

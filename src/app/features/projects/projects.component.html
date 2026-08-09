@@ -16,7 +16,14 @@
             [style.--cover-hue]="project.coverHue"
           >
             @if (project.image) {
-              <img [src]="project.image" alt="Screenshot of {{ project.name }}" loading="lazy" />
+              <img
+                [src]="project.image"
+                alt="Screenshot of {{ project.name }}"
+                width="1600"
+                height="1000"
+                loading="lazy"
+                decoding="async"
+              />
             } @else {
               <span class="projects__monogram" aria-hidden="true">{{ project.monogram }}</span>
             }

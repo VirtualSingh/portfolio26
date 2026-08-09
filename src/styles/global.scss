@@ -14,6 +14,11 @@ body {
   background: var(--color-bg);
 }
 
+/* Native smooth scroll for hash-anchor nav; reduced-motion resets it below. */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-width: 320px;
   text-rendering: optimizeLegibility;
@@ -42,9 +47,12 @@ svg {
   display: block;
 }
 
+/* Solid accent ring: WCAG 2.4.11 needs 3:1 against adjacent colors, which a 45%
+   alpha tint fails; the inner box-shadow keeps a light gap on tinted surfaces. */
 :focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
-  outline-offset: 3px;
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--color-bg);
 }
 
 .app-container {
@@ -70,6 +78,12 @@ svg {
 
 .section-block {
   padding-block: var(--section-padding);
+  /* Hash jumps land clear of the viewport edge — and the fixed topbar on mobile. */
+  scroll-margin-top: var(--space-6);
+
+  @media (max-width: 1024px) {
+    scroll-margin-top: calc(var(--topbar-height) + var(--space-4));
+  }
 }
 
 .button-primary,
@@ -166,7 +180,12 @@ svg {
   margin: var(--space-16) auto;
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
-  background: linear-gradient(90deg, rgba(26, 26, 46, 0.04), rgba(26, 26, 46, 0.09), rgba(26, 26, 46, 0.04));
+  background: linear-gradient(
+    90deg,
+    rgba(26, 26, 46, 0.04),
+    rgba(26, 26, 46, 0.09),
+    rgba(26, 26, 46, 0.04)
+  );
   background-size: 200% 100%;
   animation: shimmer 2.2s linear infinite;
 }
@@ -179,6 +198,11 @@ svg {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Explicit opt-out for the smooth hash-anchor scroll declared on html above. */
+  html {
+    scroll-behavior: auto;
   }
 
   .scroll-reveal,

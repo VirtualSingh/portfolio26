@@ -1,5 +1,9 @@
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideClientHydration, withEventReplay, withIncrementalHydration } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withEventReplay,
+  withIncrementalHydration,
+} from '@angular/platform-browser';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import type { ApplicationConfig } from '@angular/core';
 

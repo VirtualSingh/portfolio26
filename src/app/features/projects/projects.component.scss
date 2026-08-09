@@ -124,6 +124,9 @@
     color: var(--color-primary-strong);
     font-weight: 700;
     font-size: 0.875rem;
+    /* ≥44px touch target; negative margin keeps the card rhythm unchanged */
+    padding-block: 11px;
+    margin-block: -11px;
     transition: color 180ms ease;
 
     &:hover {

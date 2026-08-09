@@ -1,5 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, PLATFORM_ID, Renderer2, RendererStyleFlags2, inject, input } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  PLATFORM_ID,
+  Renderer2,
+  RendererStyleFlags2,
+  inject,
+  input,
+} from '@angular/core';
 import type { OnDestroy, OnInit } from '@angular/core';
 
 /**
@@ -28,7 +36,12 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
       return;
     }
 
-    this.renderer.setStyle(this.elementRef.nativeElement, '--reveal-delay', `${this.revealDelay()}ms`, RendererStyleFlags2.DashCase);
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      '--reveal-delay',
+      `${this.revealDelay()}ms`,
+      RendererStyleFlags2.DashCase,
+    );
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;

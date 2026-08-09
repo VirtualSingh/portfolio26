@@ -48,10 +48,7 @@ export class ScrollService {
         (entries) => {
           const nextId = entries
             .filter((entry) => entry.isIntersecting)
-            .sort(
-              (first, second) =>
-                second.intersectionRect.height - first.intersectionRect.height,
-            )
+            .sort((first, second) => second.intersectionRect.height - first.intersectionRect.height)
             .at(0)
             ?.target.getAttribute('data-section');
 

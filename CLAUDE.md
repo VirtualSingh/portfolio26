@@ -1,6 +1,6 @@
 # Portfolio
 
-Angular 21 statically prerendered (SSG, `outputMode: static` — no runtime Node server) personal portfolio for Pushpendra Singh. Single lazy home route with incrementally-hydrated sections (Hero, ink Marquee strip, About, Journey, Skills, Projects, Beyond, Contact); zoneless; SCSS design system with CSS custom properties; ESLint + Prettier. Tests are deliberately minimal: one Jest spec (`portfolio.config.spec.ts`) guarding the content-config contract — do not add component specs.
+Angular 22 statically prerendered (SSG, `outputMode: static` — no runtime Node server) personal portfolio for Pushpendra Singh. Single lazy home route with incrementally-hydrated sections (Hero, ink Marquee strip, About, Journey, Skills, Projects, Beyond, Contact); zoneless; SCSS design system with CSS custom properties; ESLint + Prettier. Tests are deliberately minimal: one Jest spec (`portfolio.config.spec.ts`) guarding the content-config contract — do not add component specs.
 
 **All site content is config-driven:** every word, link, job, and project lives in `src/app/core/content/portfolio.config.ts`. Edit that file to change content; never hardcode copy in components. `portfolio.config.spec.ts` guards the contract.
 

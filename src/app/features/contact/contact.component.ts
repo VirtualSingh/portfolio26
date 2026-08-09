@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import type { OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
@@ -9,6 +16,11 @@ import { SectionAnchorDirective } from '../../shared/components/section-anchor/s
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
 
 type ToastState = { type: 'success' | 'error'; message: string } | null;
+
+/** Humans can't validly fill three fields in under 3s; bots do it instantly. */
+const MIN_FILL_MS = 3000;
+/** One message a minute is plenty — throttles double-clicks and reply-spam alike. */
+const COOLDOWN_MS = 60_000;
 
 @Component({
   selector: 'app-contact',
@@ -45,12 +57,26 @@ export class ContactComponent implements OnDestroy {
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    subject: ['', [Validators.required]],
     message: ['', [Validators.required, Validators.minLength(20)]],
   });
 
   readonly submitting = signal(false);
   readonly toast = signal<ToastState>(null);
+
+  /** Honeypot — deliberately outside the FormGroup so it never affects validity. */
+  readonly trap = signal('');
+
+  // Both timestamps stay 0 until a browser event sets them — prerender-safe.
+  private interactiveAt = 0;
+  private cooldownUntil = 0;
+
+  constructor() {
+    // Start the bot-timing clock only once the form is actually usable;
+    // afterNextRender never runs during prerender.
+    afterNextRender(() => {
+      this.interactiveAt = Date.now();
+    });
+  }
 
   ngOnDestroy(): void {
     if (this.toastTimer) {
@@ -73,6 +99,18 @@ export class ContactComponent implements OnDestroy {
       return;
     }
 
+    if (Date.now() < this.cooldownUntil) {
+      this.showToast('success', this.formCopy.cooldownNote);
+      return;
+    }
+
+    // Filled honeypot or an impossibly fast submit — pretend it worked so
+    // bots learn nothing, but never call EmailJS.
+    if (this.trap() || (this.interactiveAt && Date.now() - this.interactiveAt < MIN_FILL_MS)) {
+      this.finishAsSent();
+      return;
+    }
+
     this.submitting.set(true);
 
     try {
@@ -82,19 +120,32 @@ export class ContactComponent implements OnDestroy {
         {
           from_name: this.form.controls.name.value,
           from_email: this.form.controls.email.value,
-          subject: this.form.controls.subject.value,
+          // The EmailJS template still expects a subject; the field is gone,
+          // so every message files under one constant line.
+          subject: 'Portfolio contact',
           message: this.form.controls.message.value,
         },
         { publicKey: environment.emailJs.publicKey },
       );
 
-      this.form.reset();
-      this.showToast('success', this.formCopy.successMessage);
+      this.finishAsSent();
     } catch {
       this.showToast('error', this.formCopy.errorMessage);
     } finally {
       this.submitting.set(false);
     }
+  }
+
+  /** Shared exit for real sends and silent drops — identical from the outside. */
+  private finishAsSent(): void {
+    this.form.reset();
+    this.trap.set('');
+    this.cooldownUntil = Date.now() + COOLDOWN_MS;
+    this.showToast('success', this.formCopy.successMessage);
+  }
+
+  trapInput(event: Event): void {
+    this.trap.set((event.target as HTMLInputElement).value);
   }
 
   fieldError(controlName: keyof typeof this.form.controls): string | null {

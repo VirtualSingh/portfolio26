@@ -32,8 +32,14 @@ jobs:
       - name: Run the content-config contract spec
         run: npx jest
 
+      - name: Generate build info (stamped into the bundle, so it must precede the build)
+        run: node scripts/gen-build-info.mjs
+
       - name: Build (prerendered, served from the custom-domain root)
         run: npx ng build
+
+      - name: Inject font preload into the prerendered HTML
+        run: node scripts/inject-font-preload.mjs
 
       - name: Prepare Pages payload
         run: |
