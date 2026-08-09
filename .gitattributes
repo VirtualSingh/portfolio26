@@ -1,0 +1,8 @@
+# Keep GitHub's language statistics representative of the application code.
+# The agent/tooling directories are generated helper scripts, not app source.
+.claude/** linguist-vendored
+.impeccable/** linguist-vendored
+.vscode/** linguist-vendored
+
+# Docs should not count towards the language bar either.
+*.md linguist-documentation
