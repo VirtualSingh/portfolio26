@@ -14,7 +14,7 @@ import { SectionAnchorDirective } from '../../shared/components/section-anchor/s
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
 import { TechBadgeComponent } from '../../shared/components/tech-badge/tech-badge.component';
 
-/** How long each project holds the stage before the carousel drifts on. */
+/** How long each stop holds the stage before the carousel drifts on. */
 const AUTO_ADVANCE_MS = 5000;
 
 @Component({
@@ -32,7 +32,13 @@ const AUTO_ADVANCE_MS = 5000;
 export class ProjectsComponent {
   readonly content = PORTFOLIO.projects;
 
-  /** Index of the slide nearest the viewport's left snap edge. */
+  /** Reachable scroll stops, not card indexes: with ~3 cards visible the strip
+   *  runs out of track before the last cards can lead, so stepping by card
+   *  index strands the arrows. Stops are card snap offsets clamped to the max
+   *  scroll and deduped — ~3 on desktop, one per card on phones. Recomputed on
+   *  resize. Empty means "everything fits, hide the controls". */
+  readonly stops = signal<readonly number[]>([]);
+  /** Index of the stop nearest the current scroll position. */
   readonly active = signal(0);
 
   /** Auto-advance pauses while hovered and stops for good once the visitor
@@ -48,6 +54,15 @@ export class ProjectsComponent {
 
   constructor() {
     afterNextRender(() => {
+      this.computeStops();
+      const resizeObserver = new ResizeObserver(() => this.computeStops());
+      resizeObserver.observe(this.viewport().nativeElement);
+      this.destroyRef.onDestroy(() => {
+        resizeObserver.disconnect();
+        this.clearAuto();
+        cancelAnimationFrame(this.scrollRaf);
+      });
+
       // Motion nobody asked for is motion someone turned off
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         return;
@@ -60,24 +75,19 @@ export class ProjectsComponent {
       );
       io.observe(this.viewport().nativeElement);
       this.autoTimer = setInterval(() => this.autoAdvance(), AUTO_ADVANCE_MS);
-      this.destroyRef.onDestroy(() => {
-        io.disconnect();
-        this.clearAuto();
-        cancelAnimationFrame(this.scrollRaf);
-      });
+      this.destroyRef.onDestroy(() => io.disconnect());
     });
   }
 
-  /** Track which card is snapped as the visitor (or the timer) scrolls. */
+  /** Track the nearest stop as the visitor (or the timer) scrolls. */
   onScroll(): void {
     cancelAnimationFrame(this.scrollRaf);
     this.scrollRaf = requestAnimationFrame(() => {
       const el = this.viewport().nativeElement;
-      const cards = el.querySelectorAll<HTMLElement>('.projects__card');
       let nearest = 0;
       let nearestDist = Infinity;
-      cards.forEach((card, i) => {
-        const dist = Math.abs(card.offsetLeft - el.scrollLeft);
+      this.stops().forEach((stop, i) => {
+        const dist = Math.abs(stop - el.scrollLeft);
         if (dist < nearestDist) {
           nearestDist = dist;
           nearest = i;
@@ -88,24 +98,20 @@ export class ProjectsComponent {
   }
 
   /** Dot/arrow navigation. `byUser` retires the auto-advance permanently. */
-  goTo(index: number, byUser: boolean): void {
+  goTo(stopIndex: number, byUser: boolean): void {
     if (byUser) {
       this.stopAuto();
     }
-    const el = this.viewport().nativeElement;
-    const card = el.querySelectorAll<HTMLElement>('.projects__card')[index];
-    if (!card) {
+    const left = this.stops()[stopIndex];
+    if (left === undefined) {
       return;
     }
     const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    el.scrollTo({ left: card.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    this.viewport().nativeElement.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
   }
 
   step(direction: -1 | 1): void {
-    const next = Math.min(
-      Math.max(this.active() + direction, 0),
-      this.content.items.length - 1,
-    );
+    const next = Math.min(Math.max(this.active() + direction, 0), this.stops().length - 1);
     this.goTo(next, true);
   }
 
@@ -114,12 +120,36 @@ export class ProjectsComponent {
     this.clearAuto();
   }
 
+  private computeStops(): void {
+    const el = this.viewport().nativeElement;
+    const max = el.scrollWidth - el.clientWidth;
+    if (max <= 4) {
+      this.stops.set([]);
+      return;
+    }
+    const cards = [...el.querySelectorAll<HTMLElement>('.projects__card')];
+    const first = cards[0]?.offsetLeft ?? 0;
+    const stops: number[] = [];
+    for (const card of cards) {
+      // Snap offset relative to the first card, clamped to the end of the track
+      const pos = Math.min(card.offsetLeft - first, max);
+      if (stops.length === 0 || pos - stops[stops.length - 1] > 40) {
+        stops.push(pos);
+      }
+    }
+    this.stops.set(stops);
+    this.onScroll();
+  }
+
   private autoAdvance(): void {
     if (this.autoStopped || this.hovering || !this.inView || document.hidden) {
       return;
     }
-    const next = (this.active() + 1) % this.content.items.length;
-    this.goTo(next, false);
+    const count = this.stops().length;
+    if (count < 2) {
+      return;
+    }
+    this.goTo((this.active() + 1) % count, false);
   }
 
   private clearAuto(): void {

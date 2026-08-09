@@ -2,6 +2,7 @@
    Scroll-snap does the sliding, so touch, trackpad, wheel-shift, arrows,
    and the auto-advance all share the same native mechanics. */
 .projects__viewport {
+  position: relative; /* clean offsetLeft base for the stop math */
   display: flex;
   gap: var(--space-6);
   overflow-x: auto;

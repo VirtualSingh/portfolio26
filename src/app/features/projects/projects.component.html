@@ -88,58 +88,63 @@
         }
       </div>
 
-      <div class="projects__controls">
-        <button
-          type="button"
-          class="projects__arrow"
-          [disabled]="active() === 0"
-          aria-label="Previous project"
-          (click)="step(-1)"
-        >
-          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-            <path
-              d="M10 3 5 8l5 5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+      <!-- Dots mirror reachable scroll stops (~3 on desktop, one per card on
+           phones), so every dot is a real destination and the arrows always
+           land where they point. Hidden entirely when nothing scrolls. -->
+      @if (stops().length > 1) {
+        <div class="projects__controls">
+          <button
+            type="button"
+            class="projects__arrow"
+            [disabled]="active() === 0"
+            aria-label="Scroll projects backward"
+            (click)="step(-1)"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M10 3 5 8l5 5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
 
-        <div class="projects__dots">
-          @for (project of content.items; track project.name; let i = $index) {
-            <button
-              type="button"
-              class="projects__dot"
-              [class.projects__dot--active]="active() === i"
-              [attr.aria-current]="active() === i ? 'true' : null"
-              [attr.aria-label]="'Go to project ' + (i + 1) + ': ' + project.name"
-              (click)="goTo(i, true)"
-            ></button>
-          }
+          <div class="projects__dots">
+            @for (stop of stops(); track $index; let i = $index) {
+              <button
+                type="button"
+                class="projects__dot"
+                [class.projects__dot--active]="active() === i"
+                [attr.aria-current]="active() === i ? 'true' : null"
+                [attr.aria-label]="'Go to slide ' + (i + 1) + ' of ' + stops().length"
+                (click)="goTo(i, true)"
+              ></button>
+            }
+          </div>
+
+          <button
+            type="button"
+            class="projects__arrow"
+            [disabled]="active() === stops().length - 1"
+            aria-label="Scroll projects forward"
+            (click)="step(1)"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M6 3l5 5-5 5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
         </div>
-
-        <button
-          type="button"
-          class="projects__arrow"
-          [disabled]="active() === content.items.length - 1"
-          aria-label="Next project"
-          (click)="step(1)"
-        >
-          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-            <path
-              d="M6 3l5 5-5 5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
+      }
     </div>
   </div>
 </section>
